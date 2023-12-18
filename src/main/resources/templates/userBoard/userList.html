@@ -1,0 +1,199 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>PureSync Admin</title>
+   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="layout-light side-menu">
+   <div th:replace="~{/fragments/header :: headerFragment}"></div>
+   <main class="main-content">
+      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+
+      <div class="contents">
+
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-12">
+
+                  <div class="breadcrumb-main user-member justify-content-sm-between ">
+                     <div class=" d-flex flex-wrap justify-content-center breadcrumb-main__wrapper">
+
+                        <form class="d-flex align-items-center user-member__form my-sm-0 my-2">
+                           <img src="/img/svg/search.svg" alt="search" class="svg">
+                           <input type="hidden" id="page" th:value="${pg}" >
+                           <input class="form-control me-sm-2 border-0 box-shadow-none" id="searchText" type="search"
+                                  placeholder="유저 아이디로 검색하세요🔍" aria-label="Search" th:value="${adminBoardDto.searchText}"
+                                  onkeydown="handleKeyDown(event)">
+                        </form>
+                        <button type="button" id="searchBtn" class="btn btn-primary btn-default btn-squared" onclick="onSearch()">
+                           <img src="/img/svg/search.svg" alt="search" class="svg"> 검색
+                        </button>
+
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="userDatatable global-shadow border-light-0 p-30 bg-white radius-xl w-100 mb-30">
+                     <div class="table-responsive">
+                        <table class="table mb-0 table-borderless">
+                           <thead>
+                              <tr class="userDatatable-header">
+                                 <th>
+                                    <span class="userDatatable-title">seq</span>
+                                 </th>
+                                 <th>
+                                    <span class="userDatatable-title">id</span>
+                                 </th>
+                                 <th>
+                                    <span class="userDatatable-title">title</span>
+                                 </th>
+                                 <th>
+                                    <span class="userDatatable-title">write date</span>
+                                 </th>
+                                 <th>
+                                    <span class="userDatatable-title">status</span>
+                                 </th>
+                              </tr>
+                           </thead>
+                           <tbody>
+
+                              <tr th:each="board : ${userBoardList}" >
+                                 <td th:text="${board.board_seq}">
+                                    <div class="d-flex">
+
+                                    </div>
+                                 </td>
+
+                                 <td th:text="${board.mem_id}" >
+                                    <div class="userDatatable-content">
+                                    </div>
+                                 </td>
+
+                                 <td th:text="${board.board_name}">
+                                    <div class="userDatatable-content">
+                                    </div>
+                                 </td>
+
+                                 <td th:text="${board.board_wdate}">
+                                    <div class="userDatatable-content">
+                                    </div>
+                                 </td>
+
+                                 <td th:switch="${board.board_status_text}">
+                                    <th:block th:case="삭제">
+                                       <div class="userDatatable-content d-inline-block">
+                                          <span class="bg-opacity-warning  color-warning userDatatable-content-status active" th:text="${board.board_status_text}"></span>
+                                       </div>
+                                    </th:block>
+                                    <th:block th:case="게시">
+                                       <div class="userDatatable-content d-inline-block">
+                                          <span class="bg-opacity-success color-success userDatatable-content-status active" th:text="${board.board_status_text}"></span>
+                                       </div>
+                                    </th:block>
+                                    <th:block th:case="관리자삭제">
+                                       <div class="userDatatable-content d-inline-block">
+                                          <span class="bg-opacity-danger  color-danger userDatatable-content-status active" th:text="${board.board_status_text}"></span>
+                                       </div>
+                                    </th:block>
+                                 </td>
+
+                                 <td>
+                                    <ul class="orderDatatable_actions mb-0 d-flex flex-wrap">
+                                       <li>
+                                          <a th:href="@{'/admin/user/view/' + ${board.board_seq}}" class="view">
+                                             <i class="uil uil-eye"></i>
+                                          </a>
+                                       </li>
+
+                                       <li>
+                                          <a href="#none" class="remove" th:onclick="goDelete([[${board.board_seq}]]);">
+                                             <i class="uil uil-trash-alt"></i>
+                                          </a>
+                                       </li>
+                                    </ul>
+                                 </td>
+
+                              </tr>
+
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="d-flex justify-content-center pt-30" th:utext="${page}"></div>
+
+                  </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+   </main>
+   <div id="overlayer">
+      <div class="loader-overlay">
+         <div class="dm-spin-dots spin-lg">
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+         </div>
+      </div>
+   </div>
+   <div class="overlay-dark-sidebar"></div>
+   <div class="customizer-overlay"></div>
+   <!-- inject:js-->
+   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+</body>
+</html>
+
+<script>
+   function goDelete(board_seq) {
+   const confirmDelete = confirm("관리자의 권한으로 해당 게시물을 삭제하시겠습니까?");
+
+      if (confirmDelete) {
+         axios.get(`/admin/user/list/delete/${board_seq}`)
+            .then((res) => {
+               window.location.reload();
+               return false;
+            })
+            .catch( (error) => {
+               console.error('게시글 삭제 중 오류 발생:', error);
+            });
+      }
+   }
+
+   function goPage(pg) {
+       const searchText = document.getElementById("searchText").value;
+       const url = `/admin/user/list/${pg}?searchText=${encodeURIComponent(searchText)}`;
+       window.location.href = url;
+   }
+
+   function handleKeyDown(event) {
+       if (event.key === "Enter") {
+           event.preventDefault(); // 폼 제출을 방지
+           onSearch();
+       }
+   }
+
+   function onSearch() {
+        let pg = document.getElementById("page").value;
+       const searchText = document.getElementById("searchText").value;
+       const url = `/admin/user/list/${pg}?searchText=${encodeURIComponent(searchText)}`; // 검색어를 URL 파라미터로 인코딩하여 URL 생성
+
+       // 검색어를 업데이트하여 입력란에 설정
+       document.getElementById("searchText").value = searchText;
+
+       window.location.href = url;
+   }
+
+
+</script>

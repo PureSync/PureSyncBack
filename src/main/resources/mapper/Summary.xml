@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Summary">
+    <select id="getBodyBase" resultType="SummaryDto" parameterType="SummaryDto">
+        SELECT
+        tb_member.mem_seq,
+        tb_member.mem_gender,
+        tb_member.mem_birth,
+        tb_body.body_weight,
+        tb_body.body_height,
+        CASE
+        WHEN tb_member.mem_gender = 'M' THEN 66.5 + (13.75 * tb_body.body_weight) + (5 * tb_body.body_height) - (6.75 * (YEAR(CURRENT_DATE()) - YEAR(tb_member.mem_birth)))
+        WHEN tb_member.mem_gender = 'W' THEN 655.1 + (9.563 * tb_body.body_weight) + (1.85 * tb_body.body_height) - (4.68 * (YEAR(CURRENT_DATE()) - YEAR(tb_member.mem_birth)))
+        ELSE NULL
+        END AS "body_base"
+        FROM
+        tb_member
+        LEFT OUTER JOIN
+        tb_body ON tb_member.mem_seq = tb_body.mem_seq
+        WHERE
+        tb_member.mem_seq = #{mem_seq}
+        AND tb_body.body_wdate = (
+        SELECT MAX(body_wdate)
+        FROM tb_body s2
+        WHERE s2.mem_seq = tb_member.mem_seq
+        )
+    </select>
+</mapper>

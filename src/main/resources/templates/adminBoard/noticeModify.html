@@ -1,0 +1,126 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>PureSync Admin</title>
+   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="layout-light side-menu">
+   <div class="mobile-author-actions"></div>
+   <div th:replace="~{/fragments/header :: headerFragment}"></div>
+   <main class="main-content">
+      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+
+      <div class="contents">
+
+
+         <div class="job-apply mt-md-20">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-12">
+
+                     <div class="breadcrumb-main">
+                        <h4 class="text-capitalize breadcrumb-title">공지 글 수정</h4>
+                        <div class="breadcrumb-action justify-content-center flex-wrap">
+                           <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                 <li class="breadcrumb-item"><a href="/index"><i class="uil uil-estate"></i>main</a></li>
+                                 <li class="breadcrumb-item"><a href="/admin/notice/list/0">userBoardList</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">adminBoardModify</li>
+                              </ol>
+                           </nav>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="row justify-content-center mt-md-25">
+                  <div class="col-xl-6">
+                     <div class="job-apply-wrapper">
+                        <div class="job-apply__content">
+                           <h1>
+                              공지 글 수정하기
+                           </h1>
+                           <form>
+                              <input type="hidden" id="noticeSeq" th:value="${noticeModify.notice_seq}" >
+                              <div class="form-group">
+                                 <label>제목</label>
+                                 <input type="text" class="form-control" id="noticeTitle" th:value="${noticeModify.notice_title}">
+                              </div>
+                              <div class="form-group">
+                                 <label>내용</label>
+                                 <textarea class="form-control" rows="3" id="noticeContents" th:text="${noticeModify.notice_contents}"></textarea>
+                              </div>
+
+                           </form>
+
+                           <div class="button-group d-flex justify-content-end pt-15">
+                              <button id="submitBtn" class="btn btn-primary btn-default btn-squared">수정하기</button>
+                           </div>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- ends: .row -->
+            </div>
+         </div>
+
+      </div>
+      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+   </main>
+   <div id="overlayer">
+      <div class="loader-overlay">
+         <div class="dm-spin-dots spin-lg">
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+         </div>
+      </div>
+   </div>
+   <div class="overlay-dark-sidebar"></div>
+   <div class="customizer-overlay"></div>
+   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+</body>
+
+</html>
+
+<script>
+   document.getElementById("submitBtn").addEventListener("click", () => {
+      modifyNotice();
+   });
+
+   const modifyNotice = () => {
+      const noticeTitle = document.getElementById("noticeTitle").value;
+      const noticeContents = document.getElementById("noticeContents").value;
+      const noticeSeq = document.getElementById("noticeSeq").value;
+
+      if (!noticeTitle || !noticeContents) {
+         alert("제목과 내용을 모두 입력하세요.");
+         return;
+      }
+
+      const requestData = {
+         notice_title: noticeTitle,
+         notice_contents: noticeContents,
+         notice_seq : noticeSeq
+      };
+
+      axios.post("/admin/notice/modifyOk", requestData)
+         .then((res) => {
+            if (res.data.result === "success") {
+               window.location.href = '/admin/notice/list/0';
+            }
+         })
+         .catch( (error) => {
+            console.error('공지 등록 중 오류 발생:', error);
+      });
+   }
+
+</script>

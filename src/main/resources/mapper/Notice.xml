@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Notice">
+    <select id="getAllNoticeList" resultType="NoticeDto" parameterType="NoticeDto">
+        SELECT
+            notice_seq, notice_title, notice_contents, notice_wdate, notice_writer
+        FROM
+            tb_notice
+        WHERE
+            notice_title LIKE CONCAT('%', #{searchText}, '%')
+        ORDER BY
+            notice_seq DESC
+        limit #{start}, 10
+    </select>
+
+    <select id="Notice_getTotalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM  tb_notice
+        WHERE
+        notice_title LIKE CONCAT('%', #{searchText}, '%')
+    </select>
+
+    <select id="noticeBoardView" resultType="NoticeDto" parameterType="NoticeDto">
+        SELECT
+            notice_seq, notice_title, notice_contents, notice_wdate, notice_writer
+        FROM
+            tb_notice
+        WHERE
+            notice_seq=#{notice_seq}
+    </select>
+
+    <insert id="noticeBoardWrite" parameterType="NoticeDto">
+        INSERT INTO tb_notice (notice_title, notice_contents, notice_wdate)
+        VALUES ( #{notice_title}, #{notice_contents}, NOW() )
+    </insert>
+
+    <update id="noticeBoardUpdate" parameterType="NoticeDto">
+        UPDATE tb_notice
+        SET notice_title=#{notice_title} , notice_contents=#{notice_contents}
+        WHERE notice_seq = #{notice_seq}
+    </update>
+
+    <delete id="noticeBoardDelete" parameterType="NoticeDto">
+        DELETE FROM tb_notice WHERE notice_seq = #{notice_seq}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    a : tb_exercise_list
+    b : tb_exercise_calc
+    c : tb_member
+    d : tb_body
+-->
+<mapper namespace="Exercise">
+    <select id="getExerciseAllList" resultType="ExerciseDto" parameterType="ExerciseDto">
+        SELECT a.mem_seq, a.el_seq, a.el_date, a.el_time,
+        b.ec_name, b.ec_calc,
+        c.mem_gender,
+        d.body_height, d.body_weight,
+        a.el_time/60.0 AS el_HH,
+        (a.el_time / 60.0) * IFNULL(b.ec_calc, 100) * d.body_weight AS el_total
+        FROM tb_exercise_list a
+        LEFT OUTER JOIN tb_exercise_calc b ON a.ec_seq = b.ec_seq
+        LEFT OUTER JOIN tb_member c ON a.mem_seq = c.mem_seq
+        LEFT OUTER JOIN (
+        SELECT s1.mem_seq, s1.body_weight, s1.body_height
+        FROM tb_body s1
+        INNER JOIN (
+        SELECT mem_seq, MAX(body_wdate) max_date
+        FROM tb_body
+        GROUP BY mem_seq
+        ) s2 ON s1.mem_seq = s2.mem_seq
+        AND s1.body_wdate = s2.max_date
+        ) d ON a.mem_seq = d.mem_seq
+        WHERE a.mem_seq = #{mem_seq} and a.el_date=#{el_date};
+    </select>
+
+    <select id="getExerciseTotal" resultType="ExerciseDto" parameterType="ExerciseDto">
+        SELECT a.mem_seq, a.el_seq, a.el_date, a.el_time, (a.el_total * d.body_weight) AS "el_total", c.mem_gender, d.body_height, d.body_weight
+        FROM (
+        SELECT aa.mem_seq, aa.el_seq, aa.el_date, SUM(aa.el_time / 60.0) AS el_time, SUM((aa.el_time / 60.0) * IFNULL(bb.ec_calc, 100)) AS el_total
+        FROM tb_exercise_list aa
+        LEFT OUTER JOIN tb_exercise_calc bb ON aa.ec_seq = bb.ec_seq
+        WHERE aa.mem_seq = #{mem_seq}
+        AND aa.el_date = #{el_date}
+        ) a
+        JOIN tb_member c ON a.mem_seq = c.mem_seq
+        LEFT OUTER JOIN (
+        SELECT s1.mem_seq, s1.body_weight, s1.body_height
+        FROM tb_body s1
+        WHERE s1.body_wdate = (
+        SELECT MAX(body_wdate)
+        FROM tb_body s2
+        WHERE s2.mem_seq = s1.mem_seq
+        )
+        ) d ON c.mem_seq = d.mem_seq;
+    </select>
+
+</mapper>

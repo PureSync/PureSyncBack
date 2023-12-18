@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <typeAliases>
+        <typeAlias alias="Exam"       type="com.fcc.PureSync.entity.entity"/>
+        <typeAlias alias="ExerciseDto" type="com.fcc.PureSync.dto.ExerciseDto"/>
+        <typeAlias alias="MenuDto"     type="com.fcc.PureSync.dto.MenuDto"/>
+        <typeAlias alias="SummaryDto"     type="com.fcc.PureSync.dto.SummaryDto"/>
+        <typeAlias alias="AdminBoardDto"     type="com.fcc.PureSync.dto.AdminBoardDto"/>
+        <typeAlias alias="AdminQnaBoardDto"     type="com.fcc.PureSync.dto.AdminQnaBoardDto"/>
+        <typeAlias alias="NoticeDto"     type="com.fcc.PureSync.dto.NoticeDto"/>
+
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="mapper/exam.xml" />
+        <mapper resource="mapper/Exercise.xml" />
+        <mapper resource="mapper/Menu.xml" />
+        <mapper resource="mapper/Summary.xml" />
+        <mapper resource="mapper/adminBoard.xml" />
+        <mapper resource="mapper/adminQnaBoard.xml" />
+        <mapper resource="mapper/Notice.xml" />
+
+
+    </mappers>
+</configuration>
+

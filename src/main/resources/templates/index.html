@@ -1,0 +1,358 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PureSync Admin</title>
+    <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+</head>
+
+<body class="layout-light side-menu">
+<div class="mobile-author-actions"></div>
+<div th:replace="~{/fragments/header :: headerFragment}"></div>
+<main class="main-content">
+    <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+
+    <div class="contents">
+
+        <div class="demo2 mb-25 t-thead-bg">
+            <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-lg-12">
+
+                        <div class="breadcrumb-main">
+                            <h4 class="text-capitalize breadcrumb-title">Dashboard</h4>
+                            <div class="breadcrumb-action justify-content-center flex-wrap">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#"><i class="uil uil-estate"></i>Dashboard</a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="dm-date-picker mb-25">
+                            <div class="form-group mb-0 form-group-calender">
+                                <div class="position-relative">
+                                    <input type="text" class="form-control form-control-lg" id="datepicker3" name="datepicker3">
+                                    <a href="#"><img class="svg" src="img/svg/calendar.svg" alt="calendar"></a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-25">
+                        <!-- Card 1  -->
+                        <div class="ap-po-details ap-po-details--luodcy  overview-card-shape radius-xl d-flex justify-content-between">
+                            <div class=" ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                                <div class="ap-po-details__titlebar">
+                                    <p>방문자 수</p>
+                                    <h1 id="visitorCount" th:text="${todayVisitorCount}"></h1>
+                                    <div class="ap-po-details-time">
+                                   <span id="visitorDifference" th:text="${visitorDifference}" class="color-primary">
+                                     </span>
+
+
+                                    </div>
+                                </div>
+                                <div class="ap-po-details__icon-area color-primary">
+                                    <i class="uil uil-arrow-growth"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Card 1 End  -->
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-25">
+                        <!-- Card 2 -->
+                        <div class="ap-po-details ap-po-details--luodcy  overview-card-shape radius-xl d-flex justify-content-between">
+
+                            <div class=" ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                                <div class="ap-po-details__titlebar">
+                                    <p>가입 회원 수</p>
+                                    <h1 id="todayRegisterMemberCount" th:text="${todayRegisterMemberCount}"></h1>
+                                    <div class="ap-po-details-time">
+                                     <span id="registerMemberDifference" th:text="${registerMemberDifference}" class="color-primary">
+                                     </span>
+                                    </div>
+                                </div>
+                                <div class="ap-po-details__icon-area color-secondary">
+                                    <i class="uil uil-users-alt"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Card 2 End  -->
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-25">
+                        <!-- Card 3 -->
+                        <div class="ap-po-details ap-po-details--luodcy  overview-card-shape radius-xl d-flex justify-content-between">
+
+
+                            <div class=" ap-po-details-content d-flex flex-wrap justify-content-between w-100">
+                                <div class="ap-po-details__titlebar">
+                                    <p>탈퇴 회원 수</p>
+                                    <h1 id="todayWithdrawnMemberCount" th:text="${todayWithdrawnMemberCount}"></h1>
+                                    <div class="ap-po-details-time">
+                                     <span id="withdrawnMemberDifference" th:text="${withdrawnMemberDifference}" class="color-primary">
+                                     </span>
+                                    </div>
+                                </div>
+                                <div class="ap-po-details__icon-area color-success">
+                                    <i class="uil uil-usd-circle"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Card 3 End  -->
+                    </div>
+
+
+                    <div class="col-xxl-6 mb-25">
+
+                        <div class="card revenueChartTwo border-0">
+                            <div class="card-header border-0">
+                                <h6>일주일 통계</h6>
+                                <div class="card-extra">
+                                    <ul class="card-tab-links nav-tabs nav" role="tablist">
+                                        <li>
+                                            <a class="active" href="#tl_revenue-today" data-bs-toggle="tab"
+                                               id="tl_revenue-today-tab" role="tab" aria-selected="false">방문자</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tl_revenue-week" data-bs-toggle="tab" id="tl_revenue-week-tab"
+                                               role="tab" aria-selected="false">회원가입</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tl_revenue-month" data-bs-toggle="tab" id="tl_revenue-month-tab"
+                                               role="tab" aria-selected="false">회원탈퇴</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- ends: .card-header -->
+                            <div class="card-body pt-0 pb-40">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active show" id="tl_revenue-today" role="tabpanel"
+                                         aria-labelledby="tl_revenue-today-tab">
+                                        <div class="cashflow-display cashflow-display2 d-flex">
+
+                                        </div>
+                                        <!-- ends: .performance-stats -->
+
+                                        <div class="wp-chart">
+                                            <div class="parentContainer">
+
+
+                                                <div>
+                                                    <canvas id="visitor"></canvas>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ends: .performance-stats -->
+                                    </div>
+                                    <div class="tab-pane fade" id="tl_revenue-week" role="tabpanel"
+                                         aria-labelledby="tl_revenue-week-tab">
+                                        <div class="cashflow-display cashflow-display2 d-flex">
+
+                                        </div>
+                                        <!-- ends: .performance-stats -->
+
+                                        <div class="wp-chart">
+                                            <div class="parentContainer">
+
+
+                                                <div>
+                                                    <canvas id="rMember"></canvas>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <!-- ends: .performance-stats -->
+                                    </div>
+                                    <div class="tab-pane fade" id="tl_revenue-month" role="tabpanel"
+                                         aria-labelledby="tl_revenue-month-tab">
+                                        <div class="cashflow-display cashflow-display2 d-flex">
+
+                                        </div>
+                                        <!-- ends: .performance-stats -->
+
+                                        <div class="wp-chart">
+                                            <div class="parentContainer">
+                                                <div>
+                                                    <canvas id="dMember"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- ends: .performance-stats -->
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ends: .card-body -->
+
+                        </div>
+                    </div>
+                    <!-- ends: .row -->
+
+                </div>
+            </div>
+
+        </div>
+        <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+</main>
+<div id="overlayer">
+    <div class="loader-overlay">
+        <div class="dm-spin-dots spin-lg">
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+        </div>
+    </div>
+</div>
+<div class="overlay-dark-sidebar"></div>
+<div class="customizer-overlay"></div>
+
+<th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+</body>
+</html>
+<script th:inline="javascript">
+    $(document).ready(function() {
+    let visitorConut = [[${countList}]];
+    let rMemberCount = [[${registerMemberCountList}]];
+    let dMemberCount = [[${withdrawnMemberCountList}]];
+    let chartLabel = [[${dateList}]];
+
+// Total Revenue Chart
+chartjsLineChart(
+    "visitor",
+    "113",
+    data = visitorConut,
+    labels = chartLabel,
+    "Current period",
+    true
+);
+
+chartjsLineChart(
+        "rMember",
+        "113",
+        data = rMemberCount,
+        labels = chartLabel,
+        "Current period",
+        true
+    );
+
+chartjsLineChart(
+        "dMember",
+        "113",
+        data = dMemberCount,
+        labels = chartLabel,
+        "Current period",
+        true
+    );
+
+$('#tl_revenue-week-tab').on("shown.bs.tab", function () {
+    $('#tl_revenue-week-tab').off();
+});
+
+$('#tl_revenue-month-tab').on("shown.bs.tab", function () {
+    $('#tl_revenue-month-tab').off();
+});
+
+
+      var today = new Date(); // 현재 날짜와 시간을 가져옴
+            var year = today.getFullYear();
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 해주고 두 자리로 맞춰줌
+            var day = String(today.getDate()).padStart(2, '0'); // 일을 두 자리로 맞춰줌
+
+            var formattedDate = year + '-' + month + '-' + day; // yyyy-mm-dd 형식으로 날짜를 조합
+
+            $('#datepicker3').val(formattedDate); // Datepicker의 value에 오늘 날짜를 설정
+            $('#datepicker3').prop('placeholder', formattedDate); // Datepicker의 placeholder에도 오늘 날짜를 설정
+
+//데이트피커 oncChange
+    $("#datepicker3").on("change", function() {
+    var selectedDate = $(this).val(); // 선택한 날짜 값을 가져옴
+
+    // 원하는 형식으로 날짜 포맷 변경 (yyyy-mm-dd 형식)
+    var formattedDate = formatDate(selectedDate); // 자신이 원하는 형식으로 변경하는 함수를 호출
+
+    // 변경된 형식으로 다시 값 설정
+    selectedDate = $(this).val(formattedDate);
+
+      $.ajax({
+                    type: 'GET', // 또는 GET, 서버에서 사용하는 방식에 따라 다름
+                    url: '/admin/dashboard/' + formattedDate,
+                    success: function(response) {
+                        // 서버에서 받은 데이터 처리
+                         $('#visitorCount').text(response.todayVisitorCount);
+                         $('#visitorDifference').text(response.visitorDifference);
+                         $('#todayRegisterMemberCount').text(response.todayRegisterMemberCount);
+                         $('#registerMemberDifference').text(response.registerMemberDifference);
+                         $('#todayWithdrawnMemberCount').text(response.todayWithdrawnMemberCount);
+                         $('#withdrawnMemberDifference').text(response.withdrawnMemberDifference);
+
+                         let newVisitorCount = response.countList;
+                         let newRMemberCount = response.registerMemberCountList;
+                         let newDMemberCount = response.withdrawnMemberCountList;
+                         let newChartLabel = response.dateList;
+
+                         updateChartData(newVisitorCount, newRMemberCount, newDMemberCount, newChartLabel)
+
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('에러 발생:', error);
+                    }
+                });
+
+});
+
+// 날짜 포맷 변경 함수 (yyyy-mm-dd 형식)
+function formatDate(dateString) {
+    var date = new Date(dateString);
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    return year + '-' + month + '-' + day;
+}
+
+//차트 업데이트 함수
+function updateChartData(newVisitorData, newRMemberCount, newDMemberCount, newLabels) {
+    try {
+        var existingVisitorChart = Chart.getChart(document.getElementById('visitor'));
+        if (existingVisitorChart) {
+            existingVisitorChart.destroy();
+        }
+
+        var existingRMemberChart = Chart.getChart(document.getElementById('rMember'));
+        if (existingRMemberChart) {
+            existingRMemberChart.destroy();
+        }
+
+        var existingDMemberChart = Chart.getChart(document.getElementById('dMember'));
+        if (existingDMemberChart) {
+            existingDMemberChart.destroy();
+        }
+
+        chartjsLineChart("visitor", "113", newVisitorData, newLabels, "Current period", true);
+        chartjsLineChart("rMember", "113", newRMemberCount, newLabels, "Current period", true);
+        chartjsLineChart("dMember", "113", newDMemberCount, newLabels, "Current period", true);
+
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+})
+</script>

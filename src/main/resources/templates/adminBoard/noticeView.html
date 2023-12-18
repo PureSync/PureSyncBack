@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>PureSync Admin</title>
+   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+</head>
+
+<body class="layout-light side-menu">
+   <div class="mobile-author-actions"></div>
+   <div th:replace="~{/fragments/header :: headerFragment}"></div>
+   <main class="main-content">
+      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+
+      <div class="contents">
+
+
+         <div class="blog-page2">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-12">
+
+                     <div class="breadcrumb-main">
+                        <h4 class="text-capitalize breadcrumb-title">공지 게시판 상세 보기</h4>
+                        <div class="breadcrumb-action justify-content-center flex-wrap">
+                           <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                 <li class="breadcrumb-item"><a href="/index"><i class="uil uil-estate"></i>main</a></li>
+                                 <li class="breadcrumb-item"><a href="/admin/notice/list/0">adminBoardList</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">adminBoardView</li>
+                              </ol>
+                           </nav>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="row justify-content-center">
+                  <div class="col-lg-8 col-12">
+                     <article class="blog-details">
+                        <div class="blog-details-content">
+                           <h1 class="main-title mb-30" th:text="${noticeView.notice_title}">제목</h1>
+                           <ul class="blog-details-meta">
+                              <li class="blog-author">
+                                    <span th:text="${noticeView.notice_writer}">관리자</span>
+                              </li>
+                              <li class="author-name">
+                                 <a href="#" rel="bookmark">
+                                    <time class="entry-date published updated" th:text="${noticeView.notice_wdate}">January 25, 2022</time> <!-- 작성일 -->
+                                 </a>
+                              </li>
+                           </ul>
+                           <div class="blog-body">
+                              <p class="mb-20"  th:text="${noticeView.notice_contents}" >
+                                    글의 내용
+                              </p>
+                              
+                     </article>
+                  </div>
+               </div>
+               <!-- ends: .row -->
+
+            </div>
+         </div>
+
+      </div>
+      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+   </main>
+   <div id="overlayer">
+      <div class="loader-overlay">
+         <div class="dm-spin-dots spin-lg">
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+            <span class="spin-dot badge-dot dot-primary"></span>
+         </div>
+      </div>
+   </div>
+   <div class="overlay-dark-sidebar"></div>
+   <div class="customizer-overlay"></div>
+   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+</body>
+
+</html>

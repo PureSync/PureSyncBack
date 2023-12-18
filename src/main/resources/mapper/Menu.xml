@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    a : tb_menu_list
+    b : tb_food
+    c : tb_member
+-->
+<mapper namespace="Menu">
+    <select id="getMenuAllList" resultType="MenuDto" parameterType="MenuDto">
+        select
+            a.menu_seq, a.menu_date, a.menu_when, a.menu_gram, a.mem_seq,
+            a.food_name, a.food_car, a.food_pro, a.food_fat, a.food_sugar, a.food_na, a.food_col, a.food_kcal, a.food_seq,
+            (a.menu_gram/100.0) * a.food_kcal  as menu_total,
+            (a.menu_gram/100.0) * a.food_kcal  as menu_total,
+            (a.menu_gram/100.0) * a.food_car  as menu_total_car,
+            (a.menu_gram/100.0) * a.food_pro  as menu_total_pro,
+            (a.menu_gram/100.0) * a.food_fat  as menu_total_fat,
+            (a.menu_gram/100.0) * a.food_sugar  as menu_total_sugar,
+            (a.menu_gram/100.0) * a.food_na  as menu_total_na,
+            (a.menu_gram/100.0) * a.food_col  as menu_total_cal
+        from(
+            SELECT a.menu_seq, a.menu_date, a.menu_gram, c.mem_seq,
+                         b.food_name, b.food_car, b.food_pro, b.food_fat, b.food_sugar, b.food_na, b.food_col, b.food_kcal, b.food_seq,
+            1 menu_when
+            FROM tb_menu_list a
+            LEFT OUTER JOIN tb_food b ON a.food_seq = b.food_seq
+            LEFT OUTER JOIN tb_member c ON a.mem_seq = c.mem_seq
+            WHERE a.mem_seq = #{mem_seq} AND a.menu_when=1 AND a.menu_date=#{menu_date}
+
+            Union all
+            SELECT a.menu_seq, a.menu_date, a.menu_gram, c.mem_seq,
+            b.food_name, b.food_car, b.food_pro, b.food_fat, b.food_sugar, b.food_na, b.food_col, b.food_kcal,b.food_seq,
+            2 menu_when
+            FROM tb_menu_list a
+            LEFT OUTER JOIN tb_food b ON a.food_seq = b.food_seq
+            LEFT OUTER JOIN tb_member c ON a.mem_seq = c.mem_seq
+            WHERE a.mem_seq = #{mem_seq} AND a.menu_when=2 AND a.menu_date=#{menu_date}
+
+            Union all
+
+            SELECT a.menu_seq, a.menu_date, a.menu_gram, c.mem_seq,
+            b.food_name, b.food_car, b.food_pro, b.food_fat, b.food_sugar, b.food_na, b.food_col, b.food_kcal,b.food_seq,
+            3 menu_when
+            FROM tb_menu_list a
+            LEFT OUTER JOIN tb_food b ON a.food_seq = b.food_seq
+            LEFT OUTER JOIN tb_member c ON a.mem_seq = c.mem_seq
+            WHERE a.mem_seq = #{mem_seq} AND a.menu_when=3 AND a.menu_date=#{menu_date}
+
+            Union all
+
+            SELECT a.menu_seq, a.menu_date, a.menu_gram,c.mem_seq,
+            b.food_name, b.food_car, b.food_pro, b.food_fat, b.food_sugar, b.food_na, b.food_col, b.food_kcal,b.food_seq,
+            4 menu_when
+            FROM tb_menu_list a
+            LEFT OUTER JOIN tb_food b ON a.food_seq = b.food_seq
+            LEFT OUTER JOIN tb_member c ON a.mem_seq = c.mem_seq
+            WHERE a.mem_seq = #{mem_seq} AND a.menu_when=4 AND a.menu_date=#{menu_date}
+        ) a
+    </select>
+
+    <!-- 아침 점심 저녁 간식 각각의 총 칼로리-->
+    <select id="getMenuTotalKcal" resultType="MenuDto" parameterType="MenuDto">
+        SELECT c.mem_seq, a.menu_date, a.menu_when, SUM(a.menu_gram/100.0 * b.food_kcal) as when_total
+        FROM tb_menu_list a
+        LEFT OUTER JOIN tb_food b ON a.food_seq = b.food_seq
+        LEFT OUTER JOIN tb_member c ON a.mem_seq = c.mem_seq
+        WHERE  a.menu_date =#{menu_date} and a.mem_seq=#{mem_seq}
+        GROUP BY c.mem_seq, a.menu_date, a.menu_when;
+    </select>
+
+
+
+</mapper>

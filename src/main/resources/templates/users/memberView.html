@@ -1,0 +1,211 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>PureSync Admin</title>
+   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+</head>
+
+<body class="layout-light side-menu">
+<div class="mobile-author-actions"></div>
+<div th:replace="~{/fragments/header :: headerFragment}"></div>
+<main class="main-content">
+   <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+
+   <div class="contents">
+
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+
+               <div class="breadcrumb-main">
+                  <h4 class="text-capitalize breadcrumb-title">회원 관리</h4>
+                  <div class="breadcrumb-action justify-content-center flex-wrap">
+                     <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                           <li class="breadcrumb-item"><a href="#"><i class="uil uil-estate"></i>회원 목록</a></li>
+                           <li class="breadcrumb-item active" aria-current="page">회원 상세</li>
+                        </ol>
+                     </nav>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-12 mb-30">
+               <form name="memberDetail">
+               <div class="support-ticket-system support-ticket-system--search">
+                  <div class="mt-1">
+                     <div class="table-responsive">
+                        <h5 class="mb-3">기본 정보</h5>
+                        <table class="table mb-0">
+                           <colgroup>
+                              <col width="25%">
+                              <col width="25%">
+                              <col width="25%">
+                              <col width="*">
+                           </colgroup>
+                           <tbody>
+                              <tr class="userDatatable-header">
+                                 <th>아이디</th>
+                                 <td th:text="${memberDetail.memId}"></td>
+                                 <th>닉네임</th>
+                                 <td th:text="${memberDetail.memNick}"></td>
+                              </tr>
+                              <tr class="userDatatable-header">
+                                 <th>이메일</th>
+                                 <td th:text="${memberDetail.memEmail}"></td>
+                                 <th>상태</th>
+                                 <td>
+                                    <div class="dm-select">
+                                    <select name="status" id="status" class="form-control" disabled="disabled">
+                                       <option value="0" th:selected="${memberDetail.status == '비활성화'}">비활성화</option>
+                                       <option value="1" th:selected="${memberDetail.status == '휴면'}">휴면</option>
+                                       <option value="2" th:selected="${memberDetail.status == '탈퇴'}">탈퇴</option>
+                                       <option value="3" th:selected="${memberDetail.status == '정지'}">정지</option>
+                                       <option value="4" th:selected="${memberDetail.status == '정상'}">정상</option>
+                                    </select>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr class="userDatatable-header">
+                                 <th>생년월일</th>
+                                 <td th:text="${memberDetail.memBirth}"></td>
+                                 <th>성별</th>
+                                 <td th:text="${memberDetail.memGender}"></td>
+                              </tr>
+                              <tr class="userDatatable-header">
+                                 <th>가입일시</th>
+                                 <td th:text="${#temporals.format(memberDetail.memCreateAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                 <th>마지막로그인</th>
+                                 <td th:text="${#temporals.format(memberDetail.memLastLoginAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                     <div class="table-responsive mt-5">
+                        <h5 class="mb-3">신체 정보</h5>
+                        <table class="table mb-0">
+                           <colgroup>
+                              <col width="25%">
+                              <col width="25%">
+                              <col width="25%">
+                              <col width="*">
+                           </colgroup>
+                           <tbody>
+                           <tr class="userDatatable-header">
+                              <th>키</th>
+                              <td th:text="${memberDetail.bodyHeight}"></td>
+                              <th>몸무게</th>
+                              <td th:text="${memberDetail.bodyWeight}"></td>
+                           </tr>
+                           <tr class="userDatatable-header">
+                              <th>희망몸무게</th>
+                              <td th:text="${memberDetail.bodyWishWeight}"></td>
+                              <th>섭취희망 칼로리</th>
+                              <td th:text="${memberDetail.bodyWishConsCal}"></td>
+                           </tr>
+                           <tr class="userDatatable-header">
+                              <th>소모희망 칼로리</th>
+                              <td th:text="${memberDetail.bodyWishBurnCal}"></td>
+                              <th>마지막 기록일시</th>
+                              <td th:text="${#temporals.format(memberDetail.bodyWdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                           </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                     <div class="mt-5 d-flex gap-3 justify-content-center">
+                        <button type="button" class="btn btn-light" id="modifyBtn" onclick="modeCheck(this)">수정</button>
+                        <button type="button" class="btn btn-primary" id="backBtn" onclick="modeCheck(this)">뒤로가기</button>
+                        <button type="button" class="btn btn-primary d-none" id="submitBtn" onclick="modeCheck(this)">확인</button>
+                     </div>
+               </div>
+               </form>
+            </div>
+         </div>
+      </div>
+
+   </div>
+   <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+</main>
+<div id="overlayer">
+   <div class="loader-overlay">
+      <div class="dm-spin-dots spin-lg">
+         <span class="spin-dot badge-dot dot-primary"></span>
+         <span class="spin-dot badge-dot dot-primary"></span>
+         <span class="spin-dot badge-dot dot-primary"></span>
+         <span class="spin-dot badge-dot dot-primary"></span>
+      </div>
+   </div>
+</div>
+<div class="overlay-dark-sidebar"></div>
+<div class="customizer-overlay"></div>
+<th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+</body>
+</html>
+<script th:inline="javascript">
+
+   function submitForm() {
+      const checkboxes = document.querySelectorAll('input[name="statusChk"]:checked');
+      let statusHide;
+
+      // 미선택이거나 첫번째 체크박스의 value가 전체선택인 경우
+      if (checkboxes.length == 0 || checkboxes[0].value == 'all') {
+         statusHide = "all";
+      } else {
+         statusHide = Array.from(checkboxes).map(checkbox => checkbox.value).join('+');
+      }
+      document.querySelector('#statusHide').value = statusHide;
+      document.querySelector('#filterForm').submit();
+   }
+
+   function modeCheck(btnElement) {
+
+      const modifyBtn = document.getElementById("modifyBtn");
+      const selectBox = document.getElementById("status");
+      const submitBtn = document.getElementById("submitBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      if (btnElement == modifyBtn) {
+         const answer = confirm("회원정보 수정모드로 진입하시겠습니까?");
+
+         if (answer) {
+            modifyBtn.disabled = true;
+            selectBox.disabled = false;
+            submitBtn.classList.remove('d-none');
+            backBtn.classList.add('d-none');
+            return;
+         }
+      }
+
+      if (btnElement == backBtn) {
+         history.back();
+      }
+
+      if (btnElement == submitBtn) {   // 수정모드이면서 클릭한 버튼이 확인인 경우
+         console.log(parseInt(selectBox.options[selectBox.selectedIndex].value));
+
+         fetch("http://localhost:9000/admin/member/" + [[${memberDetail.memSeq}]], {
+            method: "POST",
+            headers: {
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+               statusCode : parseInt(selectBox.options[selectBox.selectedIndex].value)
+            }),
+         })
+         .then((response) => {
+            if (response.status == 200) {
+               alert("회원상태 수정이 완료되었습니다.");
+               location.reload();
+            }
+         })
+         .catch((error) => console.log("error:", error));
+      }
+   }
+</script>
