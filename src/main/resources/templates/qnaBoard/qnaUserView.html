@@ -2,155 +2,192 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
 
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>PureSync Admin</title>
-   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
-   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PureSync Admin</title>
+    <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="layout-light side-menu">
-   <div class="mobile-author-actions"></div>
-   <div th:replace="~{/fragments/header :: headerFragment}"></div>
-   <main class="main-content">
-      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
-
-      <div class="contents">
-
-
-         <div class="blog-page2">
+<div class="mobile-author-actions"></div>
+<div th:replace="~{/fragments/header :: headerFragment}"></div>
+<main class="main-content">
+    <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+    <div class="contents">
+        <div class="blog-page2">
             <div class="container-fluid">
-               <div class="row">
-                  <div class="col-lg-12">
-
-                     <div class="breadcrumb-main">
-                        <h4 class="text-capitalize breadcrumb-title">문의 게시판 상세 보기</h4>
-                        <div class="breadcrumb-action justify-content-center flex-wrap">
-                           <nav aria-label="breadcrumb">
-                              <ol class="breadcrumb">
-                                 <li class="breadcrumb-item"><a href="/"><i class="uil uil-estate"></i>main</a></li>
-                                 <li class="breadcrumb-item"><a href="/admin/qna/list/0">qnaBoardList</a></li>
-                                 <li class="breadcrumb-item active" aria-current="page">qnaBoardView</li>
-                              </ol>
-                           </nav>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-main">
+                            <h4 class="text-capitalize breadcrumb-title">문의 게시판 상세 보기</h4>
+                            <div class="breadcrumb-action justify-content-center flex-wrap">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/"><i class="uil uil-estate"></i>main</a>
+                                        </li>
+                                        <li class="breadcrumb-item"><a href="/admin/qna/list/0">qnaBoardList</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">qnaBoardView</li>
+                                    </ol>
+                                </nav>
+                            </div>
                         </div>
-                     </div>
-
-                  </div>
-               </div>
-               <div class="row justify-content-center">
-                  <div class="col-lg-8 col-12">
-                     <article class="blog-details">
-                        <div class="blog-details-content">
-                           <h1 class="main-title mb-30" th:text="${qnaBoardView.qna_board_name}" >제목</h1>
-                           <ul class="blog-details-meta">
-                              <li class="blog-author">
-                                   <!-- <img th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/fileUpload/' + ${userBoardView.mem_img}">  --> <!-- 프사 -->
-                                 </a>
-                                    <span th:text="${qnaBoardView.mem_id}" >작성자</span>
-                                 </a>
-                              </li>
-                              <li class="author-name">
-                                 <time class="entry-date published updated" th:text="${qnaBoardView.qna_board_wdate}"></time><!-- 작성일 -->
-                                 </a>
-                              </li>
-<!--                              <li class="blog-read-time">좋아요 <span th:text="${qnaBoardView.board_likescount}"></span></li>-->
-                           </ul>
-                           <div class="blog-body">
-                              <p class="mb-20" th:text="${qnaBoardView.qna_board_contents}">
-                              </p>
-
-                              <div class="blog-block-image mb-30 pb-10">
-                                 <figure th:each="file : ${fileList}">
-                                    <img class="img-fluid" th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/qnaBoardImage/' + ${file.qna_board_file_name}">
-                                 </figure>
-                              </div>
-
-                     </article>
-                     <form>
-                        <div class="form-group col-12">
-                           <input type="hidden" id="qnaBoardSeq" th:value="${qnaBoardView.qna_board_seq}" >
-                           <textarea name="reply-text" class="form-control mb-4" id="qnaCmtContents" th:text="${qnaBoardView.qna_cmt_contents}"></textarea>
-
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-12">
+                        <article class="blog-details">
+                            <div class="blog-details-content">
+                                <h1 class="main-title mb-30" th:text="${qnaBoardView.qna_board_name}">제목</h1>
+                                <ul class="blog-details-meta">
+                                    <li class="blog-author">
+                                        <!-- <img th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/fileUpload/' + ${userBoardView.mem_img}">  -->
+                                        <!-- 프사 -->
+                                        </a>
+                                        <span th:text="${qnaBoardView.mem_id}">작성자</span>
+                                        </a>
+                                    </li>
+                                    <li class="author-name">
+                                        <time class="entry-date published updated"
+                                              th:text="${qnaBoardView.qna_board_wdate}"></time><!-- 작성일 -->
+                                        </a>
+                                    </li>
+                                    <!--                              <li class="blog-read-time">좋아요 <span th:text="${qnaBoardView.board_likescount}"></span></li>-->
+                                </ul>
+                                <div class="blog-body">
+                                    <p class="mb-20" th:text="${qnaBoardView.qna_board_contents}">
+                                    </p>
+                                    <div class="blog-block-image mb-30 pb-10">
+                                        <figure th:each="file : ${fileList}">
+                                            <img class="img-fluid"
+                                                 th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/qnaBoardImage/' + ${file.qna_board_file_name}">
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <form>
+                            <div class="form-group col-12">
+                                <input type="hidden" id="qnaBoardSeq" th:value="${qnaBoardView.qna_board_seq}">
+                                <textarea name="reply-text" class="form-control mb-4" id="qnaCmtContents"
+                                          th:text="${qnaBoardView.qna_cmt_contents}"></textarea>
+                            </div>
+                        </form>
+                        <div class="button-group d-flex justify-content-end pt-15 mb-4">
+                            <button id="submitBtn" class="btn btn-primary btn-default btn-squared">작성</button>
                         </div>
-                     </form>
-
-                     <div class="button-group d-flex justify-content-end pt-15">
-                        <button id="submitBtn" class="btn btn-primary btn-default btn-squared">작성하기</button>
-                     </div>
-
-                  </div>
-
-                  <figure th:each="cmt : ${qnaCmtList}">
-                     <div class="dm-comment-box media">
-                        <div class="dm-comment-box__author">
+                    </div>
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-lg-8 col-12">
+                            <div class="comments-section">
+                                <figure th:each="cmt : ${qnaCmtList}">
+                                    <input type="hidden" id="qnaCmtSeq" th:value="${cmt.qna_cmt_seq}">
+                                    <div class="dm-comment-box media">
+                                        <div class="dm-comment-box__author">
+                                        </div>
+                                        <div class="dm-comment-box__content media-body">
+                                            <div class="comment-content-inner cci">
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <span class="cci__author-info"> 관리자  </span>
+                                                        <span th:text="${cmt.qna_cmt_wdate}"></span>
+                                                        <p class="cci__comment-text" th:text="${cmt.qna_cmt_contents}">
+                                                            .</p>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row justify-content-end">
+                                                            <div class="col-md-6 test-right">
+                                                                <button class="btn btn-danger btn-sm" onclick="deleteComment('${cmt.qna_cmt_seq}')">
+                                                                    삭제
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </figure>
+                            </div>
                         </div>
-                        <div class="dm-comment-box__content media-body">
-                           <div class="comment-content-inner cci">
-                              <span class="cci__author-info"> 관리자  </span>
-                              <span th:text="${cmt.qna_cmt_wdate}"></span>
-                              <p class="cci__comment-text" th:text="${cmt.qna_cmt_contents}">.</p>
-                              <div class="cci__comment-actions">
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </figure>
-
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-
-      </div>
-
-      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
-   </main>
-   <div id="overlayer">
-      <div class="loader-overlay">
-         <div class="dm-spin-dots spin-lg">
+        </div>
+    </div>
+    <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+</main>
+<div id="overlayer">
+    <div class="loader-overlay">
+        <div class="dm-spin-dots spin-lg">
             <span class="spin-dot badge-dot dot-primary"></span>
             <span class="spin-dot badge-dot dot-primary"></span>
             <span class="spin-dot badge-dot dot-primary"></span>
             <span class="spin-dot badge-dot dot-primary"></span>
-         </div>
-      </div>
-   </div>
-   <div class="overlay-dark-sidebar"></div>
-   <div class="customizer-overlay"></div>
-   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+        </div>
+    </div>
+</div>
+<div class="overlay-dark-sidebar"></div>
+<div class="customizer-overlay"></div>
+<th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
 </body>
-
 </html>
 
 <script>
-   document.getElementById("submitBtn").addEventListener("click", () => {
-      createQnaCmt();
-   });
+    document.getElementById("submitBtn").addEventListener("click", () => {
+        const shouldSubmit = window.confirm('작성하시겠습니까?');
 
-   const createQnaCmt = () => {
-      const qnaCmtContents = document.getElementById("qnaCmtContents").value;
-      const qnaBoardSeq = document.getElementById("qnaBoardSeq").value;
+        if (shouldSubmit) {
+            createQnaCmt();
+        }
+    });
 
-      if (!qnaCmtContents) {
-         alert("내용을 입력하세요.");
-         return;
-      }
+    const createQnaCmt = () => {
+        const qnaCmtContents = document.getElementById("qnaCmtContents").value;
+        const qnaBoardSeq = document.getElementById("qnaBoardSeq").value;
 
-      const requestData = {
-         qna_cmt_contents: qnaCmtContents,
-         qna_board_seq : qnaBoardSeq
-      };
+        if (!qnaCmtContents) {
+            alert("내용을 입력하세요.");
+            return;
+        }
 
-      axios.post("/admin/qnaCmt/save", requestData)
-              .then((res) => {
-                 if (res.data.result === "success") {
+        const requestData = {
+            qna_cmt_contents: qnaCmtContents,
+            qna_board_seq: qnaBoardSeq
+        };
+
+        axios.post("/admin/qnaCmt/save", requestData)
+            .then((res) => {
+                if (res.data.result === "success") {
                     window.location.href = '/admin/qna/view/' + qnaBoardSeq;
-                 }
-              })
-              .catch((error) => {
-                 console.error('댓글 등록 중 오류 발생:', error);
-              });
-   }
+                }
+            })
+            .catch((error) => {
+                console.error('댓글 등록 중 오류 발생:', error);
+            });
+    }
+    function deleteComment(qnaCmtSeq) {
+        const confirmDelete = confirm("댓글을 삭제하시겠습니까?");
 
+        if (confirmDelete) {
+            axios.post(`/admin/qnaCmt/delete/${qnaCmtSeq}`)
+                .then(response => {
+                    console.log('서버 응답:', response);
+                    console.log('qna_cmt_seq:', qnaCmtSeq);
+
+                    if (response.data.result === 'success') {
+                        const commentElement = document.querySelector('.qnaCmtSeq[value="' + qnaCmtSeq + '"]').closest('.dm-comment-box');
+                        if (commentElement) {
+                            commentElement.remove();
+                        }
+                    } else {
+                        alert('댓글 삭제에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('댓글 삭제 중 오류 발생:', error);
+                });
+        }
+    }
 </script>

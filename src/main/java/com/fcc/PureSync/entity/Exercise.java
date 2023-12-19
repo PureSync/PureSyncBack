@@ -20,6 +20,15 @@ public class Exercise {
     private Integer elTime;
     @Builder.Default
     private LocalDateTime elWdate = LocalDateTime.now();
-    private Long memSeq;
-    private Long ecSeq;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "mem_seq")
+    Member member;
+
+    @ManyToOne()
+    @JoinColumn(name = "ec_seq")
+    ExerciseList exerciseList;
+
+
 }

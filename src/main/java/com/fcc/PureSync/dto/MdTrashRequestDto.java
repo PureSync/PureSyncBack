@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MdTrashRequestDto {
     String tsContents;
-    String memId;
 }

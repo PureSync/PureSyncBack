@@ -3,11 +3,13 @@ package com.fcc.PureSync.controller;
 import com.fcc.PureSync.dto.BoardDto;
 import com.fcc.PureSync.dto.CommentDto;
 import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.MemberRepository;
 import com.fcc.PureSync.service.BoardService;
 import com.fcc.PureSync.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,7 +25,8 @@ public class CommentController {
      * 등록
      */
     @PostMapping("/{boardSeq}/comments")
-    public ResultDto createComment(@PathVariable Long boardSeq, @RequestBody CommentDto commentDto, String id) {
+    public ResultDto createComment(@PathVariable Long boardSeq, @RequestBody CommentDto commentDto,  @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        String id = customUserDetails.getUsername();
         return commentService.createComment(commentDto, id, boardSeq);
     }
 
@@ -31,7 +34,8 @@ public class CommentController {
      * 수정
      */
     @PutMapping("/{boardSeq}/comments/{cmtSeq}")
-    public ResultDto updateComment(@PathVariable Long boardSeq, @PathVariable Long cmtSeq,@RequestBody CommentDto commentDto,String id) {
+    public ResultDto updateComment(@PathVariable Long boardSeq, @PathVariable Long cmtSeq,@RequestBody CommentDto commentDto, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        String id = customUserDetails.getUsername();
         return commentService.updateComment(boardSeq, cmtSeq, commentDto, id);
     }
 
@@ -39,7 +43,8 @@ public class CommentController {
      * 삭제
      */
     @DeleteMapping("/{boardSeq}/comments/{cmtSeq}")
-    public ResultDto deleteComment(@PathVariable Long boardSeq,@PathVariable Long cmtSeq, String id) {
+    public ResultDto deleteComment(@PathVariable Long boardSeq,@PathVariable Long cmtSeq,  @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        String id = customUserDetails.getUsername();
         return commentService.deleteComment(boardSeq,cmtSeq, id);
     }
     /**

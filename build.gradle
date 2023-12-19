@@ -38,9 +38,10 @@ dependencies {
 
 	//히카리하고 mybatis 에 필요한 모듈둘
 	//유재건 수정
-	implementation('org.springframework.boot:spring-boot-starter-jdbc') {
-		exclude group: 'org.apache.tomcat', module: 'tomcat-jdbc'
-	}
+	implementation'org.springframework.boot:spring-boot-starter-jdbc'
+//	implementation('org.springframework.boot:spring-boot-starter-jdbc') {
+//		exclude group: 'org.apache.tomcat', module: 'tomcat-jdbc'
+//	}
 	//비수정부분
 	implementation 'com.zaxxer:HikariCP:5.0.1'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'

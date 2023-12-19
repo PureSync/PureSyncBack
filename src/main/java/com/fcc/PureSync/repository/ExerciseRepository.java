@@ -100,4 +100,6 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
                     "select 0 AS emotion from dual limit 1) AS tb5 "
             , nativeQuery = true)
     Optional<DashboardDefaultNativeVo> findDefaultData(@Param("memSeq") Long memSeq, @Param("targetDate") String targetDate);
+
+    
 }

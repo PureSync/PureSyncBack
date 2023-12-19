@@ -71,12 +71,10 @@ public class BoardService {
     }
 
     @Transactional
-    public ResultDto createBoard(BoardDto boardDto, List<MultipartFile> file) {
-        //Long id2 = Long.parseLong(id);
-        //id = "aaa";//////////////////////////////////////////////
-        Member member = memberRepository.findByMemId(boardDto.getMemId())
+    public ResultDto createBoard(BoardDto boardDto, List<MultipartFile> file,String id) {
+        Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
-
+        System.out.println("파일 정보 확인: " + file);
         System.out.println("*******************" + boardDto.getBoardName());
         System.out.println("*******************" + boardDto.getBoardContents());
         Board board = Board.builder()
@@ -86,14 +84,14 @@ public class BoardService {
                 .build();
 
         boardRepository.save(board);
-
+        System.out.println("파일존재여부 : " + file);
         Long board_seq = board.getBoardSeq();
         System.out.println("board_seq : " + board_seq);
         HashMap<String, Object> map = new HashMap<>();
         /**
          * 파일 존재 o
          */
-        if (file != null) {
+        if (file != null && !file.isEmpty()) {
             System.out.println("********************************************");
 
             List<String> originalFileNameList = new ArrayList<>();
@@ -115,10 +113,7 @@ public class BoardService {
                 } catch (StringIndexOutOfBoundsException e) {
                     //throw new
                 }
-
                 String ext = originalFilename.substring(index + 1);
-
-                // 저장될 파일 이름
                 String storedFileName = UUID.randomUUID() + "." + ext;
 
                 // 저장할 디렉토리 경로 + 파일 이름
@@ -156,7 +151,7 @@ public class BoardService {
             /**
              * 파일 존재 x
              */
-            System.out.println("222222222222222222222222222222");
+            System.out.println("파일 존재 x");
             BoardDto boardDtoResult = toDto(board);
 
             map.put("board", boardDtoResult);
@@ -165,9 +160,9 @@ public class BoardService {
         }
     }
 
-    public ResultDto updateBoard(Long boardSeq, BoardDto boardDto, List<MultipartFile> file) throws IOException {
+    public ResultDto updateBoard(Long boardSeq, BoardDto boardDto, List<MultipartFile> file,String id) throws IOException {
 
-        Member member = memberRepository.findByMemId(boardDto.getMemId())
+        Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Board board = boardRepository.findById(boardSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));

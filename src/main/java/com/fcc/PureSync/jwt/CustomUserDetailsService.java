@@ -1,9 +1,11 @@
 package com.fcc.PureSync.jwt;
 
+import com.fcc.PureSync.config.UserRoleConfig;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //            throw new ErrorException(HttpStatus.UNAUTHORIZED.value(), "아이디가 없다."); //401
         }
         List<GrantedAuthority> authorities = new ArrayList<>();
-//      authorities.add(new SimpleGrantedAuthority(member.getRole())); //회원정보에서 권한정보를 가져와서 담는다.
+        authorities.add(new SimpleGrantedAuthority(UserRoleConfig.UserRole.convertStringFromUserRole(member.getMemStatus())));
         CustomUserDetails userDetails = new CustomUserDetails(member);
         return userDetails;
     }

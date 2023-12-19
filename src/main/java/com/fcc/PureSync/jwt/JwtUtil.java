@@ -36,8 +36,9 @@ public class JwtUtil {
             builder.setHeaderParam("typ", "JWT"); //토큰의 종류
             builder.setHeaderParam("alg", "HS256"); //암호화 알고리즘 종류
             builder.setExpiration(new Date(new Date().getTime() + tokenValidityInMilliseconds));
-            builder.claim("memId", member.getMemId()); //토큰에 저장되는 데이터
             builder.claim("memSeq", member.getMemSeq()); //토큰에 저장되는 데이터
+            builder.claim("memId", member.getMemId()); //토큰에 저장되는 데이터
+            builder.claim("memImg", member.getMemImg()); //토큰에 저장되는 데이터
             builder.claim("memEmail",member.getMemEmail());//토큰에 추가되는 데이터
             builder.signWith(SignatureAlgorithm.HS256, secret.getBytes("UTF-8")); //비밀키
             token = builder.compact(); //모든 내용을 묶기
@@ -101,6 +102,19 @@ public class JwtUtil {
             System.out.println("whwrkxek wlsWK TLqkf");
         }
         return memSeq;
+    }
+    public String getMemImg(String token) {
+        String memImg;
+        try {
+            JwtParser parser = Jwts.parser();
+            parser.setSigningKey(secret.getBytes("UTF-8"));
+            Jws<Claims> jws = parser.parseClaimsJws(token);
+            Claims claims = jws.getBody();
+            memImg = claims.get("memImg", String.class);
+        } catch (Exception e) {
+            throw new CustomException(FAIL_CREATE_TOKEN);
+        }
+        return memImg;
     }
 
     //JWT 토큰 유효성 검사: 만료일자 확인

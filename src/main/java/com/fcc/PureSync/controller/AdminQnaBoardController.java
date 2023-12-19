@@ -19,7 +19,7 @@ public class AdminQnaBoardController {
     private final AdminQnaBoardService adminQnaBoardService;
 
     @GetMapping("/admin/qna/list/{pg}")
-    public String qnaBoardList(Model model, AdminQnaBoardDto adminQnaBoardDto , @PathVariable("pg") int pg) {
+    public String qnaBoardList(Model model, AdminQnaBoardDto adminQnaBoardDto, @PathVariable("pg") int pg) {
         String searchText = URLDecoder.decode( adminQnaBoardDto.getSearchText() );
         if( searchText == null ) {
             searchText = " ";
@@ -50,7 +50,6 @@ public class AdminQnaBoardController {
     }
 
     @PostMapping("/admin/qnaCmt/save")
-    @ResponseBody
     public HashMap<String, Object> adminQnaCmtSave(@RequestBody AdminQnaBoardDto adminQnaBoardDto) {
         adminQnaBoardService.qnaCommentWrite(adminQnaBoardDto);
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -60,8 +59,7 @@ public class AdminQnaBoardController {
     }
 
     @PostMapping("/admin/qnaCmt/modifyOk")
-    @ResponseBody
-    public HashMap<String, Object> adminQnaCmtModifyOk( @RequestBody AdminQnaBoardDto adminQnaBoardDto) {
+    public HashMap<String, Object> adminQnaCmtModifyOk(@RequestBody AdminQnaBoardDto adminQnaBoardDto) {
         adminQnaBoardService.qnaCommentUpdate(adminQnaBoardDto);
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "success");
@@ -78,12 +76,21 @@ public class AdminQnaBoardController {
         return  resultMap;
     }
 
-    @GetMapping("/admin/qnaCmt/list/delete/{qna_cmt_seq}")
-    @ResponseBody
-    public HashMap<String, Object> qnaCmtSoftDelete(AdminQnaBoardDto adminQnaBoardDto) {
-        adminQnaBoardService.qnaCmtSoftDelete(adminQnaBoardDto);
+//    @GetMapping("/admin/qnaCmt/list/delete/{qna_cmt_seq}")
+//    @ResponseBody
+//    public HashMap<String, Object> qnaCmtSoftDelete(AdminQnaBoardDto adminQnaBoardDto) {
+//        adminQnaBoardService.qnaCmtSoftDelete(adminQnaBoardDto);
+//        HashMap<String, Object> resultMap = new HashMap<>();
+//        resultMap.put("result", "success");
+//        return  resultMap;
+//    }
+
+    @PostMapping("/admin/qnaCmt/delete/{qna_cmt_seq}")
+    public HashMap<String, Object> adminQnaCmtDelete(@PathVariable("qna_cmt_seq") Long qnaCmtSeq) {
+        adminQnaBoardService.qnaCommentDelete(qnaCmtSeq);
         HashMap<String, Object> resultMap = new HashMap<>();
         resultMap.put("result", "success");
-        return  resultMap;
+
+        return resultMap;
     }
 }

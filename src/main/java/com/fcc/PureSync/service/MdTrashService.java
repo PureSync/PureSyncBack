@@ -9,6 +9,7 @@ import com.fcc.PureSync.entity.MdTrash;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.MdTrashRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,9 @@ public class MdTrashService {
     private final MdTrashRepository mdTrashRepository;
     private final MemberRepository memberRepository;
 
-    public ResultDto getMdTrashList(String memId) {
+    public ResultDto getMdTrashList(CustomUserDetails customUserDetails) {
 
-        Member member = memberRepository.findByMemId(memId).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        Member member = memberRepository.findById(customUserDetails.getMemSeq()).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         List<MdTrash> mdTrashList =  mdTrashRepository.findAllByMemberAndTsStatusOrderByTsWdateDesc(member, true);
         List<MdTrashResponseDto> mdTrashResponseDtoList = mdTrashList.stream().map(e -> entityToDto(e)).toList();
         int count = mdTrashList.size();
@@ -49,8 +50,8 @@ public class MdTrashService {
         return buildResultDto(200, HttpStatus.OK, "success", data);
     }
 
-    public ResultDto writeMdTrash(MdTrashRequestDto dto) {
-        MdTrash mdTrash = dtoToEntity(dto);
+    public ResultDto writeMdTrash(MdTrashRequestDto dto, CustomUserDetails customUserDetails) {
+        MdTrash mdTrash = dtoToEntity(dto, customUserDetails.getMemSeq());
         mdTrashRepository.save(mdTrash);
         HashMap<String, Object> data = new HashMap<>();
         data.put("mdTrash", mdTrash);
@@ -106,8 +107,8 @@ public class MdTrashService {
                 .build();
     }
 
-    private MdTrash dtoToEntity(MdTrashRequestDto dto) {
-        Member dtoMember = memberRepository.findByMemId(dto.getMemId()).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+    private MdTrash dtoToEntity(MdTrashRequestDto dto, Long memSeq) {
+        Member dtoMember = memberRepository.findById(memSeq).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         return MdTrash.builder()
                 .tsContents(dto.getTsContents())
                 .tsStatus(true)

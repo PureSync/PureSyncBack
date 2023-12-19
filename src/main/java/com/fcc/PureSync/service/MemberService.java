@@ -1,19 +1,16 @@
 package com.fcc.PureSync.service;
 
-import com.fcc.PureSync.common.constant.EmailConstant;
+import com.fcc.PureSync.config.UserRoleConfig;
 import com.fcc.PureSync.dto.*;
 import com.fcc.PureSync.entity.Body;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.entity.MemberSearchCondition;
-import com.fcc.PureSync.entity.MpMemRole;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.jwt.JwtUtil;
 import com.fcc.PureSync.repository.BodyRepository;
 import com.fcc.PureSync.repository.MemberRepository;
-import com.fcc.PureSync.repository.MemberRoleRepository;
 import com.fcc.PureSync.util.RandomStringGenerator;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -47,7 +46,6 @@ public class MemberService {
     public ResultDto signup(SignupDto signupDto) {
         Member inputMemberInfo = buildMemberFromSignupDto(signupDto);
         Long memSeq = memberRepository.save(inputMemberInfo).getMemSeq();
-        //30초 대기 클로즈
         Body inputBody = buildBodyFromSignDtoAndSignupMember(signupDto, memSeq);
         bodyRepository.save(inputBody);
         mailService.signUpByVerificationCode(inputMemberInfo.getMemEmail());
@@ -59,6 +57,7 @@ public class MemberService {
         String encoPassword = passwordEncoder.encode(dto.getMemPassword());
         return Member.builder()
                 .memId(dto.getMemId())
+                .memStatus(UserRoleConfig.UserRole.DISABLED.getLevel())
                 .memPassword(encoPassword)
                 .memNick(dto.getMemNick())
                 .memEmail(dto.getMemEmail())
@@ -100,7 +99,9 @@ public class MemberService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         HashMap<String, Object> accessTokenMap = new HashMap<>();
         String accessToken = jwtUtil.createToken(member);
-        accessTokenMap.put("access_token", accessToken);
+        //
+        String lockToeken = lockingToken(accessToken);
+        accessTokenMap.put("access_token", lockToeken);
 
         return ResultDto.builder()
                 .code(HttpStatus.OK.value())
@@ -141,13 +142,16 @@ public class MemberService {
         return resultDto;
     }
 
-
     @Transactional
     public ResultDto searchPassword(FindPasswordDto findPasswordDto) {
         Member member = memberRepository.findByMemEmail(findPasswordDto.getMemEmail()).orElseThrow(() -> new CustomException(NOT_FOUND_EMAIL));
         String newPassword = RandomStringGenerator.generateRandomPassword(12);
         updateTemporaryPassword(member, newPassword);
+        Instant beforesearchPasswordmailService = Instant.now();
         mailService.sendTemporaryPassword(findPasswordDto.getMemEmail(), newPassword);
+        Instant aftersearchPasswordmailService = Instant.now();
+        long sendMail = Duration.between(beforesearchPasswordmailService, aftersearchPasswordmailService).toMillis();
+        System.out.println("메일 전송 실행 시간(ms): " + sendMail);
         return handleResultDtoFromFindPassword();
     }
 
@@ -195,6 +199,16 @@ public class MemberService {
                 .message(msg)
                 .data(map)
                 .build();
+    }
+
+    private String lockingToken(String token){
+        StringBuffer accessToken = new StringBuffer(token);
+        accessToken.insert(58,"Spu935");
+        accessToken.insert(77,"Bus9712");
+        accessToken.insert(122,"9YrH7");
+        accessToken.insert(199,"01Kej11");
+        String lockToken = accessToken.toString();
+        return lockToken;
     }
 
     // 어드민을 제외한 회원목록

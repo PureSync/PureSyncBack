@@ -26,18 +26,20 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        long beforTime = System.currentTimeMillis();
         try {
             // 요청에서 토큰 가져오기
             String token = parseBearerToken(request);
 
             // 토큰 검사하기. JWT이므로 인가 서버에 요청하지 않고도 검증 가능
             if(token != null && !token.equalsIgnoreCase(null)) {
+                String accessToken = unlockingToken(token);
                 // userId 가져오기. 위조된 경우 예외 처리된다.
-                String userId = jwtUtil.getMemId(token);
-                Long memSeq = jwtUtil.getMemSeq(token);
-                String memEmail = jwtUtil.getMemEmail(token);
-                Member member = Member.builder().memId(userId).memSeq(memSeq).memEmail(memEmail).build();
-
+                String userId = jwtUtil.getMemId(accessToken);
+                Long memSeq = jwtUtil.getMemSeq(accessToken);
+                String memImg = jwtUtil.getMemImg(accessToken);
+                String memEmail = jwtUtil.getMemEmail(accessToken);
+                Member member = Member.builder().memId(userId).memSeq(memSeq).memImg(memImg).memEmail(memEmail).build();
                 //인증 완료. SecurityContextHolder에 등록해야 인증된 사용자라고 생가한다.
                 AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         new CustomUserDetails(member), // 인증된 사용자의 정보. 문자열이 아니어도 아무것이나 넣을 수 있다. 보통 UserDetails라는 오브젝트를 넣는데 우리는 넣지 않았다.
@@ -65,5 +67,14 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
             return bearerToken.substring(7);
         }
         return null;
+    }
+    private String unlockingToken(String lockToken){
+        StringBuffer unlockToken = new StringBuffer(lockToken);
+        unlockToken.delete(199, 199 + "01Kej11".length());
+        unlockToken.delete(122, 122 + "9YrH7".length());
+        unlockToken.delete(77, 77 + "Bus9712".length());
+        unlockToken.delete(58, 58 + "Spu935".length());
+        String accessToken = unlockToken.toString();
+        return accessToken;
     }
 }

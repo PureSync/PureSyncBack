@@ -22,8 +22,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.fcc.PureSync.dto.MemberInfoDto.toNickDto;
-import static com.fcc.PureSync.dto.MemberInfoDto.toProfileImgDto;
+//import static com.fcc.PureSync.dto.MemberInfoDto.toNickDto;
+//import static com.fcc.PureSync.dto.MemberInfoDto.toProfileImgDto;
+import static com.fcc.PureSync.dto.MemberInfoDto.toDto;
 import static com.fcc.PureSync.dto.MemberInfoUpdateDto.entityToDto;
 
 
@@ -98,20 +99,20 @@ public class MypageService {
         HashMap<String, Object> map = new HashMap<>();
         Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
-
+        
         MemberInfoDto result = null;
-        if (file == null) { // 파일 미존재 (닉네임만 업데이트 하는경우)
-            updateOnlyNickname(member, dto);
+        if (file == null || file.getOriginalFilename() == null) { // 파일 미존재 (닉네임만 업데이트 하는경우)
+            System.out.println("닉네임만 업데이트 해옹~");
+            map.put("result", updateOnlyNickname(member, dto));
 
         } else if (dto.getMemNick() == null && file != null) {  // 프로필 이미지만 업데이트 하는 경우
-            updateOnlyProfileImg(member, dto, file);
+            System.out.println("프사만 업데이트 해옹~");
+            map.put("result", updateOnlyProfileImg(member, file));
 
-        } else if (dto.getMemNick() != null && file != null) {  // 닉네임, 이미지 모두 업데이트
-            updateNicknameAndProfileImg(member, dto, file);
+        } else if (dto.getMemNick() != null && member.getMemNick() != dto.getMemNick() && file != null) {  // 닉네임, 이미지 모두 업데이트
+            System.out.println("둘다 업데이트 해옹");
+            map.put("result", updateNicknameAndProfileImg(member, dto, file));
         }
-
-
-        map.put("result", result);
 
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "정보 수정 성공", map);
     }
@@ -119,17 +120,18 @@ public class MypageService {
     private MemberInfoDto updateOnlyNickname(Member member, MemberInfoDto dto) {
         member.updateNick(dto.getMemNick());
         member.updateModifyBy(member.getMemId());
-
-        return toNickDto(dto);
+        memberRepository.save(member);
+        return toDto(member);
     }
 
-    private MemberInfoDto updateOnlyProfileImg(Member member, MemberInfoDto dto, MultipartFile file) {
+    private MemberInfoDto updateOnlyProfileImg(Member member, MultipartFile file) {
         String fileName = uploadSingleFile(file);
 
         member.updateProfileImg(fileName);
         member.updateModifyBy(member.getMemId());
+        memberRepository.save(member);
 
-        return toProfileImgDto(dto);
+        return toDto(member);
     }
 
     private MemberInfoDto updateNicknameAndProfileImg(Member member, MemberInfoDto dto,  MultipartFile file) {
@@ -138,31 +140,38 @@ public class MypageService {
         member.updateNick(dto.getMemNick());
         member.updateProfileImg(fileName);
         member.updateModifyBy(member.getMemId());
+        memberRepository.save(member);
 
-        return MemberInfoDto.builder()
-                .memNick(dto.getMemNick())
-                .memImg(fileName)
-                .build();
+//        return MemberInfoDto.builder()
+//                .memNick(member.getMemNick())
+//                .memImg(fileName)
+//                .build();
+        return toDto(member);
     }
 
     // 파일 업로드 후 파일명 리턴
     public String uploadSingleFile (MultipartFile file) {
+
         String originalFilename = file.getOriginalFilename();
         String ext = Objects.requireNonNull(originalFilename).substring(originalFilename.lastIndexOf(".") + 1);
-        String storedFileName = UUID.randomUUID() + "." + ext;
-        String key = "profileImg/" + storedFileName;
+        String storedFileName = null;
 
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentType(file.getContentType());
-        objectMetadata.setContentLength(file.getSize());
+        if (ext.equals("png") || ext.equals("jpg") || ext.equals("jpeg") || ext.equals("gif")) {
+            storedFileName = UUID.randomUUID() + "." + ext;
+            String key = "profileImg/" + storedFileName;
 
-        try (InputStream inputStream = file.getInputStream()) {
-            amazonS3Client.putObject(new PutObjectRequest(bucket, key, inputStream, objectMetadata)
-                    .withCannedAcl(CannedAccessControlList.PublicRead));
-        } catch (IOException e) {
-            // 적절하게 예외 처리
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(file.getContentType());
+            objectMetadata.setContentLength(file.getSize());
+
+            try (InputStream inputStream = file.getInputStream()) {
+                amazonS3Client.putObject(new PutObjectRequest(bucket, key, inputStream, objectMetadata)
+                        .withCannedAcl(CannedAccessControlList.PublicRead));
+            } catch (IOException e) {
+                // 적절하게 예외 처리
+            }
+
         }
-
         return storedFileName;
     }
 

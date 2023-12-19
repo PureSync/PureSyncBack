@@ -14,6 +14,4 @@ public class MdDiaryRequestDto {
     String dyTitle;
     String dyContents;
     String emoState;
-    String memId;
-
 }

@@ -41,7 +41,7 @@ public class LikesService {
     }
 
     public ResultDto createLike(Long boardSeq, String id) {
-        id = "aaa";////////////////////////
+
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Board board = boardRepository.findById(boardSeq)
@@ -102,7 +102,7 @@ public class LikesService {
 
 
     public ResultDto findMyLike(Long boardSeq, String id) {
-        id = "aaa";
+
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Board board = boardRepository.findById(boardSeq)

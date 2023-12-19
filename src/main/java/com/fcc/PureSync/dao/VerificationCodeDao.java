@@ -3,6 +3,7 @@ package com.fcc.PureSync.dao;
 import com.fcc.PureSync.common.constant.EmailConstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.stereotype.Repository;
 
 import java.time.Duration;

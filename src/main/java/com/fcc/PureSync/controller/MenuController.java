@@ -2,13 +2,16 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.common.HeaderInfo;
 import com.fcc.PureSync.dto.MenuDto;
+import com.fcc.PureSync.dto.MenuResponseDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Menu;
 
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -27,23 +30,27 @@ public class MenuController {
     }
 
     @GetMapping("/list")
-    public ResultDto  getAllMenuList (MenuDto menuTo) {
-         return menuService.getMenuAllList(menuTo);
+    public ResultDto  getAllMenuList (MenuDto menuTo, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        Long memSeq = customUserDetails.getMemSeq();
+        return menuService.getMenuAllList(menuTo, memSeq);
     }
 
     @PostMapping("/save")
-    public ResultDto menuInsert( @RequestBody Menu menu ) {
-        return menuService.insertMenu(menu);
+    public ResultDto menuInsert(@RequestBody MenuResponseDto menu, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        Long memSeq = customUserDetails.getMemSeq();
+        return menuService.insertMenu(menu, memSeq);
     }
 
-    @PutMapping("/update")
-    public ResultDto menuUpdate( @RequestBody Menu menu ) {
-        return menuService.updateMenu(menu);
-    }
+//    @PutMapping("/update")
+//    public ResultDto menuUpdate( @RequestBody Menu menu, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+//        Long memSeq = customUserDetails.getMemSeq();
+//        return menuService.updateMenu(menu, memSeq);
+//    }
 
     @PostMapping ("/delete")
-    public ResultDto menuDelete( @RequestBody Menu menu ) {
-        return menuService.deleteMenu(menu);
+    public ResultDto menuDelete( @RequestBody MenuResponseDto menu, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+        Long memSeq = customUserDetails.getMemSeq();
+        return menuService.deleteMenu(menu, memSeq);
     }
 
 

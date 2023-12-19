@@ -1,16 +1,15 @@
 package com.fcc.PureSync.controller;
 
+import com.fcc.PureSync.common.HeaderInfo;
 import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.DashboardService;
-import com.fcc.PureSync.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpEntity;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Optional;
 
 
 @RestController
@@ -20,14 +19,14 @@ public class DashboardController {
 
     private final DashboardService dashboardService;
 
-    @GetMapping(value = {"/dashboard/{memSeq}", "/dashboard/{memSeq}/{baseDate}"})
-    public ResultDto getDashboardInfo(@PathVariable("memSeq") Long memSeq, @PathVariable(required = false) String baseDate)   {
+    @GetMapping(value = {"/dashboard", "/dashboard/{baseDate}"})
+    public ResultDto getDashboardInfo(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable(required = false) String baseDate) {
         if (baseDate == null) {
             LocalDate localDate = LocalDate.now();
             baseDate = localDate.toString();
         }
 
-        return dashboardService.getDashboardInfo(memSeq, baseDate);
+        return dashboardService.getDashboardInfo(customUserDetails.getMemSeq(), baseDate);
     }
 
     @GetMapping("/positive")

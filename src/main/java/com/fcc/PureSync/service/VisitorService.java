@@ -3,6 +3,7 @@ package com.fcc.PureSync.service;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Visitor;
 import com.fcc.PureSync.repository.VisitorRepository;
+import jakarta.persistence.NonUniqueResultException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -46,8 +47,12 @@ public class VisitorService {
     }
 
     public boolean isVisit(String visitorDate, String visitorIp) {
-        Visitor visitor = visitorRepository.findByVisitorDateAndVisitorIp(visitorDate, visitorIp);
-        if(visitor == null) return true;
+        try {
+            Visitor visitor = visitorRepository.findByVisitorDateAndVisitorIp(visitorDate, visitorIp);
+            if(visitor == null) return true;
+        } catch (NonUniqueResultException e){
+            return false;
+        }
 
         return false;
     }

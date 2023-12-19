@@ -75,11 +75,11 @@
             qna_board_seq = #{qna_board_seq}
     </select>
 
-    <update id="qnaCmtSoftDelete" parameterType="AdminQnaBoardDto">
-        UPDATE tb_qna_comment
-        SET qna_cmt_status = 2
-        WHERE qna_cmt_seq = #{qna_cmt_seq};
-    </update>
+<!--    <update id="qnaCmtSoftDelete" parameterType="AdminQnaBoardDto">-->
+<!--        UPDATE tb_qna_comment-->
+<!--        SET qna_cmt_status = 2-->
+<!--        WHERE qna_cmt_seq = #{qna_cmt_seq};-->
+<!--    </update>-->
 
     <update id="qnaBoardSoftDelete" parameterType="AdminQnaBoardDto">
         UPDATE tb_qna_board
@@ -91,4 +91,9 @@
         INSERT INTO tb_qna_comment (qna_cmt_contents, qna_cmt_wdate, qna_board_seq)
         VALUES (#{qna_cmt_contents}, NOW(), #{qna_board_seq});
     </insert>
+
+    <delete id="qnaCommentDelete" parameterType="Long">
+        DELETE FROM tb_qna_comment
+        WHERE qna_cmt_seq = #{qnaCmtSeq}
+    </delete>
 </mapper>

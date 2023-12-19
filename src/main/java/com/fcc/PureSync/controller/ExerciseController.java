@@ -1,11 +1,14 @@
 package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.ExerciseDto;
+import com.fcc.PureSync.dto.ExerciseResponseDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Exercise;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,23 +25,26 @@ public class ExerciseController {
     }
 
     @GetMapping("/list")
-    public ResultDto getAllExerciseList ( ExerciseDto exerciseTo ) {
-        return exerciseService.getExerciseAllList(exerciseTo);
+    public ResultDto getAllExerciseList ( ExerciseDto exerciseTo, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+        Long memSeq = customUserDetails.getMemSeq();
+        return exerciseService.getExerciseAllList(exerciseTo, memSeq);
     }
 
     @PostMapping("/save")
-    public  ResultDto exerciseInsert ( @RequestBody Exercise exercise ) {
-        return exerciseService.insertExercise(exercise);
+    public  ResultDto exerciseInsert (@RequestBody ExerciseResponseDto exercise, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+        Long memSeq = customUserDetails.getMemSeq();
+        return exerciseService.insertExercise(exercise, memSeq);
     }
 
-    @PutMapping ("/update")
-    public  ResultDto exerciseUpdate( @RequestBody Exercise exercise ) {
-        return exerciseService.updateExercise(exercise);
-    }
+//    @PutMapping ("/update")
+//    public  ResultDto exerciseUpdate( @RequestBody Exercise exercise, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+//        return exerciseService.updateExercise(exercise);
+//    }
 
     @PostMapping("/delete")
-    public  ResultDto exerciseDelete (@RequestBody Exercise exercise ) {
-        return exerciseService.deleteExercise(exercise);
+    public  ResultDto exerciseDelete (@RequestBody ExerciseResponseDto exercise, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+        Long memSeq = customUserDetails.getMemSeq();
+        return exerciseService.deleteExercise(exercise, memSeq);
     }
 
 }

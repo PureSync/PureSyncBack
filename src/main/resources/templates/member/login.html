@@ -1,91 +1,109 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>PureSync Admin</title>
-   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PureSync Admin</title>
+    <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
 </head>
 
 <body>
-   <main class="main-content">
-      <div class="admin">
-         <div class="container-fluid">
+<main class="main-content">
+    <div class="admin">
+        <div class="container-fluid">
             <div class="row justify-content-center">
-               <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-8">
-                  <div class="edit-profile">
+                <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-8">
+                    <div class="edit-profile">
 
-                     <div class="card border-0">
-                        <div class="card-header">
-                           <div class="edit-profile__logos mb-0">
-                              <a href="#">
-                                 <img class="dark" th:src="@{img/logo-dark.svg}" alt="">
-                                 <img class="light" th:src="@{img/logo-white.svg}" alt="">
-                              </a>
-                           </div>
-                        </div>
-                        <div class="card-body">
-                           <form action="#" method="post">
-                           <div class="edit-profile__body">
-                              <div class="form-group mb-25">
-                                 <label for="memId">아이디</label>
-                                 <input type="text" class="form-control" name="memId" id="memId" value="">
-                              </div>
-                              <div class="form-group mb-15">
-                                 <label for="password-field">비밀번호</label>
-                                 <div class="position-relative">
-                                    <input id="password-field" type="password" class="form-control" name="memId" value="">
-                                    <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2">
+                        <div class="card border-0">
+                            <div class="card-header">
+                                <div class="edit-profile__logos mb-0">
+                                    <a href="#">
+                                        <img class="dark" th:src="@{img/logo-dark.svg}" alt="">
+                                        <img class="light" th:src="@{img/logo-white.svg}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form action="/member/login" id="adminLogin" method="post" name="adminLogin">
+                                    <div class="edit-profile__body">
+                                        <div class="form-group mb-25">
+                                            <label for="memId">아이디</label>
+                                            <input type="text" class="form-control" name="memId" id="memId">
+                                        </div>
+                                        <div class="form-group mb-15">
+                                            <label for="memPassword">비밀번호</label>
+                                            <div class="position-relative">
+                                                <input id="memPassword" type="password" class="form-control"
+                                                       name="memPassword">
+                                                <div class="uil uil-eye-slash text-lighten fs-15 field-icon toggle-password2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                                            <button id="sendAdminInfoSubmitBtn"
+                                                    class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
+                                                로그인
+                                            </button>
+                                        </div>
                                     </div>
-                                 </div>
-                              </div>
-                              <div class="admin__button-group button-group d-flex pt-1 justify-content-md-start justify-content-center">
-                                 <button id="sendAdminInfoSubmitBtn" class="btn btn-primary btn-default w-100 btn-squared text-capitalize lh-normal px-50 signIn-createBtn ">
-                                    로그인
-                                 </button>
-                              </div>
-                           </div>
-                           </form>
-                        </div><!-- End: .card-body -->
-                     </div><!-- End: .card -->
-                  </div><!-- End: .edit-profile -->
-               </div><!-- End: .col-xl-5 -->
+                                </form>
+                            </div><!-- End: .card-body -->
+                        </div><!-- End: .card -->
+                    </div><!-- End: .edit-profile -->
+                </div><!-- End: .col-xl-5 -->
             </div>
-         </div>
-      </div><!-- End: .admin-element  -->
+        </div>
+    </div><!-- End: .admin-element  -->
 
-   </main>
-   <div id="overlayer">
-      <div class="loader-overlay">
-         <div class="dm-spin-dots spin-lg">
+</main>
+<div id="overlayer">
+    <div class="loader-overlay">
+        <div class="dm-spin-dots spin-lg">
             <span class="spin-dot badge-dot dot-primary"></span>
             <span class="spin-dot badge-dot dot-primary"></span>
             <span class="spin-dot badge-dot dot-primary"></span>
             <span class="spin-dot badge-dot dot-primary"></span>
-         </div>
-      </div>
-   </div>
-   <div class="enable-dark-mode dark-trigger">
-      <ul>
-         <li>
+        </div>
+    </div>
+</div>
+<div class="enable-dark-mode dark-trigger">
+    <ul>
+        <li>
             <a href="#">
-               <i class="uil uil-moon"></i>
+                <i class="uil uil-moon"></i>
             </a>
-         </li>
-      </ul>
-   </div>
-   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+        </li>
+    </ul>
+</div>
+<th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
 </body>
 </html>
 <script>
-$(()=>{
-const validation = function(){
+    $(() => {
+        const sendForm = function(e) {
+            e.preventDefault();
+            let memIdValue = document.getElementById("memId").value;
+            let memPassword = document.getElementById("memPassword").value;
+            const validMemId = validation(memIdValue);
+            const validMemPassword = validation(memPassword);
+            if(validMemId && validMemPassword){
+                document.getElementById("adminLogin").submit();
+               }
+        }
 
-}
- document.getElementById("sendAdminInfoSubmitBtn").addEventListener("click", () => {
-      validation()
-   });
+        const validation = function(value) {
+            const LIMIT_LENGNTH =8;
+            if (value.length >= LIMIT_LENGNTH) {
+                console.log(value);
+                return true;
+            }
+            alert("제대로 된 값을 입력해주세요.")
+            return false
+        }
 
-})
+        document.getElementById("sendAdminInfoSubmitBtn").addEventListener("click", sendForm)
+    })
 </script>

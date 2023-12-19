@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,11 +29,12 @@ public class MailService {
     private final JavaMailSender javaMailSender;
 
     //회원 가입 시 코드 링크
-    public ResultDto signUpByVerificationCode(String newMemberEmail) {
+    @Async
+    public void signUpByVerificationCode(String newMemberEmail) {
         String linkCode = RandomStringGenerator.generateEmailVerificationCode(EmailConstant.EMAIL_VERIFICATION_CODE_LENGTH);
         handleSignUpByVerificationCode(newMemberEmail, linkCode);
         EmailVerificationResponse emailVerificationResponse = new EmailVerificationResponse(newMemberEmail, linkCode);
-        return  handleSignUpByVerificationCodeMap(emailVerificationResponse);
+//        return  handleSignUpByVerificationCodeMap(emailVerificationResponse);
     }
     //회원 가입시 코드 링크 핸들링
     private void handleSignUpByVerificationCode(String newMemberEmail, String linkCode) {
@@ -75,12 +77,14 @@ public class MailService {
     }
 
     //임시 비밀번호 전송
+    @Async
     public void  sendTemporaryPassword(String memberEmail, String newPassword){
         sendMail(memberEmail, "임시비밀번호", newPassword);
     }
 
 
     //메일 보내기 회원 가입시 인증 , 비밀번호 찾기 시 임시 비밀 번호 보내주기.
+
     public void sendMail(String toEmail, String title, String txt) {
         SimpleMailMessage emailForm = createEmailForm(toEmail, title, txt);
         try {

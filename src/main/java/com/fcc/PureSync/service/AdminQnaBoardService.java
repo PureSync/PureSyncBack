@@ -41,14 +41,13 @@ public class AdminQnaBoardService {
 
     // 유저 게시판 뷰
     public AdminQnaBoardDto getQnaBoardView (AdminQnaBoardDto adminQnaBoardDto) {
-        System.out.println();
         return  adminQnaBoardDao.getQnaBoardView(adminQnaBoardDto);
     }
 
-    // 댓글 관리자 권한으로 삭제
-    public void qnaCmtSoftDelete ( AdminQnaBoardDto adminQnaBoardDto ) {
-        adminQnaBoardDao.qnaCmtSoftDelete(adminQnaBoardDto);
-    }
+//    // 댓글 관리자 권한으로 삭제
+//    public void qnaCmtSoftDelete ( AdminQnaBoardDto adminQnaBoardDto ) {
+//        adminQnaBoardDao.qnaCmtSoftDelete(adminQnaBoardDto);
+//    }
 
     // 게시글 관리자 권한으로 삭제
     public void qnaBoardSoftDelete ( AdminQnaBoardDto adminQnaBoardDto ) {
@@ -63,8 +62,7 @@ public class AdminQnaBoardService {
         qnaCommentDao.qnaCommentUpdate(adminQnaBoardDto);
     }
 
-//    public void qnaCommentDelete(AdminQnaBoardDto adminQnaBoardDto) {
-//        qnaCommentDao.qnaCommentDelete(adminQnaBoardDto);
-//    }
-
+    public void qnaCommentDelete(Long qnaCmtSeq) {
+        qnaCommentDao.qnaCommentDelete(qnaCmtSeq);
+    }
 }

@@ -2,12 +2,15 @@ package com.fcc.PureSync.service;
 
 import com.fcc.PureSync.dao.MenuDao;
 import com.fcc.PureSync.dto.MenuDto;
+import com.fcc.PureSync.dto.MenuResponseDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Food;
+import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.entity.Menu;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.repository.FoodRepository;
+import com.fcc.PureSync.repository.MemberRepository;
 import com.fcc.PureSync.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ public class MenuService {
     private final MenuDao menuDao;
     private final MenuRepository menuRepository;
     private final FoodRepository foodRepository;
+    private final MemberRepository memberRepository;
 
     public ResultDto getAllFoods( String foodName ) {
         try {
@@ -42,13 +46,8 @@ public class MenuService {
         }
     }
 
-    public ResultDto getMenuAllList(MenuDto menuTo) {
-        if (menuTo.getMem_seq() == null ) {
-            throw new CustomException(CustomExceptionCode.NOT_FOUND_SEQ);
-        }
-        if (menuTo.getMenu_date() == null ) {
-            throw new CustomException(CustomExceptionCode.NOT_FOUND_DATE);
-        }
+    public ResultDto getMenuAllList( MenuDto menuTo, Long memSeq  ) {
+        menuTo.setMem_seq(memSeq);
         List<MenuDto> menuList= menuDao.getMenuList(menuTo);
         try {
             HashMap<String, Object> data = new HashMap<String, Object>();
@@ -67,18 +66,39 @@ public class MenuService {
     }
 
     @Transactional
-    public ResultDto insertMenu( Menu menu ) {
+    public ResultDto insertMenu( MenuResponseDto menuResponseDto, Long memSeq ) {
+        Member member = memberRepository.findByMemSeq(memSeq)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        Food food = foodRepository.findByFoodSeq(menuResponseDto.getFoodSeq())
+                .orElseThrow(()->new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        Menu menu = Menu.builder()
+                .menuWhen(menuResponseDto.getMenuWhen())
+                .menuDate(menuResponseDto.getMenuDate())
+                .menuGram(menuResponseDto.getMenuGram())
+                .member(member)
+                .food(food)
+                .build();
 
         return performMenuOperation( menu, "식단 입력에 성공했습니다.", CustomExceptionCode.INSERT_FAIL );
     }
 
-    @Transactional
-    public ResultDto updateMenu( Menu menu ) {
-        return performMenuOperation( menu, "식단 수정에 성공했습니다.", CustomExceptionCode.UPDATE_FAIL );
-    }
+//    @Transactional
+//    public ResultDto updateMenu( Menu menu, Long memSeq ) {
+//        return performMenuOperation( menu, "식단 수정에 성공했습니다.", CustomExceptionCode.UPDATE_FAIL );
+//    }
 
     @Transactional
-    public ResultDto deleteMenu( Menu menu ) {
+    public ResultDto deleteMenu( MenuResponseDto menuResponseDto, Long memSeq ) {
+        Member member = memberRepository.findByMemSeq(memSeq)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        Menu menu = Menu.builder()
+                .menuSeq(menuResponseDto.getMenuSeq())
+                .member(member)
+                .build();
+
         return performMenuOperation( menu, "식단 삭제에 성공했습니다.", CustomExceptionCode.DELETE_FAIL );
     }
 

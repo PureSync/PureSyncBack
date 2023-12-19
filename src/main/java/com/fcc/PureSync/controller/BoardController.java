@@ -2,6 +2,7 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.BoardDto;
 import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.MemberRepository;
 import com.fcc.PureSync.service.BoardService;
 import com.fcc.PureSync.util.FileUploadUtil;
@@ -28,32 +29,35 @@ public class BoardController {
      * 등록
      */
     @PostMapping
-    public ResultDto createBoard(BoardDto boardDto,  List<MultipartFile> file) throws IOException {
-        return boardService.createBoard(boardDto, file);
+    public ResultDto createBoard(BoardDto boardDto, List<MultipartFile> file, @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
+        String id = customUserDetails.getUsername();
+        return boardService.createBoard(boardDto, file,id);
     }
 
     /**
      * 수정
      */
     @PutMapping("/{boardSeq}")
-    public ResultDto updateBoard(@PathVariable Long boardSeq, BoardDto boardDto, List<MultipartFile> file) throws IOException {
-        return boardService.updateBoard(boardSeq, boardDto, file);
+    public ResultDto updateBoard(@PathVariable Long boardSeq, BoardDto boardDto, List<MultipartFile> file, @AuthenticationPrincipal CustomUserDetails customUserDetails) throws IOException {
+        String id = customUserDetails.getUsername();
+        return boardService.updateBoard(boardSeq, boardDto, file,id);
     }
 
     /**
      * 삭제
      */
     @DeleteMapping("/{boardSeq}")
-    public ResultDto deleteBoard(@PathVariable Long boardSeq, @AuthenticationPrincipal String memSeqStr) {
-
-        return boardService.deleteBoard(boardSeq, memSeqStr);
+    public ResultDto deleteBoard(@PathVariable Long boardSeq, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        String id = customUserDetails.getUsername();
+        return boardService.deleteBoard(boardSeq, id);
     }
 
     /**
      * 조회(단일)
      */
     @GetMapping("/{boardSeq}")
-    public ResultDto detailBoard(@PathVariable Long boardSeq, String id) {
+    public ResultDto detailBoard(@PathVariable Long boardSeq, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        String id = customUserDetails.getUsername();
         return boardService.detailBoard(boardSeq, id);
     }
 
@@ -61,7 +65,8 @@ public class BoardController {
      * 조회(전체)
      */
     @GetMapping
-    public ResultDto getAllBoards(Pageable pageable , String id) {
+    public ResultDto getAllBoards(Pageable pageable , @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        String id = customUserDetails.getUsername();
         return boardService.findAllBoard(pageable,id);
 
     }

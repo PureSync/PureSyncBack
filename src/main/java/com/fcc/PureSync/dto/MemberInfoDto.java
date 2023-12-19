@@ -1,26 +1,28 @@
 package com.fcc.PureSync.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fcc.PureSync.entity.Board;
+import com.fcc.PureSync.entity.Member;
+import jakarta.mail.Multipart;
 import lombok.*;
 
 @Getter
 @Setter
-@Builder
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberInfoDto {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     String memNick;
+//    @JsonIgnore
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     String memImg;
 
-    public static MemberInfoDto toNickDto(MemberInfoDto dto) {
+    public static MemberInfoDto toDto(Member member) {
         return MemberInfoDto.builder()
-                .memNick(dto.getMemNick())
-                .build();
-    }
-
-    public static MemberInfoDto toProfileImgDto(MemberInfoDto dto) {
-        return MemberInfoDto.builder()
-                .memImg(dto.getMemImg())
+                .memNick(member.getMemNick())
+                .memImg(member.getMemImg())
                 .build();
     }
 }

@@ -2,8 +2,10 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.MdTrashRequestDto;
 import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.MdTrashService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class MdTrashController {
     private final MdTrashService mdTrashService;
 
-    @GetMapping("/list/{memId}")
-    public ResultDto getMdTrashList(@PathVariable String memId) {
+    @GetMapping("/list")
+    public ResultDto getMdTrashList(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
 
-        return mdTrashService.getMdTrashList(memId);
+        return mdTrashService.getMdTrashList(customUserDetails);
     }
 
     @GetMapping("{tsSeq}")
@@ -24,8 +26,8 @@ public class MdTrashController {
     }
 
     @PostMapping
-    public ResultDto writeMdTrash(@RequestBody MdTrashRequestDto dto) {
-        return mdTrashService.writeMdTrash(dto);
+    public ResultDto writeMdTrash(@RequestBody MdTrashRequestDto dto, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        return mdTrashService.writeMdTrash(dto, customUserDetails);
     }
 
     @DeleteMapping("{tsSeq}")

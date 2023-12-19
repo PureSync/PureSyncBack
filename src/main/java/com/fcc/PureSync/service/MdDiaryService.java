@@ -6,12 +6,12 @@ import com.fcc.PureSync.entity.MdDiary;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.EmotionRepository;
 import com.fcc.PureSync.repository.MdDiaryRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import com.fcc.PureSync.util.NaverApi;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +32,8 @@ public class MdDiaryService {
     private final MemberRepository memberRepository;
     private final NaverApi naverApi;
 
-    public ResultDto getMdDiaryList(String memId, Pageable pageable) {
-        Member member = memberRepository.findByMemId(memId).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+    public ResultDto getMdDiaryList(CustomUserDetails customUserDetails, Pageable pageable) {
+        Member member = memberRepository.findById(customUserDetails.getMemSeq()).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         List<MdDiary> mdDiaryEntityList =  mdDiaryRepository.findAllByMemberOrderByDyDateDescDyWdateDesc(member, pageable);
         List<MdDiaryResponseDto> mdDiaryDtoList =  mdDiaryEntityList.stream().map(e -> entityToDto(e)).toList();
         int count = mdDiaryDtoList.size();
@@ -67,8 +66,8 @@ public class MdDiaryService {
         return resultDto;
     }
 
-    public ResultDto writeMdDiary(MdDiaryRequestDto dto) {
-        MdDiary mdDiary = dtoToEntity(dto);
+    public ResultDto writeMdDiary(MdDiaryRequestDto dto, CustomUserDetails customUserDetails) {
+        MdDiary mdDiary = dtoToEntity(dto, customUserDetails.getMemSeq());
         mdDiaryRepository.save(mdDiary);
         HashMap<String, Object> data = new HashMap<>();
         data.put("mdDiary", mdDiary);
@@ -78,7 +77,7 @@ public class MdDiaryService {
         return resultDto;
     }
 
-    public ResultDto updateMdDiray(Long dySeq, MdDiaryRequestDto dto) {
+    public ResultDto updateMdDiary(Long dySeq, MdDiaryRequestDto dto) {
         MdDiary mdDiary = mdDiaryRepository.findById(dySeq).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
         Emotion updatedEmotion = emotionRepository.findByEmoState(dto.getEmoState());
         MdDiary updatedMdDiary =
@@ -169,10 +168,9 @@ public class MdDiaryService {
     }
 
     //mdDiary dto -> entity 변환
-    public MdDiary dtoToEntity(MdDiaryRequestDto dto) {
+    public MdDiary dtoToEntity(MdDiaryRequestDto dto, Long memSeq) {
         Emotion dtoEmotion = emotionRepository.findByEmoState(dto.getEmoState());
-        System.out.println(dto.getMemId());
-        Member dtoMember = memberRepository.findByMemId(dto.getMemId()).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+        Member dtoMember = memberRepository.findById(memSeq).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         return MdDiary.builder()
                 .dyDate(dto.getDyDate())

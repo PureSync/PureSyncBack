@@ -40,7 +40,6 @@ public class SleepService {
 
     // 쓰기 -----------------------------------------------------------
     public ResultDto createSleep(SleepDto sleepDto, String id) {
-        id = "aaa";//////////////////////////////////////////////
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         LocalDateTime godate = sleepDto.getSleepGodate().withNano(0);
@@ -64,7 +63,6 @@ public class SleepService {
 
     // 업데이트 ------------------------------------------------------------------------
     public ResultDto updateSleep(Long sleepSeq, SleepDto sleepDto, String id) {
-        id = "aaa";//////////////////////////////////////////////
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Sleep sleep = sleepRepository.findById(sleepSeq)
@@ -91,7 +89,6 @@ public class SleepService {
 
 
     public ResultDto findAllMySleep(Pageable pageable, String id) {
-        id = "aaa";
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         List<Sleep> sleepList = sleepRepository.findByMember_MemSeq(member.getMemSeq());
@@ -105,7 +102,6 @@ public class SleepService {
     }
 
     public ResultDto deleteSleep(Long sleepSeq, String id) {
-        id = "aaa";
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Sleep sleep = sleepRepository.findById(sleepSeq)

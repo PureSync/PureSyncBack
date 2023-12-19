@@ -52,7 +52,7 @@ public class CommentService {
     }
 
     public ResultDto createComment(CommentDto commentDto, String id, Long boardSeq) {
-        id = "aaa";//////////////////////////////////////////////
+
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Board board = boardRepository.findById(boardSeq)
@@ -73,7 +73,7 @@ public class CommentService {
     }
 
     public ResultDto updateComment(Long boardSeq, Long cmtSeq, CommentDto commentDto, String id) {
-        id = "aaa";///////////////////////////
+
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Board board = boardRepository.findById(boardSeq)
@@ -100,7 +100,7 @@ public class CommentService {
     }
 
     public ResultDto deleteComment(Long boardSeq, Long cmtSeq, String id) {
-        id = "aaa";////////////////////////
+
         Member member = memberRepository.findByMemId(id)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         Board board = boardRepository.findById(boardSeq)

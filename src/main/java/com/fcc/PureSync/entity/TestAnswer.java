@@ -25,7 +25,7 @@ public class TestAnswer {
     @Builder.Default
     private LocalDateTime ansWdate = LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mem_seq")
     private Member member;
 }

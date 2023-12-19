@@ -3,14 +3,17 @@ package com.fcc.PureSync.service;
 
 import com.fcc.PureSync.dao.ExerciseDao;
 import com.fcc.PureSync.dto.ExerciseDto;
+import com.fcc.PureSync.dto.ExerciseResponseDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Exercise;
 import com.fcc.PureSync.entity.ExerciseList;
 
+import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.repository.ExerciseListRepository;
 import com.fcc.PureSync.repository.ExerciseRepository;
+import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -22,11 +25,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ExerciseService {
 
     private final ExerciseDao exerciseDao;
     private final ExerciseRepository exerciseRepository;
     private final ExerciseListRepository exerciseListRepository;
+    private final MemberRepository memberRepository;
+
 
     // 전체 데이터
     public ResultDto getAllExerciseList( String exerciseName ) {
@@ -46,14 +52,8 @@ public class ExerciseService {
     }
 
     // 리스트
-    public ResultDto getExerciseAllList(ExerciseDto exerciseTo) {
-        if (exerciseTo.getMem_seq() == null ) {
-            throw new CustomException(CustomExceptionCode.NOT_FOUND_SEQ);
-        }
-        if (exerciseTo.getEl_date() == null ) {
-            throw new CustomException(CustomExceptionCode.NOT_FOUND_DATE);
-        }
-
+    public ResultDto getExerciseAllList(ExerciseDto exerciseTo , Long memSeq) {
+        exerciseTo.setMem_seq(memSeq);
         List<ExerciseDto> exerciseList = exerciseDao.getExerciseList(exerciseTo);
 
         try {
@@ -71,27 +71,46 @@ public class ExerciseService {
         }
     }
 
-    @Transactional
-    public ResultDto insertExercise( Exercise exercise ) {
+
+    public ResultDto insertExercise(ExerciseResponseDto exerciseResponseDto , Long memSeq ) {
+        Member member = memberRepository.findByMemSeq(memSeq)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        ExerciseList exerciseInfo = exerciseListRepository.findByEcSeq(exerciseResponseDto.getEcSeq())
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.ALREADY_DELETED_ELEMENT));
+
+        Exercise exercise = Exercise.builder()
+                .elDate(exerciseResponseDto.getElDate())
+                .elTime(exerciseResponseDto.getElTime())
+                .exerciseList(exerciseInfo)
+                .member(member)
+                .build();
+
+
         return performExerciseOperation( exercise, "운동 입력에 성공했습니다.", CustomExceptionCode.INSERT_FAIL );
     }
 
-    @Transactional
-    public ResultDto updateExercise( Exercise exercise ) {
-        return performExerciseOperation( exercise, "운동 수정에 성공하였습니다.", CustomExceptionCode.UPDATE_FAIL );
-    }
+//    @Transactional
+//    public ResultDto updateExercise( Exercise exercise ) {
+//        return performExerciseOperation( exercise, "운동 수정에 성공하였습니다.", CustomExceptionCode.UPDATE_FAIL );
+//    }
 
-    @Transactional
-    public ResultDto deleteExercise( Exercise exercise ) {
-        System.out.println("exercise delete service >> : " + exercise.getElSeq() );
+
+    public ResultDto deleteExercise( ExerciseResponseDto exerciseResponseDto, Long memSeq ) {
+        Member member = memberRepository.findByMemSeq(memSeq)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        Exercise exercise = Exercise.builder()
+                .elSeq(exerciseResponseDto.getElSeq())
+                .member(member)
+                .build();
+
         return performExerciseOperation( exercise, "운동 삭제에 성공하였습니다.", CustomExceptionCode.DELETE_FAIL );
     }
 
 
     private ResultDto performExerciseOperation( Exercise exercise, String successMessage, CustomExceptionCode exceptionCode ) {
-        if ( exercise.getMemSeq() == null ) {
-            throw new CustomException( CustomExceptionCode.NOT_FOUND_USER );
-        }
+
         try {
             if ( exceptionCode == CustomExceptionCode.DELETE_FAIL ) {
                 // 삭제 작업 수행

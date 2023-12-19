@@ -35,11 +35,10 @@ public class TestAnswerService {
                 .build();
     }
 
-    public ResultDto stressAnswer(TestAnswerDto testAnswerDto, String id) {
+    public ResultDto stressAnswer(Long memSeq, TestAnswerDto testAnswerDto) {
         int testSeq = 1;
-        id = "aaa";
 
-        Member member = memberRepository.findByMemId(id)
+        Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         if (testSeq != 1) {
@@ -60,11 +59,9 @@ public class TestAnswerService {
         }
     }
 
-    public ResultDto depressionAnswer(TestAnswerDto testAnswerDto, String id) {
+    public ResultDto depressionAnswer(Long memSeq, TestAnswerDto testAnswerDto) {
         int testSeq = 2;
-        id = "aaa";
-
-        Member member = memberRepository.findByMemId(id)
+        Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         if (testSeq != 2) {
@@ -86,7 +83,7 @@ public class TestAnswerService {
     }
 
     public ResultDto getAllStressAnswer(Long memSeq, int testSeq) {
-        Member member = memberRepository.findById(memSeq)
+        Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         TestAnswer testAnswer = testAnswerRepository.findByMemberAndTestSeq(member, testSeq);
@@ -97,7 +94,7 @@ public class TestAnswerService {
     }
 
     public ResultDto getAllDepressionAnswer(Long memSeq, int testSeq) {
-        Member member = memberRepository.findById(memSeq)
+        Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         TestAnswer testAnswer = testAnswerRepository.findByMemberAndTestSeq(member, testSeq);
@@ -107,8 +104,8 @@ public class TestAnswerService {
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "우울증 테스트 답변 조회 성공", map);
     }
 
-    public ResultDto updateStressAnswer(TestAnswerDto testAnswerDto, Long memSeq, int testSeq) {
-        Member member = memberRepository.findById(memSeq)
+    public ResultDto updateStressAnswer(Long memSeq, TestAnswerDto testAnswerDto, int testSeq) {
+        Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         // 기존 데이터를 찾기
@@ -131,8 +128,8 @@ public class TestAnswerService {
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "스트레스 테스트 답변 수정 완료", map);
     }
 
-    public ResultDto updateDepressionAnswer(TestAnswerDto testAnswerDto, Long memSeq, int testSeq) {
-        Member member = memberRepository.findById(memSeq)
+    public ResultDto updateDepressionAnswer(Long memSeq, TestAnswerDto testAnswerDto, int testSeq) {
+        Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         TestAnswer testAnswer = testAnswerRepository.findByMemberAndTestSeq(member, testSeq);

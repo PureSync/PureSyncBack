@@ -1,0 +1,38 @@
+package com.fcc.PureSync.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.fcc.PureSync.entity.Menu;
+
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+public class MenuResponseDto {
+    private Long menuSeq;
+    private String menuDate;
+    private Integer menuWhen;
+    private Double menuGram;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime menuWdate = LocalDateTime.now();
+    private Long memSeq;
+    private Long foodSeq;
+
+    public static MenuResponseDto toDto(Menu menu) {
+        return MenuResponseDto.builder()
+                .menuSeq(menu.getMenuSeq())
+                .menuDate(menu.getMenuDate())
+                .menuWhen(menu.getMenuWhen())
+                .menuGram(menu.getMenuGram())
+                .menuWdate(menu.getMenuWdate())
+                .memSeq(menu.getMember().getMemSeq())
+                .foodSeq(menu.getFood().getFoodSeq())
+                .build();
+    }
+
+}

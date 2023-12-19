@@ -2,7 +2,7 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.QnaBoardDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.QnaBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -17,48 +17,51 @@ import java.util.List;
 @RequestMapping("/api/qnaBoard")
 @RequiredArgsConstructor
 public class QnaBoardController {
-
     private final QnaBoardService qnaBoardService;
-    private final MemberRepository memberRepository;
 
     /**
      * 등록
      */
     @PostMapping
-    public ResultDto createQnaBoard(QnaBoardDto qnaBoardDto, String memSeqStr, List<MultipartFile> file) throws IOException {
-        return qnaBoardService.createQnaBoard(qnaBoardDto, memSeqStr, file);
+    public ResultDto createQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, QnaBoardDto qnaBoardDto, List<MultipartFile> file) throws IOException {
+        String memId = customUserDetails.getUsername();
+        return qnaBoardService.createQnaBoard(memId, qnaBoardDto, file);
     }
 
     /**
      * 수정
      */
     @PutMapping("/{qnaBoardSeq}")
-    public ResultDto updateQnaBoard(@PathVariable Long qnaBoardSeq, QnaBoardDto qnaBoardDto, String id, List<MultipartFile> file) throws IOException {
-        return qnaBoardService.updateQnaBoard(qnaBoardSeq, qnaBoardDto, id, file);
+    public ResultDto updateQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq, QnaBoardDto qnaBoardDto, List<MultipartFile> file) throws IOException {
+        String memId = customUserDetails.getUsername();
+        return qnaBoardService.updateQnaBoard(memId, qnaBoardSeq, qnaBoardDto, file);
     }
 
     /**
      * 삭제
      */
     @DeleteMapping("/{qnaBoardSeq}")
-    public ResultDto deleteQnaBoard(@PathVariable Long qnaBoardSeq, @AuthenticationPrincipal String memSeqStr) {
-        return qnaBoardService.deleteQnaBoard(qnaBoardSeq, memSeqStr);
+    public ResultDto deleteQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq) {
+        String memId = customUserDetails.getUsername();
+        return qnaBoardService.deleteQnaBoard(memId, qnaBoardSeq);
     }
 
     /**
      * 조회(단일)
      */
     @GetMapping("/{qnaBoardSeq}")
-    public ResultDto detailQnaBoard(@PathVariable Long qnaBoardSeq, String id) {
-        return qnaBoardService.detailQnaBoard(qnaBoardSeq, id);
+    public ResultDto detailQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq) {
+        String memId = customUserDetails.getUsername();
+        return qnaBoardService.detailQnaBoard(memId, qnaBoardSeq);
     }
 
     /**
      * 조회(전체)
      */
     @GetMapping
-    public ResultDto getAllQnaBoards(Pageable pageable, String id) {
-        return qnaBoardService.findAllQnaBoard(pageable, id);
+    public ResultDto getAllQnaBoards(@AuthenticationPrincipal CustomUserDetails customUserDetails, Pageable pageable) {
+        String memId = customUserDetails.getUsername();
+        return qnaBoardService.findAllQnaBoard(memId, pageable);
 
     }
 
@@ -66,8 +69,11 @@ public class QnaBoardController {
      * 파일 조회
      */
     @GetMapping("/{qnaBoardSeq}/file")
-    public ResultDto getQnaBoardFile(@PathVariable Long qnaBoardSeq, Pageable pageable){
-        return qnaBoardService.findFileChk(qnaBoardSeq, pageable);
+    public ResultDto getQnaBoardFile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq, Pageable pageable){
+        String memId = customUserDetails.getUsername();
+        return qnaBoardService.findFileChk(memId, qnaBoardSeq, pageable);
     }
+
+
 
 }

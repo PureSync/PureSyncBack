@@ -33,7 +33,7 @@ public class QnaCommentDao {
         sm.update("qnaCommentUpdate", adminQnaBoardDto);
     }
 
-    public void qnaCommentDelete( AdminQnaBoardDto adminQnaBoardDto ) {
-        sm.delete("qnaCommentDelete", adminQnaBoardDto);
+    public void qnaCommentDelete(Long qnaCmtSeq) {
+        sm.delete("qnaCommentDelete", qnaCmtSeq);
     }
 }

@@ -18,4 +18,6 @@ public class ExerciseList {
 
     private String ecName;
     private Double ecCalc;
+
+
 }

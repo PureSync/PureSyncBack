@@ -35,10 +35,11 @@ public class AdminService {
     */
 
     public Member adminLogin(LoginDto loginDto) {
+        System.out.println("ddddddddddddddddddddddddddddddddddddddd");
         String memId = loginDto.getMemId();
         String password = loginDto.getMemPassword();
         Member member = memberRepository.findByMemId(memId).orElseThrow(()->new CustomException(CustomExceptionCode.NOT_FOUND_USER_ID));
-        if(!passwordEncoder.matches(member.getMemPassword(), password))
+        if(!passwordEncoder.matches(password,member.getMemPassword()))
             throw  new CustomException(CustomExceptionCode.NOT_FOUND_USER_PW);
         if(UserRoleConfig.UserRole.ADMIN.getLevel()!=member.getMemStatus())
             throw new CustomException(CustomExceptionCode.UNAUTHORIZED_ACCESS);

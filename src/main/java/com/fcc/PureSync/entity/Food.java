@@ -5,11 +5,12 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+
 @Getter
-@Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name="tb_food")
 public class Food {
     @Id

@@ -19,7 +19,7 @@ public class MemberInfoUpdateDto {
     public static MemberInfoUpdateDto entityToDto(Body body) {
         return MemberInfoUpdateDto.builder()
                 .bodyHeight(body.getBodyHeight())
-                .bodyWeight(body.getBodyWishWeight())
+                .bodyWeight(body.getBodyWeight())
                 .bodyWishWeight(body.getBodyWishWeight())
                 .bodyWishConscal(body.getBodyWishConscal())
                 .bodyWishBurncal(body.getBodyWishBurncal())

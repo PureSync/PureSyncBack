@@ -22,7 +22,7 @@ public class Menu {
     @Builder.Default
     private LocalDateTime menuWdate = LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mem_seq")
     Member member;
 
@@ -31,4 +31,7 @@ public class Menu {
     Food food;
     //    private Long memSeq;
     //      private Long foodSeq;
+
+
+
 }
