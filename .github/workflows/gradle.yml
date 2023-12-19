@@ -30,7 +30,16 @@ jobs:
         distribution: 'temurin'
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
- 
+    
+    - name: Copy Secret
+      env:
+          OCCUPY_SECRET: ${{ secrets.OCCUPY_SECRET }}
+          OCCUPY_SECRET_DIR: src/main/resources
+          OCCUPY_SECRET_TEST_DIR: src/test/java/com/fcc/PureSync
+          OCCUPY_SECRET_DIR_FILE_NAME: application-secret.properties
+      run: |
+          echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME && 
+          echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_TEST_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
