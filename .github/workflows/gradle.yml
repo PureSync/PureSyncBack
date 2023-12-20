@@ -66,5 +66,5 @@ jobs:
         key: ${{ secrets.WAS_KEY }} # pem key
         script: |
           sudo docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose.yml up -d
-          /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
+          chmod +x ./deploy.sh && /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
           docker image prune -f
