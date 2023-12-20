@@ -72,7 +72,7 @@ jobs:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.WAS_KEY }} # pem key
           port: 22
-          source: "docker/deploy.sh,docker/docker-compose-app.yml"
+          source: "docker/deploy.sh,docker/docker-compose.yml"
           target: "/home/${{ secrets.WAS_USERNAME }}"
 
       - name: deploy
@@ -82,8 +82,6 @@ jobs:
           username: ${{ secrets.WAS_USERNAME }} # ubuntu
           key: ${{ secrets.WAS_KEY }} # pem key
           script: |
-            sudo chmod 666 /var/run/docker.sock
-            chmod +x /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
-            sudo docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
+            sudo docker-compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose.yml up -d
             /home/${{ secrets.WAS_USERNAME }}/docker/deploy.sh
             docker image prune -f
