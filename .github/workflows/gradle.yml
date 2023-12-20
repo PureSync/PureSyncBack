@@ -72,7 +72,7 @@ jobs:
           host: ${{ secrets.WAS_HOST }}
           key: ${{ secrets.WAS_KEY }} # pem key
           port: 22
-          source: "docker/deploy.sh,docker/docker-compose-app.yml,docker/docker-compose-redis.yml"
+          source: "docker/deploy.sh,docker/docker-compose-app.yml"
           target: "/home/${{ secrets.WAS_USERNAME }}"
 
       - name: deploy
