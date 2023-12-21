@@ -71,7 +71,7 @@ jobs:
           sudo docker stop redis_fcc || true
           sudo docker rm redis_fcc || true
           # Redis 데이터를 보존하는 Docker 볼륨 사용
-          sudo docker run -d --name redis_fcc -p 6379:6379 -v ./redis/data:/data redis:latest
+          sudo docker run -d --name redis_fcc -p 6379:6379 -v ./redis/data:/data redis_container
           sudo docker compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
           /home/ubuntu/docker/cleaner.sh
           sudo docker compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose.yml up -d
