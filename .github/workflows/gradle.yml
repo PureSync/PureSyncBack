@@ -58,3 +58,12 @@ jobs:
         docker build --build-arg JAR_FILE=build/libs/*.jar -t $REPO . 
         docker tag $REPO:latest $NAME/$REPO:latest 
         docker push $NAME/$REPO:latest
+    - name: deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.WAS_HOST }}
+        username: ${{ secrets.WAS_USERNAME }} # ubuntu
+        key: ${{ secrets.WAS_KEY }} # pem key
+        script: |
+          sudo docker compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose.yml up -d
+          docker image prune -f
