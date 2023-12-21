@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,8 +21,8 @@ public class AdminQnaBoardController {
     private final AdminQnaBoardService adminQnaBoardService;
 
     @GetMapping("/admin/qna/list/{pg}")
-    public String qnaBoardList(Model model, AdminQnaBoardDto adminQnaBoardDto, @PathVariable("pg") int pg) {
-        String searchText = URLDecoder.decode( adminQnaBoardDto.getSearchText() );
+    public String qnaBoardList(Model model, AdminQnaBoardDto adminQnaBoardDto, @PathVariable("pg") int pg)  {
+        String searchText = URLDecoder.decode(adminQnaBoardDto.getSearchText(), StandardCharsets.UTF_8);
         if( searchText == null ) {
             searchText = " ";
         }

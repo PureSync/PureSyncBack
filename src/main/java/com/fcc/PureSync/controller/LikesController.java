@@ -24,16 +24,22 @@ public class LikesController {
         return likeService.createLike(boardSeq, id);
     }
 
-    @GetMapping("{boardSeq}/likes")
-    public ResultDto findLike(@PathVariable Long boardSeq, @AuthenticationPrincipal CustomUserDetails customUserDetails ){
-        String id = customUserDetails.getUsername();
-        return likeService.findLike(boardSeq,id);
-    }
+//    @GetMapping("{boardSeq}/likes")
+//    public ResultDto findLike(@PathVariable Long boardSeq, @AuthenticationPrincipal CustomUserDetails customUserDetails ){
+//        String id = customUserDetails.getUsername();
+//        return likeService.findLike(boardSeq,id);
+//    }
+//
+//    @GetMapping("{boardSeq}/mylikes")
+//    public ResultDto findMyLike(@PathVariable Long boardSeq,@AuthenticationPrincipal CustomUserDetails customUserDetails){
+//        String id = customUserDetails.getUsername();
+//        return likeService.findMyLike(boardSeq,id);
+//    }
 
-    @GetMapping("{boardSeq}/mylikes")
-    public ResultDto findMyLike(@PathVariable Long boardSeq,@AuthenticationPrincipal CustomUserDetails customUserDetails){
-        String id = customUserDetails.getUsername();
-        return likeService.findMyLike(boardSeq,id);
+    @PostMapping("/{boardSeq}/boardLikes")
+    public ResultDto boardLikes(@PathVariable Long boardSeq,@AuthenticationPrincipal CustomUserDetails customUserDetails){
+        String memId = customUserDetails.getMember().getMemId();
+        return likeService.boardLikes(boardSeq,memId);
     }
 
 

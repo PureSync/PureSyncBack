@@ -112,4 +112,43 @@ public class LikesService {
         map.put("findMyLikes", findMyLikes);
         return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "좋아요 개수 확인", map);
     }
+
+    public ResultDto boardLikes(Long boardSeq, String memId) {
+        //보드 시퀀스로 보드 아이디를 보드 정보를 반환 clear
+        Board board = boardRepository.findById(boardSeq)
+                .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_ARTICLE));
+
+        //유저로 유정 정보 가져오기
+        Member member = memberRepository.findByMemId(memId).orElseThrow(()->new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+        //전체 좋아요 수 구하기
+        Long totalBoardLikes = boardRepository.countLikesByBoard(board);
+
+        //해당 보드의 좋아요 객체 정보 가져오기
+        Likes findLike = likesRepository.findByMemberAndBoard(member, board);
+
+        //멤버객체와 보드 객체로 보드의 좋아요 총 수 구하기 1또는 0
+        Long findMyLikes = likesRepository.countByMemberAndBoard(member, board);
+
+        System.out.println("findMyLikes::::::::::" + findMyLikes);
+        System.out.println("totalBoardLikes::::::::::" + totalBoardLikes);
+
+        //정보가 있을 때 삭제
+        if(findMyLikes==1)
+            likesRepository.delete(findLike);
+
+        //정보가 없을 때 등록
+        if(findMyLikes==0) {
+            Likes updatesLikes = Likes.builder()
+                            .member(member)
+                            .board(board)
+                            .build();
+            likesRepository.save(updatesLikes);
+        }
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("totalBoardLikes", totalBoardLikes);
+        map.put("findMyLikes", findMyLikes);
+        return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "좋아요 개수 확인", map);
+    }
 }

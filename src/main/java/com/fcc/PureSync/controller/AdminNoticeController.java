@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class AdminNoticeController {
 
     @GetMapping("/admin/notice/list/{pg}")
     public String adminBoardList(Model model, NoticeDto noticeDto , @PathVariable("pg") int pg) {
-        String searchText = URLDecoder.decode( noticeDto.getSearchText() );
+        String searchText = URLDecoder.decode( noticeDto.getSearchText(), StandardCharsets.UTF_8 );
         if( searchText == null ) {
             searchText = " ";
         }
