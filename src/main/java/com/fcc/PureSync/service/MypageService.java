@@ -82,30 +82,25 @@ public class MypageService {
         Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-//        Pageable pageable = PageRequest.of(pageNo, 10, Sort.by(Sort.Direction.DESC, criteria));
-//        Page<ReviewResponseDto> page = reviewRepository.findAll(pageable).map(ReviewResponseDto::from);
+        Pageable pageable = PageRequest.of(pageNo, 10, Sort.by(Sort.Direction.DESC, "boardWdate"));
+        Page<BoardDto> likePostList = boardRepository.findAllByLikes_Member_MemSeqAndBoardStatusIsNotOrderByBoardWdateDesc(member.getMemSeq(), 0, pageable)
+                .map(BoardDto::BoardAllDetailDto);
 
-
-        List<Board> likePostList = boardRepository.findBoardsByMemberLikes(member.getMemSeq());
-
-        List<BoardDto> postDtoList = likePostList.stream()
-                .map(BoardDto::BoardAllDetailDto)
-                .toList();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("likePostList", postDtoList);
+        map.put("likePostList", likePostList);
 
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "좋아요 글 전체 조회 성공", map);
     }
 
     /*
-    * 회원정보 업데이트 (기본 : 닉네임, 프로필이미지, 닉네임+프로필이미지)
-    * */
+     * 회원정보 업데이트 (기본 : 닉네임, 프로필이미지, 닉네임+프로필이미지)
+     * */
     public ResultDto updateMemberInfo(Long memSeq, MemberInfoDto dto, MultipartFile file) {
         HashMap<String, Object> map = new HashMap<>();
         Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
-        
+
         MemberInfoDto result = null;
         if (file == null || file.getOriginalFilename() == null) { // 파일 미존재 (닉네임만 업데이트 하는경우)
             System.out.println("닉네임만 업데이트 해옹~");

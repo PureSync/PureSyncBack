@@ -25,8 +25,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     Page<Board> findAllByMemberAndBoardStatusIsNotOrderByBoardWdateDesc(Member member, Integer status, Pageable pageable);
 
-
-    @Query("SELECT bd FROM Board bd JOIN Likes li ON bd.boardSeq = li.board.boardSeq WHERE li.member.memSeq = :memSeq " +
-            "order by bd.boardWdate desc")
-    List<Board> findBoardsByMemberLikes(@Param("memSeq") Long memSeq);
+    @Query("SELECT bd FROM Board bd JOIN Likes li ON bd.boardSeq = li.board.boardSeq WHERE li.member.memSeq = :memSeq AND bd.boardStatus <> :status ORDER BY bd.boardWdate DESC")
+    Page<Board> findAllByLikes_Member_MemSeqAndBoardStatusIsNotOrderByBoardWdateDesc(@Param("memSeq") Long memSeq, @Param("status") Integer status, Pageable pageable);
 }
