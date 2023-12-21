@@ -65,5 +65,5 @@ jobs:
         username: ${{ secrets.WAS_USERNAME }} # ubuntu
         key: ${{ secrets.WAS_KEY }} # pem key
         script: |
+          /home/ubuntu/docker/cleaner.sh
           sudo docker compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose.yml up -d
-          docker image prune -f
