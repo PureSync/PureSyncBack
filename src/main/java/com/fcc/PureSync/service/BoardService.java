@@ -297,6 +297,7 @@ public class BoardService {
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시판 조회 성공", map);
     }
 
+    //쿼리문 수정 필요. N+1 문제
     public ResultDto findAllBoard(Pageable pageable, String id) {
         List<Board> boardPage = boardRepository.findByBoardStatusNotOrderByBoardWdateDesc(0, pageable).getContent();
         List<BoardDto> boardDetailDtoList = boardPage.stream()
@@ -310,6 +311,7 @@ public class BoardService {
         map.put("totalPages",totalPages);
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시판 전체 조회 성공", map);
     }
+
 
     public ResultDto findFileChk(Long boardSeq, Pageable pageable) {
         Board board = boardRepository.findById(boardSeq)

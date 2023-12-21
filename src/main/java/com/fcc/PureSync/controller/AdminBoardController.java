@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class AdminBoardController {
 
     @GetMapping("admin/user/list/{pg}")
     public String userBoardList(Model model, AdminBoardDto adminBoardDto , @PathVariable("pg") int pg) {
-        String searchText = URLDecoder.decode( adminBoardDto.getSearchText() );
+        String searchText = URLDecoder.decode( adminBoardDto.getSearchText(), StandardCharsets.UTF_8 );
             if( searchText == null ) {
                 searchText = " ";
             }
@@ -41,7 +43,7 @@ public class AdminBoardController {
 
     @GetMapping("/admin/cmt/list/{pg}")
     public String adminCmtList(Model model, AdminBoardDto adminBoardDto , @PathVariable("pg") int pg) {
-        String searchText = URLDecoder.decode( adminBoardDto.getSearchText() );
+        String searchText = URLDecoder.decode( adminBoardDto.getSearchText(), StandardCharsets.UTF_8 );
         if( searchText == null ) {
             searchText = " ";
         }
