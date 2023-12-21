@@ -147,11 +147,7 @@ public class MemberService {
         Member member = memberRepository.findByMemEmail(findPasswordDto.getMemEmail()).orElseThrow(() -> new CustomException(NOT_FOUND_EMAIL));
         String newPassword = RandomStringGenerator.generateRandomPassword(12);
         updateTemporaryPassword(member, newPassword);
-        Instant beforesearchPasswordmailService = Instant.now();
         mailService.sendTemporaryPassword(findPasswordDto.getMemEmail(), newPassword);
-        Instant aftersearchPasswordmailService = Instant.now();
-        long sendMail = Duration.between(beforesearchPasswordmailService, aftersearchPasswordmailService).toMillis();
-        System.out.println("메일 전송 실행 시간(ms): " + sendMail);
         return handleResultDtoFromFindPassword();
     }
 
@@ -184,9 +180,11 @@ public class MemberService {
     }
 
     private ResultDto getResultDtoToDuplicate(String msg) {
+        HashMap<String,Object> resultMap = new HashMap<>();
         return ResultDto.builder()
                 .code(HttpStatus.OK.value())
                 .httpStatus(HttpStatus.OK)
+                .data(resultMap)
                 .message(msg)
                 .build();
     }

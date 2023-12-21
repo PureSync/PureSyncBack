@@ -1,36 +1,36 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>PureSync Admin</title>
-   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+   <th:block th:include="~{fragments/styles :: styleFragment}"></th:block>
    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="layout-light side-menu">
-   <div th:replace="~{/fragments/header :: headerFragment}"></div>
+   <div th:replace="~{fragments/header :: headerFragment}"></div>
    <main class="main-content">
-      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+      <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
 
       <div class="contents">
 
 
-         <div class="job-apply mt-md-20">
+         <div class="job-apply">
             <div class="container-fluid">
                <div class="row">
                   <div class="col-lg-12">
 
                      <div class="breadcrumb-main">
-                        <h4 class="text-capitalize breadcrumb-title">공지 글 쓰기</h4>
+                        <h4 class="text-capitalize breadcrumb-title">공지게시판 관리</h4>
                         <div class="breadcrumb-action justify-content-center flex-wrap">
                            <nav aria-label="breadcrumb">
                               <ol class="breadcrumb">
-                                 <li class="breadcrumb-item"><a href="/index"><i class="uil uil-estate"></i>main</a></li>
-                                 <li class="breadcrumb-item"><a href="/admin/notice/list/0">userBoardList</a></li>
-                                 <li class="breadcrumb-item active" aria-current="page">adminBoardWrite</li>
+                                 <li class="breadcrumb-item"><a href="index"><i class="uil uil-estate"></i>메인 </a></li>
+                                 <li class="breadcrumb-item"><a href="/admin/notice/list/0">공지게시판 관리</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">공지게시판 공지 작성</li>
                               </ol>
                            </nav>
                         </div>
@@ -38,13 +38,10 @@
 
                   </div>
                </div>
-               <div class="row justify-content-center mt-md-25">
-                  <div class="col-xl-6">
+               <div class="row">
+                  <div class="col-12">
                      <div class="job-apply-wrapper">
                         <div class="job-apply__content">
-                           <h1>
-                              공지 글 쓰기
-                           </h1>
                            <form>
                               <div class="form-group">
                                  <label>제목</label>
@@ -69,7 +66,7 @@
          </div>
 
       </div>
-      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+      <div th:replace="~{fragments/footer :: footerFragment}"></div>
    </main>
    <div id="overlayer">
       <div class="loader-overlay">
@@ -84,7 +81,7 @@
    <div class="overlay-dark-sidebar"></div>
    <div class="customizer-overlay"></div>
 
-   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+   <th:block th:include="~{fragments/scripts :: scriptFragment}"></th:block>
 </body>
 
 </html>

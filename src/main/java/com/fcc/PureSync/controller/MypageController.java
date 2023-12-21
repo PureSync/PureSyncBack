@@ -7,6 +7,7 @@ import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.MypageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,14 +29,18 @@ public class MypageController {
 
     // 내가쓴글
     @GetMapping("/posts")
-    public ResultDto myPosts(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        return mypageService.getPosts(customUserDetails.getMemSeq());
+    public ResultDto myPosts(
+            @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        return mypageService.getPosts(pageNo, customUserDetails.getMemSeq());
     }
 
     // 좋아요누른글
     @GetMapping("/liked-posts")
-    public ResultDto myPostsLikes(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-        return mypageService.myPostsLikes(customUserDetails.getMemSeq());
+    public ResultDto myPostsLikes(
+            @RequestParam(required = false, defaultValue = "0", value = "page") int pageNo,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        return mypageService.myPostsLikes(pageNo, customUserDetails.getMemSeq());
     }
 
     // 내정보 업데이트 (기본정보 - 닉네임, 이미지)

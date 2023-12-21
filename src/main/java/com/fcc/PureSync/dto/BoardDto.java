@@ -50,7 +50,7 @@ public class BoardDto {
 
     public static BoardDto BoardDetailDto(Board board) {
         List<CommentDto> commentDtoList = board.getComments().stream()
-                .filter(Comment-> Comment.getCmtStatus()== 1)
+                .filter(Comment-> Comment.getCmtStatus()!= 0)
                 .map(CommentDto::toDto)
                 .sorted(Comparator.comparing(CommentDto::getCmtWdate).reversed())
                 .toList();

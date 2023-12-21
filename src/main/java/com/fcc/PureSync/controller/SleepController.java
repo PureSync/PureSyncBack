@@ -18,7 +18,7 @@ public class SleepController {
 
     private final SleepService sleepService;
 
-    @PostMapping("/save")
+    @PostMapping
     public ResultDto createSleep(@RequestBody SleepDto sleepDto, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         String id = customUserDetails.getUsername();
         return sleepService.createSleep(sleepDto, id);
@@ -31,14 +31,14 @@ public class SleepController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping
     public ResultDto getAllMySleep(Pageable pageable , @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         String id = customUserDetails.getUsername();
         return sleepService.findAllMySleep(pageable,id);
 
     }
 
-    @DeleteMapping("/delete/{sleepSeq}")
+    @DeleteMapping("/{sleepSeq}")
     public ResultDto deleteSleep(@PathVariable Long sleepSeq, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         String id = customUserDetails.getUsername();
         return sleepService.deleteSleep(sleepSeq, id);

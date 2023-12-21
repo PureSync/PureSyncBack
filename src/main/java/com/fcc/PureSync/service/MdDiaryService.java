@@ -70,7 +70,8 @@ public class MdDiaryService {
         MdDiary mdDiary = dtoToEntity(dto, customUserDetails.getMemSeq());
         mdDiaryRepository.save(mdDiary);
         HashMap<String, Object> data = new HashMap<>();
-        data.put("mdDiary", mdDiary);
+        data.put("mdDiary", entityToDto(mdDiary));
+        data.put("memberId", customUserDetails.getUsername());
 
         ResultDto resultDto = buildResultDto(201, HttpStatus.CREATED, "insert Complete", data);
 
@@ -94,7 +95,7 @@ public class MdDiaryService {
 
         mdDiaryRepository.save(updatedMdDiary);
         HashMap<String, Object> data = new HashMap<>();
-        data.put("mdDiary", updatedMdDiary);
+        data.put("mdDiary", entityToDto(updatedMdDiary));
         ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "update Complete", data);
 
         return resultDto;
@@ -116,7 +117,7 @@ public class MdDiaryService {
 
         mdDiaryRepository.save(deletedMdDiary);
         HashMap<String, Object> data = new HashMap<>();
-        data.put("mdDiary", deletedMdDiary);
+        data.put("mdDiary", entityToDto(deletedMdDiary));
         ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "delete Complete", data);
 
         return resultDto;

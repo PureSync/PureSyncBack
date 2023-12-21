@@ -76,6 +76,7 @@ public enum CustomExceptionCode {
     NOT_FOUND_WHEN(HttpStatus.NOT_FOUND, "언제 섭취했는지 when 칼럼 입력이 누락되었습니다."),
 
     NOT_FOUND_MENU(HttpStatus.NOT_FOUND, "잘못된 데이터를 보냈습니다."),
+    NOT_FOUND_NOTICELIST(HttpStatus.NOT_FOUND, "잘못된 데이터를 보냈습니다."),
     NOT_FOUND_EXERCISE(HttpStatus.NOT_FOUND, "잘못된 데이터를 보냈습니다."),
 
     /*

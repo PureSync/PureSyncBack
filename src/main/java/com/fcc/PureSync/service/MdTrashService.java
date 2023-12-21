@@ -54,7 +54,8 @@ public class MdTrashService {
         MdTrash mdTrash = dtoToEntity(dto, customUserDetails.getMemSeq());
         mdTrashRepository.save(mdTrash);
         HashMap<String, Object> data = new HashMap<>();
-        data.put("mdTrash", mdTrash);
+        data.put("mdTrash", entityToDto(mdTrash));
+        data.put("memId", customUserDetails.getUsername());
 
         ResultDto resultDto = buildResultDto(201, HttpStatus.CREATED, "insert Complete", data);
 
@@ -74,7 +75,7 @@ public class MdTrashService {
 
         mdTrashRepository.save(deletedMdTrash);
         HashMap<String, Object> data = new HashMap<>();
-        data.put("mdTrash", deletedMdTrash);
+        data.put("mdTrash", entityToDto(deletedMdTrash));
 
         ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "delete Complete", data);
 

@@ -1,12 +1,12 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>PureSync Admin</title>
-   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+   <th:block th:insert="~{/fragments/styles :: styleFragment}"></th:block>
 </head>
 
 <body class="layout-light side-menu">
@@ -300,7 +300,7 @@
 </div>
 <div class="overlay-dark-sidebar"></div>
 <div class="customizer-overlay"></div>
-<th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+<th:block th:insert="~{/fragments/scripts :: scriptFragment}"></th:block>
 </body>
 </html>
 <script>

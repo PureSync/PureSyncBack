@@ -41,7 +41,6 @@ public class MailService {
         String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.LOCAL_DOMAIN, linkCode,newMemberEmail);
         verificationCodeDao.saveVerificationCode(newMemberEmail, linkCode);
         sendMail(newMemberEmail, EmailConstant.EMAIL_TITLE, txt);
-
     }
 
     //링크 코드 비교
@@ -92,6 +91,7 @@ public class MailService {
         } catch (Exception e) {
             e.printStackTrace();
             throw new CustomException(SEND_ERROR);
+
         }
     }
 

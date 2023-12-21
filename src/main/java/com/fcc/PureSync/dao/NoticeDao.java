@@ -20,6 +20,11 @@ public class NoticeDao {
         return list;
     }
 
+    public List<NoticeDto> getNoticeListTopThree( NoticeDto noticeDto ) {
+        List<NoticeDto> list = sm.selectList("getNoticeBoardTopThree", noticeDto);
+        return list;
+    }
+
     public int getNoticeTotalcnt(NoticeDto noticeDto) {
         return sm.selectOne("Notice_getTotalCnt", noticeDto);
     }

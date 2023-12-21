@@ -19,13 +19,11 @@ public class AdminController {
     @AuthenticationPrincipal CustomUserDetails customUserDetails
     customUserDetails.get 하면
     만들어 놓은 메소드로 memSeq memId memEmail을 가져올 수 있습니다.
-
-
     */
     //로그인 페이지
-    @GetMapping("/login")
+    @GetMapping("/admin/login")
     public String adminMain() {
-        return "/member/login";
+        return "/login/login";
     }
 
 //    //로그인 기능

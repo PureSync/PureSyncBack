@@ -1,19 +1,19 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>PureSync Admin</title>
-   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+   <th:block th:insert="~{fragments/styles :: styleFragment}"></th:block>
 </head>
 
 <body class="layout-light side-menu">
    <div class="mobile-author-actions"></div>
-   <div th:replace="~{/fragments/header :: headerFragment}"></div>
+   <div th:replace="~{fragments/header :: headerFragment}"></div>
    <main class="main-content">
-      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+      <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
 
       <div class="contents">
 
@@ -24,13 +24,13 @@
                   <div class="col-lg-12">
 
                      <div class="breadcrumb-main">
-                        <h4 class="text-capitalize breadcrumb-title">유저 게시판 상세 보기</h4>
+                        <h4 class="text-capitalize breadcrumb-title">자유게시판 관리</h4>
                         <div class="breadcrumb-action justify-content-center flex-wrap">
                            <nav aria-label="breadcrumb">
                               <ol class="breadcrumb">
-                                 <li class="breadcrumb-item"><a href="/index"><i class="uil uil-estate"></i>main</a></li>
-                                 <li class="breadcrumb-item"><a href="/admin/userBoard/userList/0">userBoardList</a></li>
-                                 <li class="breadcrumb-item active" aria-current="page">userBoardView</li>
+                                 <li class="breadcrumb-item"><a href="index"><i class="uil uil-estate"></i>메인</a></li>
+                                 <li class="breadcrumb-item"><a href="/admin/user/list/0">자유게시판 관리</a></li>
+                                 <li class="breadcrumb-item active" aria-current="page">자유게시판 상세 보기</li>
                               </ol>
                            </nav>
                         </div>
@@ -39,34 +39,36 @@
                   </div>
                </div>
                <div class="row justify-content-center">
-                  <div class="col-lg-8 col-12">
-                     <article class="blog-details">
-                        <div class="blog-details-content">
-                           <h1 class="main-title mb-30" th:text="${userBoardView.board_name}" >제목</h1>
-                           <ul class="blog-details-meta">
-                              <li class="blog-author">
-                                   <!-- <img th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/fileUpload/' + ${userBoardView.mem_img}">  --> <!-- 프사 -->
-                                 </a>
-                                    <span th:text="${userBoardView.mem_id}" >작성자</span>
-                                 </a>
-                              </li>
-                              <li class="author-name">
-                                 <time class="entry-date published updated" th:text="${userBoardView.board_wdate}"></time><!-- 작성일 -->
-                                 </a>
-                              </li>
-                              <li class="blog-read-time">좋아요 <span th:text="${userBoardView.board_likescount}"></span></li>
-                           </ul>
-                           <div class="blog-body">
-                              <p class="mb-20" th:text="${userBoardView.board_contents}">
-                              </p>
+                  <div class="col-12 mb-30 ">
+                     <div class="support-ticket-system support-ticket-system--search mb-0" style="min-height: calc(100vh - 270px);">
+                        <article class="blog-details">
+                           <div class="blog-details-content">
+                              <h1 class="main-title mb-30" th:text="${userBoardView.board_name}" >제목</h1>
+                              <ul class="blog-details-meta">
+                                 <li class="blog-author">
+                                      <!-- <img th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/fileUpload/' + ${userBoardView.mem_img}">  --> <!-- 프사 -->
+                                    </a>
+                                       <span th:text="${userBoardView.mem_id}" >작성자</span>
+                                    </a>
+                                 </li>
+                                 <li class="author-name">
+                                    <time class="entry-date published updated" th:text="${userBoardView.board_wdate}"></time><!-- 작성일 -->
+                                    </a>
+                                 </li>
+                                 <li class="blog-read-time">좋아요 <span th:text="${userBoardView.board_likescount}"></span></li>
+                              </ul>
+                              <div class="blog-body">
+                                 <p class="mb-20" th:text="${userBoardView.board_contents}">
+                                 </p>
 
-                              <div class="blog-block-image mb-30 pb-10">
-                                 <figure th:each="file : ${fileList}">
-                                    <img class="img-fluid" th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/fileUpload/' + ${file.boardfile_name}">
-                                 </figure>
-                              </div>
-                              
-                     </article>
+                                 <div class="blog-block-image mb-30 pb-10">
+                                    <figure th:each="file : ${fileList}">
+                                       <img class="img-fluid" th:src="'https://fccbucket123.s3.ap-northeast-2.amazonaws.com/fileUpload/' + ${file.boardfile_name}">
+                                    </figure>
+                                 </div>
+
+                        </article>
+                     </div>
                   </div>
                </div>
                <!-- ends: .row -->
@@ -74,7 +76,7 @@
          </div>
 
       </div>
-      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+      <div th:replace="~{fragments/footer :: footerFragment}"></div>
    </main>
    <div id="overlayer">
       <div class="loader-overlay">
@@ -88,7 +90,7 @@
    </div>
    <div class="overlay-dark-sidebar"></div>
    <div class="customizer-overlay"></div>
-   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+   <th:block th:insert="~{fragments/scripts :: scriptFragment}"></th:block>
 </body>
 
 </html>

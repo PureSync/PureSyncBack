@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org%22%3E/"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/defaultLayout}">
+<script th:inline="javascript"></script>
 <body>
 <header class="header-top" th:fragment="headerFragment">
     <nav class="navbar navbar-light">
@@ -94,14 +99,16 @@
                                         </li>
                                         <li>
                                             <a href="chat.html" class="">
-                                                <img th:src="@{/img/svg/message-square.svg}" alt="message-square" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/message-square.svg}" alt="message-square"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text">Chat</span>
                                                 <span class="badge badge-success menuItem rounded-circle">3</span>
                                             </a>
                                         </li>
                                         <li class="has-subMenu-left">
                                             <a href="#" class="">
-                                                <img th:src="@{/img/svg/shopping-cart.svg}" alt="shopping-cart" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/shopping-cart.svg}" alt="shopping-cart"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text text-initial">eCommerce</span>
                                             </a>
                                             <ul class="subMenu">
@@ -194,7 +201,8 @@
                                         </li>
                                         <li class="has-subMenu-left">
                                             <a href="#" class="">
-                                                <img th:src="@{/img/svg/user-check.svg}" alt="user-check" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/user-check.svg}" alt="user-check"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text">Contact</span>
                                             </a>
                                             <ul class="subMenu">
@@ -208,13 +216,15 @@
                                         </li>
                                         <li>
                                             <a href="chat.html" class="">
-                                                <img th:src="@{/img/svg/bookmark.svg}" alt="bookmark" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/bookmark.svg}" alt="bookmark"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text">Note</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="chat.html" class="">
-                                                <img th:src="@{/img/svg/activity.svg}" alt="activity" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/activity.svg}" alt="activity"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text">To-Do</span>
                                             </a>
                                         </li>
@@ -224,7 +234,8 @@
                                     <ul>
                                         <li>
                                             <a href="kanban.html" class="">
-                                                <img th:src="@{/img/svg/columns.svg}" alt="columns" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/columns.svg}" alt="columns"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text">Kanban Board</span>
                                             </a>
                                         </li>
@@ -254,7 +265,8 @@
                                         </li>
                                         <li>
                                             <a href="task-app.html" class="">
-                                                <img th:src="@{/img/svg/clipboard.svg}" alt="clipboard" class="svg nav-icon">
+                                                <img th:src="@{/img/svg/clipboard.svg}" alt="clipboard"
+                                                     class="svg nav-icon">
                                                 <span class="menu-text">Task App</span>
                                             </a>
                                         </li>
@@ -348,7 +360,8 @@
                             <ul class="subMenu">
                                 <li class="has-subMenu-left">
                                     <a href="#" class="">
-                                        <img th:src="@{/img/svg/shopping-cart.svg}" alt="shopping-cart" class="svg nav-icon">
+                                        <img th:src="@{/img/svg/shopping-cart.svg}" alt="shopping-cart"
+                                             class="svg nav-icon">
                                         <span class="menu-text">Firestore Crud</span>
                                     </a>
                                     <ul class="subMenu">
@@ -394,7 +407,8 @@
                                 </li>
                                 <li class="has-subMenu-left">
                                     <a href="#" class="">
-                                        <img th:src="@{/img/svg/bar-chart-2.svg}" alt="bar-chart-2" class="svg nav-icon">
+                                        <img th:src="@{/img/svg/bar-chart-2.svg}" alt="bar-chart-2"
+                                             class="svg nav-icon">
                                         <span class="menu-text">Charts</span>
                                     </a>
                                     <ul class="subMenu">
@@ -821,15 +835,13 @@
         <div class="navbar-right">
             <ul class="navbar-right__menu">
                 <li class="nav-author">
-                    <div class="d-flex gap-3">
-                        <a href="javascript:;" class="nav-item-toggle">
-                            <span class="nav-item__title">어드민이름</span>
-                        </a>
-                        <a href="/logout" class="nav-author__signout p-1 bg-none">
+                    <div class="d-flex gap-3 align-center">
+                        <div sec:authorize="isAuthenticated()">
+                            <span sec:authentication="principal.member.memId">
+                            </span> 님 어서오세요.
+                        </div>
+                        <a href="/admin/logout" class="nav-author__signout p-1 bg-none">
                             <i class="uil uil-sign-out-alt"></i> 로그아웃
-                        </a>
-                        <a href="/login" class="nav-author__signin p-1 bg-none">
-                            <i class="uil uil-sign-in-alt"></i> 로그인
                         </a>
                     </div>
                 </li>
@@ -846,3 +858,6 @@
 </header>
 </body>
 </html>
+<script>
+
+</script>

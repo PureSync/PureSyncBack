@@ -17,6 +17,7 @@ public class NoticeDto extends BaseDto {
     private String notice_contents;
     private String notice_wdate;
     private String notice_writer;
+    private int rnum;
 
 
 }

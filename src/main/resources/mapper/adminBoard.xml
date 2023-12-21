@@ -5,26 +5,30 @@
 
 <mapper namespace="adminBoard">
     <select id="getAllUserBoardList" resultType="AdminBoardDto" parameterType="AdminBoardDto">
-    SELECT
-        b.board_seq, b.board_name, b.board_wdate,
-        m.mem_id,
-        CASE
-            WHEN b.board_status = 0 THEN '삭제'
-            WHEN b.board_status = 1 THEN '게시'
-            WHEN b.board_status = 2 THEN '관리자삭제'
-            ELSE '알 수 없음'
-        END AS board_status_text
-    FROM
-        tb_board AS b
-    LEFT OUTER JOIN
-        tb_member AS m
-    ON
-        b.mem_seq = m.mem_seq
-    WHERE
-        m.mem_id LIKE CONCAT('%', #{searchText}, '%')
-    ORDER BY
-        b.board_seq DESC
-    LIMIT #{start}, 10;
+        SELECT A.* FROM (
+            SELECT
+                b.board_seq, b.board_name, b.board_wdate,
+                m.mem_id,
+            CASE
+                    WHEN b.board_status = 0 THEN '삭제'
+                    WHEN b.board_status = 1 THEN '게시'
+                    WHEN b.board_status = 2 THEN '관리자삭제'
+                    ELSE '알 수 없음'
+                END AS board_status_text,
+                @rownum:=@rownum +1 AS rnum
+            FROM
+                tb_board AS b
+            INNER  JOIN (SELECT @rownum:=0) AS tmp
+            LEFT OUTER JOIN
+                tb_member AS m
+            ON
+                b.mem_seq = m.mem_seq
+            WHERE
+                m.mem_id LIKE CONCAT('%', #{searchText}, '%')
+            ORDER BY
+                b.board_seq DESC
+        ) A
+            LIMIT #{start}, 10
     </select>
 
     <select id="userBoardView" resultType="AdminBoardDto" parameterType="AdminBoardDto">
@@ -42,26 +46,30 @@
     </select>
 
     <select id="getAllUserCmtList" resultType="AdminBoardDto" parameterType="AdminBoardDto">
-        SELECT
-            c.cmt_seq, c.cmt_contents, c.cmt_wdate, c.cmt_status, c.mem_seq,
-            m.mem_id,
-        CASE
+        SELECT A.* FROM (
+            SELECT
+                c.cmt_seq, c.cmt_contents, c.cmt_wdate, c.cmt_status, c.mem_seq,
+                m.mem_id,
+            CASE
                 WHEN c.cmt_status = 0 THEN '삭제'
                 WHEN c.cmt_status = 1 THEN '게시'
                 WHEN c.cmt_status = 2 THEN '관리자삭제'
                 ELSE '알 수 없음'
-            END AS cmt_status_text
-        FROM
-            tb_comment AS c
-        LEFT OUTER JOIN
-            tb_member AS m
-        ON
-            c.mem_seq = m.mem_seq
-        WHERE
-            m.mem_id LIKE CONCAT('%', #{searchText}, '%')
-        ORDER BY
-            c.cmt_seq DESC
-        limit #{start}, 10
+                END AS cmt_status_text,
+                @rownum:=@rownum +1 AS cmtrnum
+            FROM
+                tb_comment AS c
+            INNER JOIN (SELECT @rownum:=0) AS tmp
+            LEFT OUTER JOIN
+                tb_member AS m
+            ON
+                c.mem_seq = m.mem_seq
+            WHERE
+                m.mem_id LIKE CONCAT('%%')
+            ORDER BY
+                c.cmt_seq DESC
+        ) A
+            LIMIT 0, 10;
     </select>
 
     <select id="Board_getTotalCnt" resultType="int" parameterType="AdminBoardDto" >

@@ -20,7 +20,7 @@ public class MdTrashController {
         return mdTrashService.getMdTrashList(customUserDetails);
     }
 
-    @GetMapping("{tsSeq}")
+    @GetMapping("/{tsSeq}")
     public ResultDto getMdTrash(@PathVariable Long tsSeq) {
         return mdTrashService.getMdTrash(tsSeq);
     }
@@ -30,7 +30,7 @@ public class MdTrashController {
         return mdTrashService.writeMdTrash(dto, customUserDetails);
     }
 
-    @DeleteMapping("{tsSeq}")
+    @DeleteMapping("/{tsSeq}")
     public ResultDto deleteMdTrash(@PathVariable Long tsSeq) {
         return mdTrashService.deleteMdTrash(tsSeq);
     }

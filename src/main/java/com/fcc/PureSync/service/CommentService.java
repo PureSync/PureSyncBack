@@ -128,7 +128,7 @@ public class CommentService {
 
 
     public ResultDto getComment(Pageable pageable, Long boardSeq) {
-        List<Comment> commentList = commentRepository.findByCmtStatusOrderByCmtWdateDesc(pageable,1);
+        List<Comment> commentList = commentRepository.findByCmtStatusNotOrderByCmtWdateDesc(pageable,0);
         List<CommentDto> commentDtoList = commentList.stream()
                 .map(CommentDto::toDto)
                 .toList();

@@ -19,7 +19,7 @@ public class MdDiaryController {
         return mdDiaryService.getMdDiaryList(customUserDetails, pageable);
     }
 
-    @GetMapping("{dySeq}")
+    @GetMapping("/{dySeq}")
     public ResultDto getMdDiary(@PathVariable("dySeq") Long dySeq) {
         return mdDiaryService.getMdDiary(dySeq);
     }
@@ -34,7 +34,7 @@ public class MdDiaryController {
         return mdDiaryService.updateMdDiary(dySeq, dto);
     }
 
-    @DeleteMapping("{dySeq}")
+    @DeleteMapping("/{dySeq}")
     public ResultDto deleteMdDiary(@PathVariable("dySeq") Long dySeq) {
         return mdDiaryService.deleteMdDiary(dySeq);
     }

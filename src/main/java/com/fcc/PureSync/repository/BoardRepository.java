@@ -17,12 +17,14 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     Page<Board> findAll(Pageable pageable);
 
-    Page<Board> findByBoardStatusOrderByBoardWdateDesc(Integer boardStatus,Pageable pageable);
+    Page<Board> findByBoardStatusNotOrderByBoardWdateDesc(Integer boardStatus,Pageable pageable);
 
+    Long countByBoardStatusNot(Integer boardStatus);
     @Query("SELECT COUNT(a) FROM Likes a WHERE a.board = :board")
     Long countLikesByBoard(@Param("board") Board board);
 
-    List<Board> findAllByMemberAndBoardStatusOrderByBoardWdateDesc(Member member, Integer status);
+    Page<Board> findAllByMemberAndBoardStatusIsNotOrderByBoardWdateDesc(Member member, Integer status, Pageable pageable);
+
 
     @Query("SELECT bd FROM Board bd JOIN Likes li ON bd.boardSeq = li.board.boardSeq WHERE li.member.memSeq = :memSeq " +
             "order by bd.boardWdate desc")

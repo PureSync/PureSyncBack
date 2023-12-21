@@ -57,8 +57,6 @@ public class MenuService {
                     .httpStatus(HttpStatus.OK)
                     .data(data)
                     .build();
-            System.out.println(resultDto.getData().get("menuList"));
-
             return resultDto;
         } catch (CustomException e) {
             throw new CustomException(CustomExceptionCode.NOT_FOUND_MENU);  // 권한X

@@ -117,6 +117,7 @@ public class JwtUtil {
         return memImg;
     }
 
+
     //JWT 토큰 유효성 검사: 만료일자 확인
     public boolean validateToken(String token) {
         boolean validate = false;

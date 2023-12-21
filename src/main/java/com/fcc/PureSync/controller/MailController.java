@@ -1,11 +1,15 @@
 package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.common.EmailVerificationRequest;
+import com.fcc.PureSync.common.constant.EmailConstant;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.dto.SignUpbyMailCheckDto;
 import com.fcc.PureSync.service.MailService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/mail")
@@ -17,8 +21,11 @@ public class MailController {
     private final MailService mailService;
 
     @GetMapping("/verify")
-    public ResultDto CheckVerificationCode(@RequestParam("email") String email, @RequestParam("verificationCode") String verificationCode) {
+    public ResultDto CheckVerificationCode(@RequestParam("email") String email, @RequestParam("verificationCode") String verificationCode
+            , HttpServletResponse response) throws IOException {
         ResultDto resultDto = mailService.checkVerificationCode(email, verificationCode);
+        if (resultDto!=null)
+            response.sendRedirect(EmailConstant.VERIFY_DOMAIN +"/landing");
         return resultDto;
     }
 

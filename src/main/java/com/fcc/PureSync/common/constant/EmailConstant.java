@@ -7,7 +7,8 @@ public final class EmailConstant {
     public static final String EMAIL_TITLE = "회원 링크 인증";
 
     //아래 위치 변경 필요
-    public static final String LOCAL_DOMAIN="http://localhost:9000";
+    public static final String LOCAL_DOMAIN="http://localhost:9000"; // 백엔드 // 컨트롤러
+    public static final String VERIFY_DOMAIN="http://localhost:4000"; //프론트
     public static final String AWS_DOMAIN="";
 
     public static final Integer MEMBER_ENABLED_LEVEL=4;

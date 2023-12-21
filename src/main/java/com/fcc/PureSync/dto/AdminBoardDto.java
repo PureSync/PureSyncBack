@@ -23,6 +23,9 @@ public class AdminBoardDto extends BaseDto {
     private String mem_id;
     private String mem_img;
 
+    private  int rnum;
+    private  int cmtrnum;
+
     private String board_status_text;
 
     // 유저 댓글

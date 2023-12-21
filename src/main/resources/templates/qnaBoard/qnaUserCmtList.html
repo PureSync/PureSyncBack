@@ -1,19 +1,19 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>PureSync Admin</title>
-   <th:block th:include="~{/fragments/styles :: styleFragment}"></th:block>
+   <th:block th:insert="~{fragments/styles :: styleFragment}"></th:block>
    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="layout-light side-menu">
-   <div th:replace="~{/fragments/header :: headerFragment}"></div>
+   <div th:replace="~{fragments/header :: headerFragment}"></div>
    <main class="main-content">
-      <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+      <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
 
       <div class="contents">
 
@@ -62,6 +62,7 @@
                                  <th>
                                     <span class="userDatatable-title">status</span>
                                  </th>
+                                 <th></th>
                               </tr>
                            </thead>
                            <tbody>
@@ -130,7 +131,7 @@
          </div>
 
       </div>
-      <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+      <div th:replace="~{fragments/footer :: footerFragment}"></div>
    </main>
    <div id="overlayer">
       <div class="loader-overlay">
@@ -145,7 +146,7 @@
    <div class="overlay-dark-sidebar"></div>
    <div class="customizer-overlay"></div>
    <!-- inject:js-->
-   <th:block th:include="~{/fragments/scripts :: scriptFragment}"></th:block>
+   <th:block th:insert="~{fragments/scripts :: scriptFragment}"></th:block>
 </body>
 
 </html>

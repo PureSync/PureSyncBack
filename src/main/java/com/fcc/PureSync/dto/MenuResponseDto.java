@@ -18,7 +18,7 @@ public class MenuResponseDto {
     private String menuDate;
     private Integer menuWhen;
     private Double menuGram;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Builder.Default
     private LocalDateTime menuWdate = LocalDateTime.now();
     private Long memSeq;
     private Long foodSeq;

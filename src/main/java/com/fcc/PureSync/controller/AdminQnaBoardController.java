@@ -50,6 +50,7 @@ public class AdminQnaBoardController {
     }
 
     @PostMapping("/admin/qnaCmt/save")
+    @ResponseBody
     public HashMap<String, Object> adminQnaCmtSave(@RequestBody AdminQnaBoardDto adminQnaBoardDto) {
         adminQnaBoardService.qnaCommentWrite(adminQnaBoardDto);
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -86,6 +87,7 @@ public class AdminQnaBoardController {
 //    }
 
     @PostMapping("/admin/qnaCmt/delete/{qna_cmt_seq}")
+    @ResponseBody
     public HashMap<String, Object> adminQnaCmtDelete(@PathVariable("qna_cmt_seq") Long qnaCmtSeq) {
         adminQnaBoardService.qnaCommentDelete(qnaCmtSeq);
         HashMap<String, Object> resultMap = new HashMap<>();

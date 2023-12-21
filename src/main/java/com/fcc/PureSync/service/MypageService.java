@@ -13,6 +13,10 @@ import com.fcc.PureSync.repository.BodyRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -60,25 +64,27 @@ public class MypageService {
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "내 정보 조회 성공", map);
     }
 
-    public ResultDto getPosts(Long memSeq) {
+    public ResultDto getPosts(int pageNo, Long memSeq) {
         Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-        List<Board> postList = boardRepository.findAllByMemberAndBoardStatusOrderByBoardWdateDesc(member, 1);
-
-        List<BoardDto> postDtoList = postList.stream()
-                .map(BoardDto::BoardAllDetailDto)
-                .toList();
+        Pageable pageable = PageRequest.of(pageNo, 10, Sort.by(Sort.Direction.DESC, "boardWdate"));
+        Page<BoardDto> postList = boardRepository.findAllByMemberAndBoardStatusIsNotOrderByBoardWdateDesc(member, 0, pageable)
+                .map(BoardDto::BoardAllDetailDto);
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("postList", postDtoList);
+        map.put("postList", postList);
 
         return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "내 글 전체 조회 성공", map);
     }
 
-    public ResultDto myPostsLikes(Long memSeq) {
+    public ResultDto myPostsLikes(int pageNo, Long memSeq) {
         Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
+
+//        Pageable pageable = PageRequest.of(pageNo, 10, Sort.by(Sort.Direction.DESC, criteria));
+//        Page<ReviewResponseDto> page = reviewRepository.findAll(pageable).map(ReviewResponseDto::from);
+
 
         List<Board> likePostList = boardRepository.findBoardsByMemberLikes(member.getMemSeq());
 

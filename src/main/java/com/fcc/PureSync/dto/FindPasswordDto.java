@@ -1,5 +1,7 @@
 package com.fcc.PureSync.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Getter
@@ -7,6 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FindPasswordDto {
+    @Pattern(regexp =  "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
     private String memId;
+    @Email
     private String memEmail;
 }

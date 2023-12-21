@@ -20,7 +20,7 @@ public class AdminBoardController {
 
     private final AdminBoardService adminBoardService;
 
-    @GetMapping("/admin/user/list/{pg}")
+    @GetMapping("admin/user/list/{pg}")
     public String userBoardList(Model model, AdminBoardDto adminBoardDto , @PathVariable("pg") int pg) {
         String searchText = URLDecoder.decode( adminBoardDto.getSearchText() );
             if( searchText == null ) {
@@ -29,29 +29,34 @@ public class AdminBoardController {
         adminBoardDto.setSearchText(searchText);
         adminBoardDto.setStart(pg*10);
         List<AdminBoardDto> userBoardList = adminBoardService.getAllUserBoardList(adminBoardDto);
+        int totalcnt = adminBoardService.getBoardTotalcnt(adminBoardDto);
 
-        model.addAttribute("page", Pager.makePage(10, adminBoardService.getBoardTotalcnt(adminBoardDto), pg));
+
+        model.addAttribute("page", Pager.makePage(10, totalcnt , pg));
         model.addAttribute("userBoardList", userBoardList);
+        model.addAttribute("total" , totalcnt );
         model.addAttribute("pg", pg );
-        return "/userBoard/userList";
+        return "userBoard/userList";
     }
 
     @GetMapping("/admin/cmt/list/{pg}")
     public String adminCmtList(Model model, AdminBoardDto adminBoardDto , @PathVariable("pg") int pg) {
-        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         String searchText = URLDecoder.decode( adminBoardDto.getSearchText() );
         if( searchText == null ) {
             searchText = " ";
         }
 
+        int totalcnt = adminBoardService.getCmtTotalcnt(adminBoardDto);
+
         adminBoardDto.setStart(pg*10);
         List<AdminBoardDto> userCmtList = adminBoardService.getAllUserCmtList(adminBoardDto);
         System.out.println(userCmtList);
-        model.addAttribute("page", Pager.makePage(10, adminBoardService.getCmtTotalcnt(adminBoardDto), pg));
+        model.addAttribute("page", Pager.makePage(10, totalcnt, pg));
         model.addAttribute("userCmtList", userCmtList);
+        model.addAttribute("total", totalcnt);
         model.addAttribute("pg", pg );
 
-        return "/userBoard/userCmtList";
+        return "userBoard/userCmtList";
     }
 
     @GetMapping("/admin/user/view/{board_seq}")
@@ -62,7 +67,7 @@ public class AdminBoardController {
         List<AdminBoardDto> fileList = adminBoardService.getAllBoardFiles(adminBoardDto);
         model.addAttribute("userBoardView", resultDto);
         model.addAttribute("fileList", fileList);
-        return "/userBoard/userView";
+        return "userBoard/userView";
     }
 
     @GetMapping("admin/user/list/delete/{board_seq}")

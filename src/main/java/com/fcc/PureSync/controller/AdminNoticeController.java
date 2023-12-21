@@ -1,9 +1,13 @@
 package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.common.Pager;
+import com.fcc.PureSync.dto.MenuDto;
 import com.fcc.PureSync.dto.NoticeDto;
+import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +33,28 @@ public class AdminNoticeController {
         noticeDto.setStart(pg*10);
         List<NoticeDto> noticeList = noticeService.getAllNoticeList(noticeDto);
 
-        model.addAttribute("noticeList", noticeList);
-        model.addAttribute("page", Pager.makePage(10, noticeService.getNoticeTotalcnt(noticeDto), pg));
-        model.addAttribute("pg", pg );
+        int total = noticeService.getNoticeTotalcnt(noticeDto);
 
-        return "/adminBoard/noticeList";
+        model.addAttribute("noticeList", noticeList);
+        model.addAttribute("page", Pager.makePage(10, total , pg));
+        model.addAttribute("pg", pg );
+        model.addAttribute("total", total );
+
+        return "adminBoard/noticeList";
+    }
+
+    @ResponseBody
+    @GetMapping("/api/notice/list")
+    public ResultDto getNoticeListTopThree (NoticeDto noticeDto) {
+        return noticeService.getNoticeListTopThree(noticeDto);
+    }
+
+    @ResponseBody
+    @GetMapping("/api/notice/view/{notice_seq}")
+    public ResultDto getNoticeView (@PathVariable Long notice_seq) {
+        NoticeDto noticeViewDto = new NoticeDto();
+        noticeViewDto.setNotice_seq(notice_seq);
+        return noticeService.detailNotice(noticeViewDto);
     }
 
     @GetMapping("/admin/notice/view/{notice_seq}")
@@ -42,12 +63,12 @@ public class AdminNoticeController {
         noticeDto.setNotice_seq(notice_seq);
         NoticeDto resultDto = noticeService.noticeBoardView(noticeDto);
         model.addAttribute("noticeView", resultDto);
-        return "/adminBoard/noticeView";
+        return "adminBoard/noticeView";
     }
 
     @GetMapping("/admin/notice/write")
     public String adminBoardWrite() {
-        return "/adminBoard/noticeWrite";
+        return "adminBoard/noticeWrite";
     }
 
     @PostMapping("/admin/notice/save")
@@ -66,7 +87,7 @@ public class AdminNoticeController {
         noticeDto.setNotice_seq(notice_seq);
         NoticeDto resultDto = noticeService.noticeBoardView(noticeDto);
         model.addAttribute("noticeModify", resultDto);
-        return "/adminBoard/noticeModify";
+        return "adminBoard/noticeModify";
     }
 
     @PostMapping("/admin/notice/modifyOk")

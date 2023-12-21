@@ -2,14 +2,11 @@ package com.fcc.PureSync.entity;
 
 import com.fcc.PureSync.common.constant.EmailConstant;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
-
+@ToString
 @Entity
 @Table(name = "tb_member")
 @Getter

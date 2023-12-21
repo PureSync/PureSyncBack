@@ -21,6 +21,7 @@ public class CommentDto {
     private LocalDateTime cmtWdate;
     private Integer cmtStatus;
     private Long memSeq;
+    private String memId;
     private Long boardSeq;
 
     public static CommentDto toDto(Comment comment) {
@@ -30,6 +31,7 @@ public class CommentDto {
                 .cmtWdate(comment.getCmtWdate())
                 .cmtStatus(comment.getCmtStatus())
                 .memSeq(comment.getMember().getMemSeq())
+                .memId(comment.getMember().getMemId())
                 .boardSeq(comment.getBoard().getBoardSeq())
                 .build();
     }

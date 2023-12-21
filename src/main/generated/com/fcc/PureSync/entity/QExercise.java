@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,9 +18,9 @@ public class QExercise extends EntityPathBase<Exercise> {
 
     private static final long serialVersionUID = -593530755L;
 
-    public static final QExercise exercise = new QExercise("exercise");
+    private static final PathInits INITS = PathInits.DIRECT2;
 
-    public final NumberPath<Long> ecSeq = createNumber("ecSeq", Long.class);
+    public static final QExercise exercise = new QExercise("exercise");
 
     public final StringPath elDate = createString("elDate");
 
@@ -29,18 +30,30 @@ public class QExercise extends EntityPathBase<Exercise> {
 
     public final DateTimePath<java.time.LocalDateTime> elWdate = createDateTime("elWdate", java.time.LocalDateTime.class);
 
-    public final NumberPath<Long> memSeq = createNumber("memSeq", Long.class);
+    public final QExerciseList exerciseList;
+
+    public final QMember member;
 
     public QExercise(String variable) {
-        super(Exercise.class, forVariable(variable));
+        this(Exercise.class, forVariable(variable), INITS);
     }
 
     public QExercise(Path<? extends Exercise> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QExercise(PathMetadata metadata) {
-        super(Exercise.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QExercise(PathMetadata metadata, PathInits inits) {
+        this(Exercise.class, metadata, inits);
+    }
+
+    public QExercise(Class<? extends Exercise> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.exerciseList = inits.isInitialized("exerciseList") ? new QExerciseList(forProperty("exerciseList")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 
 }

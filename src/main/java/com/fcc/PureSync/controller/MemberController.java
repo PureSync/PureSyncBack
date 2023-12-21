@@ -7,6 +7,10 @@ import com.fcc.PureSync.dto.SignupDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -22,27 +26,27 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/signup") // 회원가입
-    public ResultDto signup (@RequestBody SignupDto signupDto) {
+    public ResultDto signup (@RequestBody @Valid SignupDto signupDto) {
         return memberService.signup(signupDto);
     }
 
     @PostMapping("/login")  // 로그인
-    public ResultDto login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+    public ResultDto login(@RequestBody @Valid LoginDto loginDto, HttpServletResponse response) {
         return memberService.login(loginDto);
     }
 
     @GetMapping("/check-duplicate/{field}/{value}")
-    public ResultDto checkDuplicate(@PathVariable String field, @PathVariable String value) {
+    public ResultDto checkDuplicate(@PathVariable @NotBlank String field, @PathVariable @NotBlank String value) {
         return memberService.checkDuplicate(field, value);
     }
 
     @PostMapping("/searchPassword")
-    public ResultDto searchPassword(@RequestBody FindPasswordDto findPasswordDto){
+    public ResultDto searchPassword(@RequestBody @Valid FindPasswordDto findPasswordDto){
     return memberService.searchPassword(findPasswordDto);
     }
 
     @GetMapping("/searchId/{memEmail}")
-    public ResultDto searchId(@PathVariable("memEmail") String memEmail){
+        public ResultDto searchId(@PathVariable("memEmail") @Email String memEmail){
         return memberService.searchId(memEmail);
     }
 

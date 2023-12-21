@@ -19,7 +19,7 @@ public class ExerciseResponseDto {
     private Long elSeq;
     private String elDate;
     private Integer elTime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @Builder.Default
     private LocalDateTime elWdate = LocalDateTime.now();
     private Long memSeq;
     private Long ecSeq;

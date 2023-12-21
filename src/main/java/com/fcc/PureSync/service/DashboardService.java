@@ -52,13 +52,11 @@ public class DashboardService {
         sleepMap.put("monthly", sleepStatsMonthlyList);
         sleepMap.put("yearly", sleepStatsYearlyList);
 
-        List<EmotionNativeVo> emotionNativeVoList = mdDiaryRepository.findDataByMonth(member.getMemSeq(), date);
         Optional<DashboardDefaultNativeVo> defaultData = exerciseRepository.findDefaultData(member.getMemSeq(), date);
         List<MenuStatsNativeVo> menuStatsNativeVoList = menuRepository.find7DaysMenuStats(member.getMemSeq(), date);
 
         data.put("exercise", exerciseMap);
-        data.put("sleep", sleepMap);
-        data.put("emotionList", emotionNativeVoList);
+        data.put("sleep", sleepMap);    
         data.put("default", defaultData);
         data.put("menuList", menuStatsNativeVoList);
 

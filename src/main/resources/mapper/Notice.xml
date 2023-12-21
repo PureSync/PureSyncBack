@@ -5,15 +5,19 @@
 
 <mapper namespace="Notice">
     <select id="getAllNoticeList" resultType="NoticeDto" parameterType="NoticeDto">
-        SELECT
-            notice_seq, notice_title, notice_contents, notice_wdate, notice_writer
-        FROM
-            tb_notice
-        WHERE
-            notice_title LIKE CONCAT('%', #{searchText}, '%')
-        ORDER BY
-            notice_seq DESC
-        limit #{start}, 10
+        SELECT A.* FROM (
+            SELECT
+                notice_seq, notice_title, notice_contents, notice_wdate, notice_writer,
+                @rownum:=@rownum +1 AS rnum
+            FROM
+                tb_notice
+            INNER JOIN (SELECT @rownum:=0) AS tmp
+            WHERE
+                notice_title LIKE CONCAT('%', #{searchText}, '%')
+            ORDER BY
+                notice_seq DESC
+        ) A
+        LIMIT #{start}, 10
     </select>
 
     <select id="Notice_getTotalCnt" resultType="int">
@@ -23,9 +27,21 @@
         notice_title LIKE CONCAT('%', #{searchText}, '%')
     </select>
 
+    <select id="getNoticeBoardTopThree" resultType="NoticeDto" parameterType="NoticeDto">
+        SELECT
+            notice_seq, notice_title, notice_contents,  notice_writer,
+            DATE_FORMAT(notice_wdate, '%Y-%m-%d %H:%i:%s') AS notice_wdate
+        FROM
+            tb_notice
+        ORDER BY
+            notice_seq DESC
+        LIMIT 0, 3
+    </select>
+
     <select id="noticeBoardView" resultType="NoticeDto" parameterType="NoticeDto">
         SELECT
-            notice_seq, notice_title, notice_contents, notice_wdate, notice_writer
+            notice_seq, notice_title, notice_contents,  notice_writer,
+            DATE_FORMAT(notice_wdate, '%Y-%m-%d %H:%i:%s') AS notice_wdate
         FROM
             tb_notice
         WHERE
