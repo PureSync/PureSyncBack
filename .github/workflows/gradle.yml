@@ -65,7 +65,12 @@ jobs:
         username: ${{ secrets.WAS_USERNAME }} # ubuntu
         key: ${{ secrets.WAS_KEY }} # pem key
         script: |
-          /home/ubuntu/docker/stop_redis.sh
+          # Redis 이미지를 Docker Hub에서 가져오기 (만약 이미지가 없다면)
+          sudo docker pull redis:latest
+          # Redis 컨테이너 생성
+          sudo docker run -d --name redis_test -p 6379:6379 redis:latest
+          # Redis 데이터를 보존하는 Docker 볼륨 사용
+          sudo docker run -d --name redis_test -p 6379:6379 -v ./redis/data:/data redis:latest
           sudo docker compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose-redis.yml up -d
           /home/ubuntu/docker/cleaner.sh
           sudo docker compose -f /home/${{ secrets.WAS_USERNAME }}/docker/docker-compose.yml up -d
