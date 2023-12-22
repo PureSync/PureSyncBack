@@ -12,10 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,25 +28,28 @@ public class DashboardService {
 
     @Transactional
     public ResultDto getDashboardInfo(Long memSeq, String date) {
+        System.out.println(date);
         Member member = memberRepository.findById(memSeq).orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
         HashMap<String, Object> data = new HashMap<>();
 
-        List<ExerciseStatsNativeVo> exerciseStatsWeeklyList =  exerciseRepository.findLastDaysExerciseStats(member.getMemSeq(), date, 6);
+//        List<ExerciseStatsNativeVo> exerciseStatsWeeklyList =  exerciseRepository.findLastDaysExerciseStats(member.getMemSeq(), date, 6);
         List<ExerciseStatsNativeVo> exerciseStatsMonthlyList =  exerciseRepository.findLastDaysExerciseStats(member.getMemSeq(), date, 29);
         List<ExerciseStatsNativeVo> exerciseStatsYearlyList =  exerciseRepository.findLastMonthsExerciseStats(member.getMemSeq(), date, 11);
 
         HashMap<String, Object> exerciseMap = new HashMap<>();
-        exerciseMap.put("weekly", exerciseStatsWeeklyList);
+        exerciseMap.put("weekly", extractWeeklyData(exerciseStatsMonthlyList));
+//        exerciseMap.put("weekly", exerciseStatsWeeklyList);
         exerciseMap.put("monthly", exerciseStatsMonthlyList);
         exerciseMap.put("yearly", exerciseStatsYearlyList);
 
-        List<SleepStatsNativeVo> sleepStatsWeeklyList =  sleepRepository.findLastDaysSleepStats(member.getMemSeq(), date, 6);
+//        List<SleepStatsNativeVo> sleepStatsWeeklyList =  sleepRepository.findLastDaysSleepStats(member.getMemSeq(), date, 6);
         List<SleepStatsNativeVo> sleepStatsMonthlyList =  sleepRepository.findLastDaysSleepStats(member.getMemSeq(), date, 29);
         List<SleepStatsNativeVo> sleepStatsYearlyList =  sleepRepository.findLastMonthsSleepStats(member.getMemSeq(), date, 11);
 
-        HashMap<String, Object> sleepMap = new HashMap<>();
-        sleepMap.put("weekly", sleepStatsWeeklyList);
+        HashMap<String, Object> sleepMap = new HashMap();
+        sleepMap.put("weekly", extractWeeklyData(sleepStatsMonthlyList));
+//        sleepMap.put("weekly", sleepStatsWeeklyList);
         sleepMap.put("monthly", sleepStatsMonthlyList);
         sleepMap.put("yearly", sleepStatsYearlyList);
 
@@ -79,10 +80,16 @@ public class DashboardService {
         return resultDto;
     }
 
-    public ResultDto buildResultDto(int code, HttpStatus httpStatuss, String message, HashMap<String, Object> data) {
+    private <T> List<T> extractWeeklyData(List<T> monthlyData) {
+        return monthlyData.stream()
+                .limit(7)
+                .collect(Collectors.toList());
+    }
+
+    public ResultDto buildResultDto(int code, HttpStatus httpStatus, String message, HashMap<String, Object> data) {
         return ResultDto.builder()
                 .code(code)
-                .httpStatus(httpStatuss)
+                .httpStatus(httpStatus)
                 .message(message)
                 .data(data)
                 .build();

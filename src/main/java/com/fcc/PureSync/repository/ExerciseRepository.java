@@ -61,6 +61,8 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     @Query(value =
             "SELECT " +
+                    "tb1.pv_contents as pvContents, " +
+                    "tb1.pv_talker as pvTalker , " +
                     "tb2.body_wish_conscal as wishEatKcal, " +
                     "tb2.body_wish_burncal as wishBurnKcal, " +
                     "tb3.eat_kcal as EatKcal, " +
@@ -75,6 +77,7 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
                     "   ELSE 2 " +
                     "   END + tb5.emotion AS score " +
                     "FROM " +
+                    "(SELECT pv_contents, pv_talker FROM tb_positive ORDER BY RAND() LIMIT 1) AS tb1, "+
                     "(SELECT body_wish_conscal, body_wish_burncal FROM tb_body WHERE mem_seq = :memSeq order by body_seq limit 1) AS tb2, " +
                     "(SELECT " +
                     "COALESCE(ROUND(SUM(ml.menu_gram/100 * food.food_kcal), 2), 0) as eat_kcal " +
