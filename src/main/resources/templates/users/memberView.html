@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" q lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
 
 <head>
    <meta charset="UTF-8">
@@ -190,7 +190,7 @@
       if (btnElement == submitBtn) {   // 수정모드이면서 클릭한 버튼이 확인인 경우
          console.log(parseInt(selectBox.options[selectBox.selectedIndex].value));
 
-         fetch("http://localhost:8080/admin/member/" + [[${memberDetail.memSeq}]], {
+         fetch("/admin/member/" + [[${memberDetail.memSeq}]], {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
