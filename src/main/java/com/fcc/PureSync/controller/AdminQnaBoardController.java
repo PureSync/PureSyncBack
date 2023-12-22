@@ -33,7 +33,7 @@ public class AdminQnaBoardController {
         model.addAttribute("page", Pager.makePage(10, adminQnaBoardService.getQnaBoardTotalcnt(adminQnaBoardDto), pg));
         model.addAttribute("qnaBoardList", qnaBoardList);
         model.addAttribute("pg", pg );
-        return "/qnaBoard/qnaUserList";
+        return "qnaBoard/qnaUserList";
     }
 
 
@@ -48,7 +48,7 @@ public class AdminQnaBoardController {
         model.addAttribute("qnaBoardView", resultDto);
         model.addAttribute("fileList", fileList);
         model.addAttribute("qnaCmtList", qnaCmtList);
-        return "/qnaBoard/qnaUserView";
+        return "qnaBoard/qnaUserView";
     }
 
     @PostMapping("/admin/qnaCmt/save")
