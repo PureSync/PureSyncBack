@@ -1,19 +1,19 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" q lang="en" dir="ltr">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
 
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>PureSync Admin</title>
-   <th:block th:insert="~{/fragments/styles :: styleFragment}"></th:block>
+   <th:block th:insert="~{fragments/styles :: styleFragment}"></th:block>
 </head>
 
 <body class="layout-light side-menu">
 <div class="mobile-author-actions"></div>
-<div th:replace="~{/fragments/header :: headerFragment}"></div>
+<div th:replace="~{fragments/header :: headerFragment}"></div>
 <main class="main-content">
-   <div th:replace="~{/fragments/sidebar :: sidebarFragment}"></div>
+   <div th:replace="~{fragments/sidebar :: sidebarFragment}"></div>
 
    <div class="contents">
 
@@ -131,7 +131,7 @@
       </div>
 
    </div>
-   <div th:replace="~{/fragments/footer :: footerFragment}"></div>
+   <div th:replace="~{fragments/footer :: footerFragment}"></div>
 </main>
 <div id="overlayer">
    <div class="loader-overlay">
@@ -145,7 +145,7 @@
 </div>
 <div class="overlay-dark-sidebar"></div>
 <div class="customizer-overlay"></div>
-<th:block th:insert="~{/fragments/scripts :: scriptFragment}"></th:block>
+<th:block th:insert="~{fragments/scripts :: scriptFragment}"></th:block>
 </body>
 </html>
 <script th:inline="javascript">
@@ -190,7 +190,7 @@
       if (btnElement == submitBtn) {   // 수정모드이면서 클릭한 버튼이 확인인 경우
          console.log(parseInt(selectBox.options[selectBox.selectedIndex].value));
 
-         fetch("http://localhost:8080/admin/member/" + [[${memberDetail.memSeq}]], {
+         fetch("/admin/member/" + [[${memberDetail.memSeq}]], {
             method: "POST",
             headers: {
                "Content-Type": "application/json",
