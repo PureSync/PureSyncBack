@@ -16,7 +16,7 @@ public class SignupDto extends BaseEntity {
     String memNick;
     @Email
     String memEmail;
-    @Past
+//    @Past 삭제!!!!!!!!!!!!!!
     String memBirth;
     @Length(max=1)
      String memGender;
