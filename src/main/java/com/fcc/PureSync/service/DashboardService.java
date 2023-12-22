@@ -33,23 +33,23 @@ public class DashboardService {
 
         HashMap<String, Object> data = new HashMap<>();
 
-//        List<ExerciseStatsNativeVo> exerciseStatsWeeklyList =  exerciseRepository.findLastDaysExerciseStats(member.getMemSeq(), date, 6);
+        List<ExerciseStatsNativeVo> exerciseStatsWeeklyList =  exerciseRepository.findLastDaysExerciseStats(member.getMemSeq(), date, 6);
         List<ExerciseStatsNativeVo> exerciseStatsMonthlyList =  exerciseRepository.findLastDaysExerciseStats(member.getMemSeq(), date, 29);
         List<ExerciseStatsNativeVo> exerciseStatsYearlyList =  exerciseRepository.findLastMonthsExerciseStats(member.getMemSeq(), date, 11);
 
         HashMap<String, Object> exerciseMap = new HashMap<>();
-        exerciseMap.put("weekly", extractWeeklyData(exerciseStatsMonthlyList));
-//        exerciseMap.put("weekly", exerciseStatsWeeklyList);
+//        exerciseMap.put("weekly", extractWeeklyData(exerciseStatsMonthlyList));
+        exerciseMap.put("weekly", exerciseStatsWeeklyList);
         exerciseMap.put("monthly", exerciseStatsMonthlyList);
         exerciseMap.put("yearly", exerciseStatsYearlyList);
 
-//        List<SleepStatsNativeVo> sleepStatsWeeklyList =  sleepRepository.findLastDaysSleepStats(member.getMemSeq(), date, 6);
+        List<SleepStatsNativeVo> sleepStatsWeeklyList =  sleepRepository.findLastDaysSleepStats(member.getMemSeq(), date, 6);
         List<SleepStatsNativeVo> sleepStatsMonthlyList =  sleepRepository.findLastDaysSleepStats(member.getMemSeq(), date, 29);
         List<SleepStatsNativeVo> sleepStatsYearlyList =  sleepRepository.findLastMonthsSleepStats(member.getMemSeq(), date, 11);
 
         HashMap<String, Object> sleepMap = new HashMap();
-        sleepMap.put("weekly", extractWeeklyData(sleepStatsMonthlyList));
-//        sleepMap.put("weekly", sleepStatsWeeklyList);
+//        sleepMap.put("weekly", extractWeeklyData(sleepStatsMonthlyList));
+        sleepMap.put("weekly", sleepStatsWeeklyList);
         sleepMap.put("monthly", sleepStatsMonthlyList);
         sleepMap.put("yearly", sleepStatsYearlyList);
 
