@@ -27,6 +27,7 @@ public class MemberController {
 
     @PostMapping("/signup") // 회원가입
     public ResultDto signup (@RequestBody @Valid SignupDto signupDto) {
+        System.out.println("컨트롤러 시작@@@@@@@@@@@@@@@@@@@@");
         return memberService.signup(signupDto);
     }
 
