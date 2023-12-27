@@ -40,8 +40,8 @@ jobs:
       run: |
           echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_DIR/$OCCUPY_SECRET_DIR_FILE_NAME && 
           echo $OCCUPY_SECRET | base64 --decode > $OCCUPY_SECRET_TEST_DIR/$OCCUPY_SECRET_DIR_FILE_NAME
-    - name: Print the first line of application-secret.properties
-      run: head -n 1 src/main/resources/application-secret.properties
+    - name: Print the content of application-secret.properties
+      run: cat src/main/resources/application-secret.properties
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
