@@ -48,7 +48,9 @@ public class MemberService {
         Long memSeq = memberRepository.save(inputMemberInfo).getMemSeq();
         Body inputBody = buildBodyFromSignDtoAndSignupMember(signupDto, memSeq);
         bodyRepository.save(inputBody);
+        System.out.println("메일 서비스 시작@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         mailService.signUpByVerificationCode(inputMemberInfo.getMemEmail());
+        System.out.println("메일 서비스 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         return handleResultDtoFromSignUp();
     }
 
