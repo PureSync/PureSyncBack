@@ -42,7 +42,8 @@ public class MailService {
     }
     //회원 가입시 코드 링크 핸들링
     private void handleSignUpByVerificationCode(String newMemberEmail, String linkCode) {
-        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.LOCAL_DOMAIN, linkCode,newMemberEmail);
+//        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.LOCAL_DOMAIN, linkCode,newMemberEmail);
+        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.AWS_DOMAIN, linkCode,newMemberEmail);
         System.out.println("레디스 호스트%%%%%%%%%%%%%%%%%%%%%%%%%%%" + RedisHost);
         verificationCodeDao.saveVerificationCode(newMemberEmail, linkCode);
         sendMail(newMemberEmail, EmailConstant.EMAIL_TITLE, txt);
