@@ -28,7 +28,9 @@ jobs:
         distribution: 'temurin'
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
-    
+
+    - name: Delete existing application-secret.properties
+      run: rm -f src/main/resources/application-secret.properties
     - name: Copy Secret
       env:
           OCCUPY_SECRET: ${{ secrets.OCCUPY_SECRET_KEY }}
