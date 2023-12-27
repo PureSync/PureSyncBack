@@ -11,10 +11,10 @@ import java.util.Properties;
 
 @Component
 public class SendEmailConfig {
-    @Value("${spring.mail.host}")
+    @Value("${spring.data.mail.host}")
     private String host;
 
-    @Value("${spring.mail.port}")
+    @Value("${spring.data.mail.port}")
     private int port;
 
     @Value("${spring.mail.username}")
