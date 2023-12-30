@@ -1,4 +1,4 @@
-package com.fcc.PureSync.context.dashboard.vo;
+package com.fcc.PureSync.vo;
 
 public interface DashboardDefaultNativeVo {
     String getPvContents();
