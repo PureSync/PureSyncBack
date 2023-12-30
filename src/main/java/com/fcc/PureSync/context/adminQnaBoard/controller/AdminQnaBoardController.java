@@ -1,14 +1,13 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.adminQnaBoard.controller;
 
 import com.fcc.PureSync.common.Pager;
-import com.fcc.PureSync.dto.AdminQnaBoardDto;
-import com.fcc.PureSync.service.AdminQnaBoardService;
+import com.fcc.PureSync.context.adminQnaBoard.dto.AdminQnaBoardDto;
+import com.fcc.PureSync.context.adminQnaBoard.service.AdminQnaBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;

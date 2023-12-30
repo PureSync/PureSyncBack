@@ -1,9 +1,8 @@
-package com.fcc.PureSync.dao;
+package com.fcc.PureSync.context.adminQnaBoard.dao;
 
-import com.fcc.PureSync.dto.AdminQnaBoardDto;
+import com.fcc.PureSync.context.adminQnaBoard.dto.AdminQnaBoardDto;
 import jakarta.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
