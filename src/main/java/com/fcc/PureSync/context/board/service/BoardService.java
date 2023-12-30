@@ -1,4 +1,4 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.board.service;
 
 
 import com.amazonaws.AmazonServiceException;
@@ -6,20 +6,17 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.fcc.PureSync.dto.BoardDto;
-import com.fcc.PureSync.dto.BoardFileDto;
-import com.fcc.PureSync.dto.CommentDto;
+import com.fcc.PureSync.context.board.dto.BoardDto;
+import com.fcc.PureSync.context.board.entity.Board;
+import com.fcc.PureSync.context.board.dto.BoardFileDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.Board;
-import com.fcc.PureSync.entity.BoardFile;
-import com.fcc.PureSync.entity.Comment;
+import com.fcc.PureSync.context.board.entity.BoardFile;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.repository.BoardFileRepository;
-import com.fcc.PureSync.repository.BoardRepository;
+import com.fcc.PureSync.context.board.repository.BoardFileRepository;
+import com.fcc.PureSync.context.board.repository.BoardRepository;
 import com.fcc.PureSync.repository.MemberRepository;
-import com.fcc.PureSync.util.FileUploadUtil;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,14 +25,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
-import static com.fcc.PureSync.dto.BoardDto.toDto;
+import static com.fcc.PureSync.context.board.dto.BoardDto.toDto;
 
 
 @Service

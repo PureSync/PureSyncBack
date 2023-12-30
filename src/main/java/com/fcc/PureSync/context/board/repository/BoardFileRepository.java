@@ -1,6 +1,6 @@
-package com.fcc.PureSync.repository;
+package com.fcc.PureSync.context.board.repository;
 
-import com.fcc.PureSync.entity.BoardFile;
+import com.fcc.PureSync.context.board.entity.BoardFile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

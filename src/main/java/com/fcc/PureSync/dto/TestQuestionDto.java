@@ -1,10 +1,6 @@
 package com.fcc.PureSync.dto;
 
-import com.fcc.PureSync.entity.Board;
 import com.fcc.PureSync.entity.TestQuestion;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

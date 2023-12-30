@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.board.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QLikes extends EntityPathBase<Likes> {
 
-    private static final long serialVersionUID = -1906122953L;
+    private static final long serialVersionUID = 1143430494L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,7 +26,7 @@ public class QLikes extends EntityPathBase<Likes> {
 
     public final NumberPath<Long> likesSeq = createNumber("likesSeq", Long.class);
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public QLikes(String variable) {
         this(Likes.class, forVariable(variable), INITS);
@@ -47,7 +47,7 @@ public class QLikes extends EntityPathBase<Likes> {
     public QLikes(Class<? extends Likes> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new QBoard(forProperty("board"), inits.get("board")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }

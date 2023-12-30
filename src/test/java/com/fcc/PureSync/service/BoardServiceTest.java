@@ -1,14 +1,14 @@
 package com.fcc.PureSync.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.fcc.PureSync.dto.BoardDto;
-import com.fcc.PureSync.entity.Board;
-import com.fcc.PureSync.entity.BoardFile;
+import com.fcc.PureSync.context.board.dto.BoardDto;
+import com.fcc.PureSync.context.board.entity.Board;
+import com.fcc.PureSync.context.board.service.BoardService;
+import com.fcc.PureSync.context.board.entity.BoardFile;
 import com.fcc.PureSync.entity.Member;
-import com.fcc.PureSync.repository.BoardFileRepository;
-import com.fcc.PureSync.repository.BoardRepository;
+import com.fcc.PureSync.context.board.repository.BoardFileRepository;
+import com.fcc.PureSync.context.board.repository.BoardRepository;
 import com.fcc.PureSync.repository.MemberRepository;
-import jakarta.mail.Multipart;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,11 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.ArgumentMatchers.any;

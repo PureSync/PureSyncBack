@@ -1,6 +1,5 @@
 package com.fcc.PureSync.dto;
 
-import com.fcc.PureSync.entity.Board;
 import com.fcc.PureSync.entity.Sleep;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

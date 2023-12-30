@@ -1,8 +1,7 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.board.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fcc.PureSync.entity.Board;
-import com.fcc.PureSync.entity.Comment;
+import com.fcc.PureSync.context.board.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

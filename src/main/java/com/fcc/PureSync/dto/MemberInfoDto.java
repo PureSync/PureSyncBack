@@ -1,10 +1,7 @@
 package com.fcc.PureSync.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fcc.PureSync.entity.Board;
 import com.fcc.PureSync.entity.Member;
-import jakarta.mail.Multipart;
 import lombok.*;
 
 @Getter
