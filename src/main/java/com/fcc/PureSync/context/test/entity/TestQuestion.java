@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.test.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

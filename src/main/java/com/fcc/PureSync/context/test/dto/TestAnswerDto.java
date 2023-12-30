@@ -1,6 +1,6 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.test.dto;
 
-import com.fcc.PureSync.entity.TestAnswer;
+import com.fcc.PureSync.context.test.entity.TestAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

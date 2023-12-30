@@ -1,13 +1,13 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.test.service;
 
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.dto.TestAnswerDto;
+import com.fcc.PureSync.context.test.dto.TestAnswerDto;
 import com.fcc.PureSync.entity.Member;
-import com.fcc.PureSync.entity.TestAnswer;
+import com.fcc.PureSync.context.test.entity.TestAnswer;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.repository.MemberRepository;
-import com.fcc.PureSync.repository.TestAnswerRepository;
+import com.fcc.PureSync.context.test.repository.TestAnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.fcc.PureSync.dto.TestAnswerDto.toDto;
+import static com.fcc.PureSync.context.test.dto.TestAnswerDto.toDto;
 
 
 @Service

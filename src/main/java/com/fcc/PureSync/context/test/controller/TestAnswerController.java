@@ -1,9 +1,9 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.test.controller;
 
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.dto.TestAnswerDto;
+import com.fcc.PureSync.context.test.dto.TestAnswerDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.TestAnswerService;
+import com.fcc.PureSync.context.test.service.TestAnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;

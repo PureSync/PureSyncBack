@@ -1,9 +1,9 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.test.service;
 
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.dto.TestQuestionDto;
-import com.fcc.PureSync.entity.TestQuestion;
-import com.fcc.PureSync.repository.TestQuestionRepository;
+import com.fcc.PureSync.context.test.dto.TestQuestionDto;
+import com.fcc.PureSync.context.test.entity.TestQuestion;
+import com.fcc.PureSync.context.test.repository.TestQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
