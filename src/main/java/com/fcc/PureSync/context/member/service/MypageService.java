@@ -1,10 +1,13 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.member.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fcc.PureSync.context.board.dto.BoardDto;
+import com.fcc.PureSync.context.member.dto.MemberInfoDto;
+import com.fcc.PureSync.context.member.dto.MemberInfoUpdateDto;
+import com.fcc.PureSync.context.member.dto.MemberPasswordDto;
 import com.fcc.PureSync.dto.*;
 import com.fcc.PureSync.entity.*;
 import com.fcc.PureSync.exception.CustomException;
@@ -27,10 +30,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-//import static com.fcc.PureSync.dto.MemberInfoDto.toNickDto;
-//import static com.fcc.PureSync.dto.MemberInfoDto.toProfileImgDto;
-import static com.fcc.PureSync.dto.MemberInfoDto.toDto;
-import static com.fcc.PureSync.dto.MemberInfoUpdateDto.entityToDto;
+//import static com.fcc.PureSync.context.member.dto.MemberInfoDto.toNickDto;
+//import static com.fcc.PureSync.context.member.dto.MemberInfoDto.toProfileImgDto;
+import static com.fcc.PureSync.context.member.dto.MemberInfoDto.toDto;
+import static com.fcc.PureSync.context.member.dto.MemberInfoUpdateDto.entityToDto;
 
 
 @Service
