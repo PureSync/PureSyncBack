@@ -1,15 +1,14 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.board.service;
 
-import com.fcc.PureSync.dto.BoardDto;
-import com.fcc.PureSync.dto.CommentDto;
+import com.fcc.PureSync.context.board.dto.CommentDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.Board;
-import com.fcc.PureSync.entity.Comment;
+import com.fcc.PureSync.context.board.entity.Board;
+import com.fcc.PureSync.context.board.entity.Comment;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.repository.BoardRepository;
-import com.fcc.PureSync.repository.CommentRepository;
+import com.fcc.PureSync.context.board.repository.BoardRepository;
+import com.fcc.PureSync.context.board.repository.CommentRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.fcc.PureSync.dto.CommentDto.toDto;
+import static com.fcc.PureSync.context.board.dto.CommentDto.toDto;
 
 
 @Service

@@ -1,15 +1,14 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.board.service;
 
-import com.fcc.PureSync.dto.BoardDto;
-import com.fcc.PureSync.dto.LikesDto;
+import com.fcc.PureSync.context.board.dto.LikesDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.Board;
-import com.fcc.PureSync.entity.Likes;
+import com.fcc.PureSync.context.board.entity.Board;
+import com.fcc.PureSync.context.board.entity.Likes;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.repository.BoardRepository;
-import com.fcc.PureSync.repository.LikesRepository;
+import com.fcc.PureSync.context.board.repository.BoardRepository;
+import com.fcc.PureSync.context.board.repository.LikesRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

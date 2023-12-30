@@ -1,9 +1,7 @@
 package com.fcc.PureSync.service;
 
-import com.fcc.PureSync.dto.BoardDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.dto.TestQuestionDto;
-import com.fcc.PureSync.entity.Board;
 import com.fcc.PureSync.entity.TestQuestion;
 import com.fcc.PureSync.repository.TestQuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

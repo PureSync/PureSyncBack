@@ -1,6 +1,6 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.board.dto;
 
-import com.fcc.PureSync.entity.Likes;
+import com.fcc.PureSync.context.board.entity.Likes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

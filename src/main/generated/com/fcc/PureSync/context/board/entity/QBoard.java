@@ -1,10 +1,7 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.board.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.fcc.PureSync.context.board.entity.Board;
-import com.fcc.PureSync.context.board.entity.BoardFile;
-import com.fcc.PureSync.context.board.entity.Comment;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -19,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoard extends EntityPathBase<Board> {
 
-    private static final long serialVersionUID = -1915188639L;
+    private static final long serialVersionUID = 1134364808L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -41,7 +38,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final ListPath<Comment, QComment> comments = this.<Comment, QComment>createList("comments", Comment.class, QComment.class, PathInits.DIRECT2);
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public QBoard(String variable) {
         this(Board.class, forVariable(variable), INITS);
@@ -61,7 +58,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }

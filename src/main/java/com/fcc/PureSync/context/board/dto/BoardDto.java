@@ -1,18 +1,12 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.board.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fcc.PureSync.entity.Board;
-import com.fcc.PureSync.entity.BoardFile;
-import com.fcc.PureSync.entity.Comment;
+import com.fcc.PureSync.context.board.entity.Board;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

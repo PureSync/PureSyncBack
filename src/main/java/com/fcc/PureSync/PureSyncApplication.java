@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
-@EnableJpaRepositories(basePackages = "com.fcc.PureSync.repository")
+@EnableJpaRepositories(basePackages = {"com.fcc.PureSync.repository", "com.fcc.PureSync"})
 @EnableJpaAuditing
 @SpringBootApplication(exclude = { RedisAutoConfiguration.class, RedisRepositoriesAutoConfiguration.class })
 public class PureSyncApplication {

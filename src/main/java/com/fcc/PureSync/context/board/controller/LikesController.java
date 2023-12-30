@@ -1,9 +1,9 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.board.controller;
 
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.MemberRepository;
-import com.fcc.PureSync.service.LikesService;
+import com.fcc.PureSync.context.board.service.LikesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;

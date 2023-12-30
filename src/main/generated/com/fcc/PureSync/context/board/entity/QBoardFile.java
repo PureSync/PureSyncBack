@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.board.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QBoardFile extends EntityPathBase<BoardFile> {
 
-    private static final long serialVersionUID = 2147212157L;
+    private static final long serialVersionUID = -1518932444L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

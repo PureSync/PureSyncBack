@@ -1,12 +1,10 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.board.controller;
 
-import com.fcc.PureSync.dto.BoardDto;
-import com.fcc.PureSync.dto.CommentDto;
+import com.fcc.PureSync.context.board.dto.CommentDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.MemberRepository;
-import com.fcc.PureSync.service.BoardService;
-import com.fcc.PureSync.service.CommentService;
+import com.fcc.PureSync.context.board.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
