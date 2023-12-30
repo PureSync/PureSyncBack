@@ -1,7 +1,7 @@
 package com.fcc.PureSync.repository;
 
 import com.fcc.PureSync.entity.Menu;
-import com.fcc.PureSync.vo.MenuStatsNativeVo;
+import com.fcc.PureSync.context.dashboard.vo.MenuStatsNativeVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,12 +23,6 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
                     "   SUM(CASE WHEN ml.menu_when = 2 THEN ROUND(ml.menu_gram / 100 * food.food_kcal) ELSE 0 END) AS kcalLunch, " +
                     "   SUM(CASE WHEN ml.menu_when = 3 THEN ROUND(ml.menu_gram / 100 * food.food_kcal) ELSE 0 END) AS kcalDinner, " +
                     "   SUM(CASE WHEN ml.menu_when = 4 THEN ROUND(ml.menu_gram / 100 * food.food_kcal) ELSE 0 END) AS kcalSnack " +
-//                    "   ROUND(SUM(food.food_car), 2) as foodCar, " +
-//                    "   ROUND(SUM(food.food_pro), 2) as foodPro, " +
-//                    "   ROUND(SUM(food.food_fat), 2) as foodFat, " +
-//                    "   ROUND(SUM(food.food_sugar), 2) as foodSugar, " +
-//                    "   ROUND(SUM(food.food_na), 2) as foodNa, " +
-//                    "   ROUND(SUM(food.food_col), 2) as foodCol " +
                     "FROM " +
                     "  DateRange " +
                     "LEFT JOIN tb_menu_list AS ml ON DateRange.date = ml.menu_date AND ml.mem_seq = :memSeq " +
