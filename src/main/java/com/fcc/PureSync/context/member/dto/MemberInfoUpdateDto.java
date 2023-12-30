@@ -1,4 +1,4 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.member.dto;
 
 import com.fcc.PureSync.entity.Body;
 import lombok.*;
