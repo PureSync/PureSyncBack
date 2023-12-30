@@ -1,4 +1,4 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.board.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.fcc.PureSync.context.board.dto.BoardDto;
@@ -9,6 +9,7 @@ import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.context.board.repository.BoardFileRepository;
 import com.fcc.PureSync.context.board.repository.BoardRepository;
 import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.service.MemberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
