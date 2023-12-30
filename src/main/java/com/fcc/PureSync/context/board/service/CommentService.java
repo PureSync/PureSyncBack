@@ -38,13 +38,13 @@ public class CommentService {
                 .build();
     }
 
-    private void boardStatusChk(Board board) {
+    public void boardStatusChk(Board board) {
         if (board.getBoardStatus()==0) {
             throw new CustomException(CustomExceptionCode.ALREADY_DELETED_ARTICLE);
         }
     }
 
-    private void commentStatusChk(Comment comment) {
+    public void commentStatusChk(Comment comment) {
         if (comment.getCmtStatus()==0) {
             throw new CustomException(CustomExceptionCode.ALREADY_DELETED_COMMENT);
         }
@@ -127,7 +127,7 @@ public class CommentService {
 
 
     public ResultDto getComment(Pageable pageable, Long boardSeq) {
-        List<Comment> commentList = commentRepository.findByCmtStatusNotOrderByCmtWdateDesc(pageable,0);
+        List<Comment> commentList = commentRepository.findByCmtStatusNotAndBoard_BoardSeqOrderByCmtWdateDesc(pageable,0,boardSeq);
         List<CommentDto> commentDtoList = commentList.stream()
                 .map(CommentDto::toDto)
                 .toList();
