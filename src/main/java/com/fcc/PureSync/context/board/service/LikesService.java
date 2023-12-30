@@ -139,9 +139,9 @@ public class LikesService {
         //정보가 없을 때 등록
         if(findMyLikes==0) {
             Likes updatesLikes = Likes.builder()
-                            .member(member)
-                            .board(board)
-                            .build();
+                    .member(member)
+                    .board(board)
+                    .build();
             likesRepository.save(updatesLikes);
         }
 

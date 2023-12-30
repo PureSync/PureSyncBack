@@ -74,7 +74,7 @@ public class SecurityConfig {
         configureCommonAuthentication(httpSecurity);
         httpSecurity
                 .authorizeHttpRequests(user -> user
-                        .requestMatchers("/api/member/**", "/landing").permitAll()
+                        .requestMatchers("/api/member/**", "/landing","/member/**").permitAll()
                         .requestMatchers("/api/**").hasAnyAuthority(UserRoleConfig.UserRole.USER.toString()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .portMapper(portMapper -> portMapper

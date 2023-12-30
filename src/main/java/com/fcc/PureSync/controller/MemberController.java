@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     @GetMapping("/check-duplicate/{field}/{value}")
-    public ResultDto checkDuplicate(@PathVariable @NotBlank String field, @PathVariable @NotBlank String value) {
+    public ResultDto checkDuplicate(@PathVariable @NotBlank String field, @PathVariable  String value) {
         return memberService.checkDuplicate(field, value);
     }
 
