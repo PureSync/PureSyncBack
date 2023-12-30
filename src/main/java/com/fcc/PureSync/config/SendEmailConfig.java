@@ -45,7 +45,9 @@ public class SendEmailConfig {
     public JavaMailSender javaMailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
+        System.out.println("-------------------------------------host : " + host);
         mailSender.setPort(port);
+        System.out.println("=====================================port : " + port);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
         mailSender.setDefaultEncoding("UTF-8");

@@ -1,8 +1,6 @@
 package com.fcc.PureSync.repository;
 
 import com.fcc.PureSync.entity.Food;
-import com.fcc.PureSync.entity.Menu;
-import com.fcc.PureSync.vo.MenuStatsNativeVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

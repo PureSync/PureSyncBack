@@ -2,6 +2,9 @@ package com.fcc.PureSync.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.fcc.PureSync.context.board.entity.Board;
+import com.fcc.PureSync.context.board.entity.BoardFile;
+import com.fcc.PureSync.context.board.entity.Comment;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

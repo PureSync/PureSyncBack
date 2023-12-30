@@ -8,30 +8,30 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 public class SignupDto extends BaseEntity {
 
-    @Pattern(regexp =  "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+//    @Pattern(regexp =  "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
     String memId;
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")
+//    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$")
     String memPassword;
-    @NotBlank
+//    @NotBlank
     String memNick;
-    @Email
+//    @Email
     String memEmail;
 //    @Past 삭제!!!!!!!!!!!!!!
     String memBirth;
-    @Length(max=1)
+//    @Length(max=1)
      String memGender;
     //
-    @DecimalMax(value = "300.00")
-    @Positive
+//    @DecimalMax(value = "300.00")
+//    @Positive
     Double bodyHeight;
-    @DecimalMax(value = "500.00")
-    @Positive
+//    @DecimalMax(value = "500.00")
+//    @Positive
     Double bodyWeight;
-    @Max(10000)
-    @Positive
+//    @Max(10000)
+//    @Positive
     Double bodyWishWeight;
-    @Max(10000)
-    @Positive
+//    @Max(10000)
+//    @Positive
     Double bodyWishConscal;
 
 }

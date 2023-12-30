@@ -1,13 +1,11 @@
 package com.fcc.PureSync.repository;
 
 import com.fcc.PureSync.entity.Exercise;
-import com.fcc.PureSync.vo.DashboardDefaultNativeVo;
-import com.fcc.PureSync.vo.ExerciseStatsNativeVo;
-import com.fcc.PureSync.vo.MenuStatsNativeVo;
+import com.fcc.PureSync.context.dashboard.vo.DashboardDefaultNativeVo;
+import com.fcc.PureSync.context.dashboard.vo.ExerciseStatsNativeVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;

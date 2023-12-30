@@ -1,9 +1,7 @@
 package com.fcc.PureSync.service;
 
-import com.fcc.PureSync.dto.CommentDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.dto.SleepDto;
-import com.fcc.PureSync.entity.Comment;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.entity.Sleep;
 import com.fcc.PureSync.exception.CustomException;

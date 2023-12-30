@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.5'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id 'jacoco'
 }
 
 group = 'com.fcc'
@@ -76,6 +77,8 @@ dependencies {
 	//유효성 검사
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.2.0'
 
+	testImplementation "org.mockito:mockito-core:3.3.3"
+
 }
 
 tasks.named('bootBuildImage') {
@@ -95,4 +98,39 @@ tasks.withType(JavaCompile) {
 }
 clean.doLast {
 	file(querydslDir).deleteDir()
+}
+
+
+jacoco {
+	toolVersion = '0.8.8'
+}
+
+jacocoTestReport {
+	dependsOn test
+	reports {
+		html {
+			enabled true
+		}
+		xml {
+			enabled true
+		}
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(
+					dir: it,
+					includes: [
+							'com/fcc/PureSync/**/controller/*',
+							'com/fcc/PureSync/**/service/*',
+					],
+					excludes: [
+							'com/fcc/PureSync/common/*'
+					])
+		}))
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+	finalizedBy 'jacocoTestReport'
 }
