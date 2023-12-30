@@ -1,6 +1,6 @@
-package com.fcc.PureSync.repository;
+package com.fcc.PureSync.context.qnaBoard.repository;
 
-import com.fcc.PureSync.entity.QnaBoard;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaBoard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

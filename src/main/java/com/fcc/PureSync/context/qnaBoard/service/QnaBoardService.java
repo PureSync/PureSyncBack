@@ -1,4 +1,4 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.qnaBoard.service;
 
 
 import com.amazonaws.AmazonServiceException;
@@ -6,16 +6,16 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.fcc.PureSync.dto.QnaBoardDto;
-import com.fcc.PureSync.dto.QnaBoardFileDto;
+import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto;
+import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardFileDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.QnaBoard;
-import com.fcc.PureSync.entity.QnaBoardFile;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaBoard;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaBoardFile;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.repository.QnaBoardFileRepository;
-import com.fcc.PureSync.repository.QnaBoardRepository;
+import com.fcc.PureSync.context.qnaBoard.repository.QnaBoardFileRepository;
+import com.fcc.PureSync.context.qnaBoard.repository.QnaBoardRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
-import static com.fcc.PureSync.dto.QnaBoardDto.toDto;
+import static com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto.toDto;
 
 @Service
 @RequiredArgsConstructor

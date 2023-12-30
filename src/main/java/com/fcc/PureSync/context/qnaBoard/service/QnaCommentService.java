@@ -1,14 +1,14 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.qnaBoard.service;
 
-import com.fcc.PureSync.dto.QnaCommentDto;
+import com.fcc.PureSync.context.qnaBoard.dto.QnaCommentDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.QnaBoard;
-import com.fcc.PureSync.entity.QnaComment;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaBoard;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaComment;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.repository.QnaBoardRepository;
-import com.fcc.PureSync.repository.QnaCommentRepository;
+import com.fcc.PureSync.context.qnaBoard.repository.QnaBoardRepository;
+import com.fcc.PureSync.context.qnaBoard.repository.QnaCommentRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.fcc.PureSync.dto.QnaCommentDto.toDto;
+import static com.fcc.PureSync.context.qnaBoard.dto.QnaCommentDto.toDto;
 
 @Service
 @RequiredArgsConstructor

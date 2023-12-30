@@ -1,7 +1,7 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.qnaBoard.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fcc.PureSync.entity.QnaComment;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaComment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

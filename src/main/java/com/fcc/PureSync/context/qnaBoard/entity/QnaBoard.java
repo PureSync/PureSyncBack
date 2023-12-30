@@ -1,5 +1,6 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.qnaBoard.entity;
 
+import com.fcc.PureSync.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

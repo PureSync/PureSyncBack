@@ -1,7 +1,7 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.qnaBoard.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fcc.PureSync.entity.QnaBoard;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaBoard;
 import lombok.*;
 
 import java.time.LocalDateTime;

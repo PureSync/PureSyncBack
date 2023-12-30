@@ -1,9 +1,9 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.qnaBoard.controller;
 
-import com.fcc.PureSync.dto.QnaBoardDto;
+import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.QnaBoardService;
+import com.fcc.PureSync.context.qnaBoard.service.QnaBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

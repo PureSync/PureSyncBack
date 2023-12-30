@@ -1,6 +1,6 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.qnaBoard.dto;
 
-import com.fcc.PureSync.entity.QnaBoardFile;
+import com.fcc.PureSync.context.qnaBoard.entity.QnaBoardFile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
