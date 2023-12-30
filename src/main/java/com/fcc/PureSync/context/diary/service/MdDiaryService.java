@@ -1,14 +1,16 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.diary.service;
 
+import com.fcc.PureSync.context.diary.dto.MdDiaryRequestDto;
+import com.fcc.PureSync.context.diary.dto.MdDiaryResponseDto;
 import com.fcc.PureSync.dto.*;
-import com.fcc.PureSync.entity.Emotion;
-import com.fcc.PureSync.entity.MdDiary;
+import com.fcc.PureSync.context.diary.entity.Emotion;
+import com.fcc.PureSync.context.diary.entity.MdDiary;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.repository.EmotionRepository;
-import com.fcc.PureSync.repository.MdDiaryRepository;
+import com.fcc.PureSync.context.diary.repository.EmotionRepository;
+import com.fcc.PureSync.context.diary.repository.MdDiaryRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import com.fcc.PureSync.util.NaverApi;
 import lombok.RequiredArgsConstructor;

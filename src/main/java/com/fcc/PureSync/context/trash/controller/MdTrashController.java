@@ -1,9 +1,9 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.trash.controller;
 
-import com.fcc.PureSync.dto.MdTrashRequestDto;
+import com.fcc.PureSync.context.trash.dto.MdTrashRequestDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.MdTrashService;
+import com.fcc.PureSync.context.trash.service.MdTrashService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;

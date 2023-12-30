@@ -1,6 +1,6 @@
-package com.fcc.PureSync.repository;
+package com.fcc.PureSync.context.trash.repository;
 
-import com.fcc.PureSync.entity.MdTrash;
+import com.fcc.PureSync.context.trash.entity.MdTrash;
 import com.fcc.PureSync.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

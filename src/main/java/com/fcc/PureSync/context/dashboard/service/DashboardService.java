@@ -4,6 +4,7 @@ import com.fcc.PureSync.context.dashboard.vo.DashboardDefaultNativeVo;
 import com.fcc.PureSync.context.dashboard.vo.ExerciseStatsNativeVo;
 import com.fcc.PureSync.context.dashboard.vo.MenuStatsNativeVo;
 import com.fcc.PureSync.context.dashboard.vo.SleepStatsNativeVo;
+import com.fcc.PureSync.context.diary.repository.MdDiaryRepository;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.entity.Positive;

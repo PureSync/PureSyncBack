@@ -1,6 +1,6 @@
-package com.fcc.PureSync.repository;
+package com.fcc.PureSync.context.diary.repository;
 
-import com.fcc.PureSync.entity.Emotion;
+import com.fcc.PureSync.context.diary.entity.Emotion;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmotionRepository extends JpaRepository <Emotion, Long> {

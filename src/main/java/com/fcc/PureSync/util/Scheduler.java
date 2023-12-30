@@ -1,6 +1,6 @@
 package com.fcc.PureSync.util;
 
-import com.fcc.PureSync.service.MdTrashService;
+import com.fcc.PureSync.context.trash.service.MdTrashService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
