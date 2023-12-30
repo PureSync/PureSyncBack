@@ -1,13 +1,11 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.dashboard.controller;
 
-import com.fcc.PureSync.common.HeaderInfo;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.DashboardService;
+import com.fcc.PureSync.context.dashboard.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpEntity;
 
 import java.time.LocalDate;
 

@@ -1,12 +1,15 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.dashboard.service;
 
+import com.fcc.PureSync.context.dashboard.vo.DashboardDefaultNativeVo;
+import com.fcc.PureSync.context.dashboard.vo.ExerciseStatsNativeVo;
+import com.fcc.PureSync.context.dashboard.vo.MenuStatsNativeVo;
+import com.fcc.PureSync.context.dashboard.vo.SleepStatsNativeVo;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.entity.Positive;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.repository.*;
-import com.fcc.PureSync.vo.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

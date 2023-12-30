@@ -1,4 +1,4 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fcc.PureSync.entity.Member;

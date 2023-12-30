@@ -1,4 +1,4 @@
-package com.fcc.PureSync.vo;
+package com.fcc.PureSync.context.dashboard.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

@@ -1,13 +1,12 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.member.controller;
 
-import com.fcc.PureSync.dto.MemberInfoDto;
-import com.fcc.PureSync.dto.MemberInfoUpdateDto;
-import com.fcc.PureSync.dto.MemberPasswordDto;
+import com.fcc.PureSync.context.member.dto.MemberInfoDto;
+import com.fcc.PureSync.context.member.dto.MemberInfoUpdateDto;
+import com.fcc.PureSync.context.member.dto.MemberPasswordDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.MypageService;
+import com.fcc.PureSync.context.member.service.MypageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
