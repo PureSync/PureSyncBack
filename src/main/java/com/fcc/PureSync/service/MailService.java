@@ -35,7 +35,6 @@ public class MailService {
     @Async
     public void signUpByVerificationCode(String newMemberEmail) {
         String linkCode = RandomStringGenerator.generateEmailVerificationCode(EmailConstant.EMAIL_VERIFICATION_CODE_LENGTH);
-        System.out.println("링크코드~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + linkCode);
         handleSignUpByVerificationCode(newMemberEmail, linkCode);
         EmailVerificationResponse emailVerificationResponse = new EmailVerificationResponse(newMemberEmail, linkCode);
 //        return  handleSignUpByVerificationCodeMap(emailVerificationResponse);
@@ -44,7 +43,6 @@ public class MailService {
     private void handleSignUpByVerificationCode(String newMemberEmail, String linkCode) {
 //        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.LOCAL_DOMAIN, linkCode,newMemberEmail);
         String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.AWS_DOMAIN, linkCode,newMemberEmail);
-        System.out.println("레디스 호스트%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + RedisHost);
         verificationCodeDao.saveVerificationCode(newMemberEmail, linkCode);
         sendMail(newMemberEmail, EmailConstant.EMAIL_TITLE, txt);
     }
