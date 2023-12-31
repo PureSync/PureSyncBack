@@ -53,7 +53,7 @@ jobs:
         NAME: calisws
         REPO: backend
       run: |
-        docker build --build-arg JAR_FILE=build/libs/*.jar -t $REPO . 
+        docker build --no-cache --build-arg JAR_FILE=build/libs/*.jar -t $REPO . 
         docker tag $REPO:latest $NAME/$REPO:latest 
         docker push $NAME/$REPO:latest
     - name: deploy
