@@ -11,6 +11,7 @@ public final class EmailConstant {
     public static final String VERIFY_DOMAIN="http://localhost:4000"; //프론트
 //    public static final String AWS_DOMAIN="http://13.239.63.115:8080";
     public static final String AWS_DOMAIN="http://fcc.puresync.site:8080";
+    public static final String AWS_REVERSE_PROXY_DOMAIN="http://fcc.puresync.site";
 
     public static final Integer MEMBER_ENABLED_LEVEL=4;
     public static final Integer MEMBER_DISABLED_LEVEL=0;
