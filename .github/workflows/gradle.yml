@@ -29,8 +29,6 @@ jobs:
     - name: Run chmod to make gradlew executable
       run: chmod +x ./gradlew
 
-    - name: Delete existing application-secret.properties
-      run: rm -f src/main/resources/application-secret.properties
     - name: Copy Secret
       env:
           OCCUPY_SECRET: ${{ secrets.OCCUPY_SECRET_KEY }}
@@ -55,7 +53,7 @@ jobs:
         NAME: calisws
         REPO: backend
       run: |
-        docker build --no-cache --build-arg JAR_FILE=build/libs/*.jar -t $REPO . 
+        docker build --build-arg JAR_FILE=build/libs/*.jar -t $REPO . 
         docker tag $REPO:latest $NAME/$REPO:latest 
         docker push $NAME/$REPO:latest
     - name: deploy
