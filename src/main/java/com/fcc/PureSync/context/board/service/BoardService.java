@@ -36,8 +36,7 @@ import static com.fcc.PureSync.context.board.dto.BoardDto.toDto;
 @RequiredArgsConstructor
 @Transactional
 public class BoardService {
-    @Value("${fileUploadPath}")
-    String fileUploadPath;
+
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
     private final MemberRepository memberRepository;

@@ -35,8 +35,7 @@ import static com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto.toDto;
 @RequiredArgsConstructor
 @Transactional
 public class QnaBoardService {
-    @Value("${fileUploadPath}")
-    String fileUploadPath;
+
     private final QnaBoardRepository qnaBoardRepository;
     private final QnaBoardFileRepository qnaBoardFileRepository;
     private final MemberRepository memberRepository;
