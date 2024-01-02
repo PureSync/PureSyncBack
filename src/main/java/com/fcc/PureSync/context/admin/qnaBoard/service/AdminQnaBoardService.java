@@ -1,8 +1,8 @@
-package com.fcc.PureSync.context.adminQnaBoard.service;
+package com.fcc.PureSync.context.admin.qnaBoard.service;
 
-import com.fcc.PureSync.context.adminQnaBoard.dao.AdminQnaBoardDao;
-import com.fcc.PureSync.context.adminQnaBoard.dao.QnaCommentDao;
-import com.fcc.PureSync.context.adminQnaBoard.dto.AdminQnaBoardDto;
+import com.fcc.PureSync.context.admin.qnaBoard.dao.QnaCommentDao;
+import com.fcc.PureSync.context.admin.qnaBoard.dao.AdminQnaBoardDao;
+import com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

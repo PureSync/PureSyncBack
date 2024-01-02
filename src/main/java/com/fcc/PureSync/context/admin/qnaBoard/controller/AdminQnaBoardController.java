@@ -1,8 +1,8 @@
-package com.fcc.PureSync.context.adminQnaBoard.controller;
+package com.fcc.PureSync.context.admin.qnaBoard.controller;
 
 import com.fcc.PureSync.common.Pager;
-import com.fcc.PureSync.context.adminQnaBoard.dto.AdminQnaBoardDto;
-import com.fcc.PureSync.context.adminQnaBoard.service.AdminQnaBoardService;
+import com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto;
+import com.fcc.PureSync.context.admin.qnaBoard.service.AdminQnaBoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,4 +1,4 @@
-package com.fcc.PureSync.context.adminQnaBoard.dto;
+package com.fcc.PureSync.context.admin.qnaBoard.dto;
 
 
 import com.fcc.PureSync.common.BaseDto;

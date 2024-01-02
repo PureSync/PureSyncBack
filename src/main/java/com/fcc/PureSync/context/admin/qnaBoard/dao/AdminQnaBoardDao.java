@@ -1,6 +1,6 @@
-package com.fcc.PureSync.context.adminQnaBoard.dao;
+package com.fcc.PureSync.context.admin.qnaBoard.dao;
 
-import com.fcc.PureSync.context.adminQnaBoard.dto.AdminQnaBoardDto;
+import com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto;
 import jakarta.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,7 @@ public class AdminQnaBoardDao {
     @Resource(name="sm")
     SqlSessionTemplate sm;
 
-    public List<AdminQnaBoardDto> getAllQnaBoardList( AdminQnaBoardDto adminQnaBoardDto ) {
+    public List<AdminQnaBoardDto> getAllQnaBoardList(AdminQnaBoardDto adminQnaBoardDto ) {
         List<AdminQnaBoardDto> list = sm.selectList("getAllQnaBoardList", adminQnaBoardDto);
         return list;
     }
