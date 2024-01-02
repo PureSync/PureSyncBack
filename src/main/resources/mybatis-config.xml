@@ -10,7 +10,7 @@
         <typeAlias alias="MenuDto"     type="com.fcc.PureSync.dto.MenuDto"/>
         <typeAlias alias="SummaryDto"     type="com.fcc.PureSync.dto.SummaryDto"/>
         <typeAlias alias="AdminBoardDto"     type="com.fcc.PureSync.dto.AdminBoardDto"/>
-        <typeAlias alias="AdminQnaBoardDto"     type="com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto"/>
+        <typeAlias alias="QnaBoardDto"     type="com.fcc.PureSync.context.admin.qnaBoard.dto.QnaBoardDto"/>
         <typeAlias alias="NoticeDto"     type="com.fcc.PureSync.dto.NoticeDto"/>
 
     </typeAliases>

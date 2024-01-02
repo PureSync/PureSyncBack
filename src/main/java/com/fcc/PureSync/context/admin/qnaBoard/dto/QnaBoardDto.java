@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class AdminQnaBoardDto extends BaseDto {
+public class QnaBoardDto extends BaseDto {
     // 유저 보드
     private Long qna_board_seq;
     private String qna_board_name;  // 제목
