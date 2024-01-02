@@ -1,12 +1,12 @@
 package com.fcc.PureSync.context.admin.qnaBoard.dao;
 
-import com.fcc.PureSync.context.admin.qnaBoard.dto.QnaBoardDto;
+import com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class QnaCommentDao {
+public class AdminQnaCommentDao {
     @Autowired
     SqlSessionTemplate sm;
 
@@ -23,12 +23,12 @@ public class QnaCommentDao {
 //        return sm.selectOne("qnaCommentView", adminQnaBoardDto );
 //    }
 
-    public void qnaCommentWrite(QnaBoardDto qnaBoardDto) {
-        sm.insert("qnaCommentWrite", qnaBoardDto);
+    public void qnaCommentWrite(AdminQnaBoardDto adminQnaBoardDto) {
+        sm.insert("qnaCommentWrite", adminQnaBoardDto);
     }
 
-    public void qnaCommentUpdate(QnaBoardDto qnaBoardDto) {
-        sm.update("qnaCommentUpdate", qnaBoardDto);
+    public void qnaCommentUpdate(AdminQnaBoardDto adminQnaBoardDto) {
+        sm.update("qnaCommentUpdate", adminQnaBoardDto);
     }
 
     public void qnaCommentDelete(Long qnaCmtSeq) {

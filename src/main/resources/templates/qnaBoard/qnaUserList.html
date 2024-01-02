@@ -28,7 +28,7 @@
                            <img src="/img/svg/search.svg" alt="search" class="svg">
                            <input type="hidden" id="page" th:value="${pg}" >
                            <input class="form-control me-sm-2 border-0 box-shadow-none" id="searchText" type="search"
-                                  placeholder="유저 아이디로 검색하세요🔍" aria-label="Search" th:value="${qnaBoardDto.searchText}"
+                                  placeholder="유저 아이디로 검색하세요🔍" aria-label="Search" th:value="${adminQnaBoardDto.searchText}"
                                   onkeydown="handleKeyDown(event)">
                         </form>
                         <button type="button" id="searchBtn" class="btn btn-primary btn-default btn-squared" onclick="onSearch()">
