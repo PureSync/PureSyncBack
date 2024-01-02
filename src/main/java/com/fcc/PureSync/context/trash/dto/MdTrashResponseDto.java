@@ -1,4 +1,4 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.trash.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

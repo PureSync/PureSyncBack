@@ -1,5 +1,6 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.trash.entity;
 
+import com.fcc.PureSync.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Where;

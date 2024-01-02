@@ -1,8 +1,9 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.diary.entity;
 
+import com.fcc.PureSync.context.diary.entity.Emotion;
+import com.fcc.PureSync.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;

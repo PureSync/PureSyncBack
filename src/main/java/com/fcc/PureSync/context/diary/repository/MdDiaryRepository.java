@@ -1,6 +1,6 @@
-package com.fcc.PureSync.repository;
+package com.fcc.PureSync.context.diary.repository;
 
-import com.fcc.PureSync.entity.MdDiary;
+import com.fcc.PureSync.context.diary.entity.MdDiary;
 import com.fcc.PureSync.entity.Member;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;

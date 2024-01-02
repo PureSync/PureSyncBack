@@ -1,16 +1,14 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.trash.service;
 
-import com.fcc.PureSync.dto.MdDiaryRequestDto;
-import com.fcc.PureSync.dto.MdTrashRequestDto;
-import com.fcc.PureSync.dto.MdTrashResponseDto;
+import com.fcc.PureSync.context.trash.dto.MdTrashRequestDto;
+import com.fcc.PureSync.context.trash.dto.MdTrashResponseDto;
 import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.MdDiary;
-import com.fcc.PureSync.entity.MdTrash;
+import com.fcc.PureSync.context.trash.entity.MdTrash;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.repository.MdTrashRepository;
+import com.fcc.PureSync.context.trash.repository.MdTrashRepository;
 import com.fcc.PureSync.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,9 +1,9 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.diary.controller;
 
-import com.fcc.PureSync.dto.MdDiaryRequestDto;
+import com.fcc.PureSync.context.diary.dto.MdDiaryRequestDto;
 import com.fcc.PureSync.dto.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.MdDiaryService;
+import com.fcc.PureSync.context.diary.service.MdDiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
