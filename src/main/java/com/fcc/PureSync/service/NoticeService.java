@@ -1,7 +1,7 @@
 package com.fcc.PureSync.service;
 import com.fcc.PureSync.dao.NoticeDao;
 import com.fcc.PureSync.dto.NoticeDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;

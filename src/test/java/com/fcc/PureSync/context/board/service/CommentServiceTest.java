@@ -1,12 +1,11 @@
 package com.fcc.PureSync.context.board.service;
 
-import com.fcc.PureSync.context.board.dto.BoardDto;
 import com.fcc.PureSync.context.board.dto.CommentDto;
 import com.fcc.PureSync.context.board.entity.Board;
 import com.fcc.PureSync.context.board.entity.Comment;
 import com.fcc.PureSync.context.board.repository.BoardRepository;
 import com.fcc.PureSync.context.board.repository.CommentRepository;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
@@ -26,7 +25,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static java.util.Optional.of;

@@ -1,15 +1,10 @@
 package com.fcc.PureSync.service;
 import com.fcc.PureSync.dao.AdminBoardDao;
 import com.fcc.PureSync.dto.AdminBoardDto;
-import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Service

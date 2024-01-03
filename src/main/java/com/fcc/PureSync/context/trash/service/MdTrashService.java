@@ -2,7 +2,7 @@ package com.fcc.PureSync.context.trash.service;
 
 import com.fcc.PureSync.context.trash.dto.MdTrashRequestDto;
 import com.fcc.PureSync.context.trash.dto.MdTrashResponseDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.trash.entity.MdTrash;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;

@@ -2,8 +2,7 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.AdminMemberDto;
 import com.fcc.PureSync.dto.MemberDetailDto;
-import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.Member;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.entity.MemberSearchCondition;
 import com.fcc.PureSync.service.MemberService;
 import lombok.RequiredArgsConstructor;

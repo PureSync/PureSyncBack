@@ -2,16 +2,12 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.ExerciseDto;
 import com.fcc.PureSync.dto.ExerciseResponseDto;
-import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.entity.Exercise;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.ExerciseService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping( value = "/api/exercise" )
 @RestController

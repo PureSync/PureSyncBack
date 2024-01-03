@@ -1,7 +1,7 @@
 package com.fcc.PureSync.controller;
 
 
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.dto.SleepDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.SleepService;

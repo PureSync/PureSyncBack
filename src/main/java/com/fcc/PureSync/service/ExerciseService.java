@@ -4,7 +4,7 @@ package com.fcc.PureSync.service;
 import com.fcc.PureSync.dao.ExerciseDao;
 import com.fcc.PureSync.dto.ExerciseDto;
 import com.fcc.PureSync.dto.ExerciseResponseDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.entity.Exercise;
 import com.fcc.PureSync.entity.ExerciseList;
 

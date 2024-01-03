@@ -1,11 +1,7 @@
 package com.fcc.PureSync.controller;
 
-import com.fcc.PureSync.dto.MenuDto;
-import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.dto.SummaryDto;
-import com.fcc.PureSync.entity.Menu;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.MenuService;
 import com.fcc.PureSync.service.SummaryService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

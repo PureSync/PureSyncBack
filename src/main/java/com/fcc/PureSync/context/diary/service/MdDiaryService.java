@@ -1,5 +1,6 @@
 package com.fcc.PureSync.context.diary.service;
 
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.diary.dto.MdDiaryRequestDto;
 import com.fcc.PureSync.context.diary.dto.MdDiaryResponseDto;
 import com.fcc.PureSync.dto.*;

@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.test.service;
 
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.test.dto.TestAnswerDto;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.context.test.entity.TestAnswer;

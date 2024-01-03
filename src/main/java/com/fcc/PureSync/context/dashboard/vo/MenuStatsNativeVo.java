@@ -6,11 +6,4 @@ public interface MenuStatsNativeVo {
     int getKcalLunch();
     int getKcalDinner();
     int getKcalSnack();
-//    Double getFoodCar();
-//    Double getFoodPro();
-//    Double getFoodFat();
-//    Double getFoodSugar();
-//    Double getFoodNa();
-//    Double getFoodCol();
-
 }

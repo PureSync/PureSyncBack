@@ -2,7 +2,7 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.FindPasswordDto;
 import com.fcc.PureSync.dto.LoginDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.dto.SignupDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.service.MemberService;
@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;

@@ -5,7 +5,6 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="Exam"       type="com.fcc.PureSync.entity.entity"/>
         <typeAlias alias="ExerciseDto" type="com.fcc.PureSync.dto.ExerciseDto"/>
         <typeAlias alias="MenuDto"     type="com.fcc.PureSync.dto.MenuDto"/>
         <typeAlias alias="SummaryDto"     type="com.fcc.PureSync.dto.SummaryDto"/>
@@ -16,15 +15,12 @@
     </typeAliases>
 
     <mappers>
-        <mapper resource="mapper/exam.xml" />
         <mapper resource="mapper/Exercise.xml" />
         <mapper resource="mapper/Menu.xml" />
         <mapper resource="mapper/Summary.xml" />
         <mapper resource="mapper/adminBoard.xml" />
         <mapper resource="mapper/adminQnaBoard.xml" />
         <mapper resource="mapper/Notice.xml" />
-
-
     </mappers>
 </configuration>
 
