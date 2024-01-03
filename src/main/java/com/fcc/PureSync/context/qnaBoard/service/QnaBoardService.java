@@ -289,7 +289,7 @@ public class QnaBoardService {
 
     //n+1 문제 쿼리문 똑같은 것 반복
     public ResultDto findAllQnaBoard(String memId, Pageable pageable) {
-        List<QnaBoard> qnaBoardPage = qnaBoardRepository.findByQnaBoardStatusOrderByQnaBoardWdateDesc(1, pageable).getContent();
+        List<QnaBoard> qnaBoardPage = qnaBoardRepository.findByQnaBoardStatusOrderByQnaBoardWdateDesc(0, pageable).getContent();
         List<QnaBoardDto> qnaBoardDetailDtoList = qnaBoardPage.stream()
                 .map(QnaBoardDto::QnaBoardAllDetailDto)
                 .toList();
