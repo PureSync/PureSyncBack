@@ -1,6 +1,6 @@
 package com.fcc.PureSync.service;
 
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.dto.SleepDto;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.entity.Sleep;

@@ -9,7 +9,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fcc.PureSync.context.board.dto.BoardDto;
 import com.fcc.PureSync.context.board.entity.Board;
 import com.fcc.PureSync.context.board.dto.BoardFileDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.board.entity.BoardFile;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;

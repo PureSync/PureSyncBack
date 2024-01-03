@@ -1,19 +1,15 @@
 package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.common.Pager;
-import com.fcc.PureSync.dto.MenuDto;
 import com.fcc.PureSync.dto.NoticeDto;
-import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.service.NoticeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;

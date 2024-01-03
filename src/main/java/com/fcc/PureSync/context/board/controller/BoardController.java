@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.board.controller;
 
 import com.fcc.PureSync.context.board.dto.BoardDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.repository.MemberRepository;
 import com.fcc.PureSync.context.board.service.BoardService;

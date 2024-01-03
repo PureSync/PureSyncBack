@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.board.service;
 
 import com.fcc.PureSync.context.board.dto.LikesDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.board.entity.Board;
 import com.fcc.PureSync.context.board.entity.Likes;
 import com.fcc.PureSync.entity.Member;
