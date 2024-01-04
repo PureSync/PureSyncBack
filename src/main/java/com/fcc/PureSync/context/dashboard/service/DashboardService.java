@@ -3,7 +3,7 @@ package com.fcc.PureSync.context.dashboard.service;
 import com.fcc.PureSync.context.dashboard.vo.DashboardDefaultNativeVo;
 import com.fcc.PureSync.context.dashboard.vo.*;
 import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.repository.*;
+import com.fcc.PureSync.context.exercise.repository.ExerciseRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
