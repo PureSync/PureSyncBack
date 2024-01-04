@@ -5,12 +5,12 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="ExerciseDto" type="com.fcc.PureSync.dto.ExerciseDto"/>
-        <typeAlias alias="MenuDto"     type="com.fcc.PureSync.dto.MenuDto"/>
-        <typeAlias alias="SummaryDto"     type="com.fcc.PureSync.dto.SummaryDto"/>
-        <typeAlias alias="AdminBoardDto"     type="com.fcc.PureSync.dto.AdminBoardDto"/>
+        <typeAlias alias="ExerciseDto" type="com.fcc.PureSync.context.exercise.dto.ExerciseDto"/>
+        <typeAlias alias="MenuDto"     type="com.fcc.PureSync.context.menu.dto.MenuDto"/>
+        <typeAlias alias="SummaryDto"     type="com.fcc.PureSync.context.summary.dto.SummaryDto"/>
+        <typeAlias alias="AdminBoardDto"     type="com.fcc.PureSync.context.admin.userBoard.dto.AdminBoardDto"/>
         <typeAlias alias="AdminQnaBoardDto"     type="com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto"/>
-        <typeAlias alias="NoticeDto"     type="com.fcc.PureSync.dto.NoticeDto"/>
+        <typeAlias alias="NoticeDto"     type="com.fcc.PureSync.context.admin.notice.dto.NoticeDto"/>
 
     </typeAliases>
 
