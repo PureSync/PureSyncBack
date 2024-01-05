@@ -1,13 +1,13 @@
-package com.fcc.PureSync.service;
+package com.fcc.PureSync.context.sleep.service;
 
 import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.dto.SleepDto;
+import com.fcc.PureSync.context.sleep.dto.SleepDto;
 import com.fcc.PureSync.entity.Member;
-import com.fcc.PureSync.entity.Sleep;
+import com.fcc.PureSync.context.sleep.entity.Sleep;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.repository.MemberRepository;
-import com.fcc.PureSync.repository.SleepRepository;
+import com.fcc.PureSync.context.sleep.repository.SleepRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.fcc.PureSync.dto.SleepDto.toDto;
+import static com.fcc.PureSync.context.sleep.dto.SleepDto.toDto;
 
 @Service
 @RequiredArgsConstructor

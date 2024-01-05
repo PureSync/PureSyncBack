@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.qnaBoard.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QQnaComment extends EntityPathBase<QnaComment> {
 
-    private static final long serialVersionUID = -1708097216L;
+    private static final long serialVersionUID = 1890721759L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 

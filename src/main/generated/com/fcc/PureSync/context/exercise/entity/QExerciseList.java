@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.exercise.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QExerciseList extends EntityPathBase<ExerciseList> {
 
-    private static final long serialVersionUID = -1502802245L;
+    private static final long serialVersionUID = -1150528240L;
 
     public static final QExerciseList exerciseList = new QExerciseList("exerciseList");
 
