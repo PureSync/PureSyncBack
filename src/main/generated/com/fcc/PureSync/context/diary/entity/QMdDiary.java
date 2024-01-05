@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.diary.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QMdDiary extends EntityPathBase<MdDiary> {
 
-    private static final long serialVersionUID = -1419643609L;
+    private static final long serialVersionUID = -2143544559L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -36,7 +36,7 @@ public class QMdDiary extends EntityPathBase<MdDiary> {
 
     public final QEmotion emotion;
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public QMdDiary(String variable) {
         this(MdDiary.class, forVariable(variable), INITS);
@@ -57,7 +57,7 @@ public class QMdDiary extends EntityPathBase<MdDiary> {
     public QMdDiary(Class<? extends MdDiary> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.emotion = inits.isInitialized("emotion") ? new QEmotion(forProperty("emotion")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }

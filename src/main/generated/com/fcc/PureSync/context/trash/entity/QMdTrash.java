@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.trash.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,13 +16,13 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QMdTrash extends EntityPathBase<MdTrash> {
 
-    private static final long serialVersionUID = -1404599140L;
+    private static final long serialVersionUID = -1942576527L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QMdTrash mdTrash = new QMdTrash("mdTrash");
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public final StringPath tsContents = createString("tsContents");
 
@@ -50,7 +50,7 @@ public class QMdTrash extends EntityPathBase<MdTrash> {
 
     public QMdTrash(Class<? extends MdTrash> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }

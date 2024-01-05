@@ -1,10 +1,10 @@
-package com.fcc.PureSync.controller;
+package com.fcc.PureSync.context.sleep.controller;
 
 
 import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.dto.SleepDto;
+import com.fcc.PureSync.context.sleep.dto.SleepDto;
 import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.service.SleepService;
+import com.fcc.PureSync.context.sleep.service.SleepService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

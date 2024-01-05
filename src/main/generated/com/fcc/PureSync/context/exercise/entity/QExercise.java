@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.exercise.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QExercise extends EntityPathBase<Exercise> {
 
-    private static final long serialVersionUID = -593530755L;
+    private static final long serialVersionUID = 495003986L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -32,7 +32,7 @@ public class QExercise extends EntityPathBase<Exercise> {
 
     public final QExerciseList exerciseList;
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public QExercise(String variable) {
         this(Exercise.class, forVariable(variable), INITS);
@@ -53,7 +53,7 @@ public class QExercise extends EntityPathBase<Exercise> {
     public QExercise(Class<? extends Exercise> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.exerciseList = inits.isInitialized("exerciseList") ? new QExerciseList(forProperty("exerciseList")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }

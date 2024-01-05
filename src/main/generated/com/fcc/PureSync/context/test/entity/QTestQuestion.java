@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.test.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QTestQuestion extends EntityPathBase<TestQuestion> {
 
-    private static final long serialVersionUID = -1487747395L;
+    private static final long serialVersionUID = -8447668L;
 
     public static final QTestQuestion testQuestion = new QTestQuestion("testQuestion");
 
