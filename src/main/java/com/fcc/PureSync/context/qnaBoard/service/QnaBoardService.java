@@ -44,15 +44,6 @@ public class QnaBoardService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public ResultDto buildResultDto(int code, HttpStatus status, String msg, HashMap<String, Object> map) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(status)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-
     public ResultDto createQnaBoard(String memId, QnaBoardDto qnaBoardDto, List<MultipartFile> file) {
         Member member = memberRepository.findByMemId(memId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
@@ -131,7 +122,7 @@ public class QnaBoardService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaBoardDetailDto", qnaBoardDetailDto);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시글 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 조회 성공", map);
     }
 
     //n+1 문제 쿼리문 똑같은 것 반복
@@ -146,7 +137,7 @@ public class QnaBoardService {
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaBoardPage", qnaBoardDetailDtoList);
         map.put("totalPages", totalPages);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시글 전체 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 전체 조회 성공", map);
     }
 
     public ResultDto findFileChk(String memId, Long qnaBoardSeq, Pageable pageable) {
@@ -160,7 +151,7 @@ public class QnaBoardService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("findQnaBoardFile", qnaBoardFileDtoList);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시글 파일 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 파일 조회 성공", map);
     }
 
     private void qnaBoardStatusChk(QnaBoard qnaBoard) {
@@ -239,7 +230,7 @@ public class QnaBoardService {
          * 파일 존재 x
          */
         if (file == null) {
-            return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, successMessage, map);
+            return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, successMessage, map);
         }
 
         List<String> storedFileNameList = uploadFiles(file, qnaBoard);
@@ -249,6 +240,6 @@ public class QnaBoardService {
         map.put("qnaBoard", qnaBoardDtoResult);
         map.put("qnaBoardFile", storedFileNameList);
 
-        return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, successMessage, map);
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, successMessage, map);
     }
 }

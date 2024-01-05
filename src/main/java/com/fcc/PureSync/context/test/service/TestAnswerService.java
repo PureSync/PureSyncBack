@@ -26,15 +26,6 @@ public class TestAnswerService {
     private final MemberRepository memberRepository;
     private final TestAnswerRepository testAnswerRepository;
 
-    public ResultDto buildResultDto(int code, HttpStatus status, String msg, HashMap<String, Object> map) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(status)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-
     private ResultDto answerTest(Long memSeq, int testSeq, String testType, TestAnswerDto testAnswerDto) {
         Member member = memberRepository.findByMemSeq(memSeq)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
@@ -55,7 +46,7 @@ public class TestAnswerService {
         map.put(testType, toDto(testAnswer));
 
         String testTypeName = (testSeq == 1) ? "스트레스" : "우울증";
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, testTypeName + " 테스트 답변 완료", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, testTypeName + " 테스트 답변 완료", map);
     }
 
     public ResultDto stressAnswer(Long memSeq, TestAnswerDto testAnswerDto) {
@@ -76,7 +67,7 @@ public class TestAnswerService {
         map.put(testType, testAnswer);
 
         String testTypeName = (testSeq == 1) ? "스트레스" : "우울증";
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, testTypeName + " 테스트 답변 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, testTypeName + " 테스트 답변 조회 성공", map);
     }
 
     public ResultDto getAllStressAnswer(Long memSeq, int testSeq) {
@@ -109,7 +100,7 @@ public class TestAnswerService {
         map.put(testType, toDto(updatedTestAnswer));
 
         String testTypeName = (testSeq == 1) ? "스트레스" : "우울증";
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, testTypeName + " 테스트 답변 수정 완료", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, testTypeName + " 테스트 답변 수정 완료", map);
     }
 
     public ResultDto updateStressAnswer(Long memSeq, TestAnswerDto testAnswerDto, int testSeq) {
