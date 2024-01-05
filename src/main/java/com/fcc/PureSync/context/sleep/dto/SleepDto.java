@@ -1,6 +1,6 @@
-package com.fcc.PureSync.dto;
+package com.fcc.PureSync.context.sleep.dto;
 
-import com.fcc.PureSync.entity.Sleep;
+import com.fcc.PureSync.context.sleep.entity.Sleep;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

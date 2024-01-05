@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.sleep.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,13 +16,13 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QSleep extends EntityPathBase<Sleep> {
 
-    private static final long serialVersionUID = -1899574702L;
+    private static final long serialVersionUID = -322553816L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QSleep sleep = new QSleep("sleep");
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public final NumberPath<Integer> sleepCategory = createNumber("sleepCategory", Integer.class);
 
@@ -56,7 +56,7 @@ public class QSleep extends EntityPathBase<Sleep> {
 
     public QSleep(Class<? extends Sleep> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }
