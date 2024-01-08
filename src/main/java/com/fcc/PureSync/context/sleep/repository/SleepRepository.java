@@ -12,11 +12,11 @@ public interface SleepRepository extends JpaRepository<Sleep, Long> {
 
     @Query(value =
             "WITH RECURSIVE DateRange AS ( " +
-            "   SELECT CAST(:startDate AS DATE) AS date " +
+            "   SELECT CAST(:targetDate AS DATE) AS date " +
             "   UNION ALL " +
             "   SELECT date - INTERVAL 1 DAY " +
             "   FROM DateRange " +
-            "   WHERE date > :startDate - INTERVAL :dayInterval DAY " +
+            "   WHERE date > :targetDate - INTERVAL 6 DAY " +
             ") " +
             "SELECT " +
             "   CAST(DateRange.date AS CHAR) AS date, " +
@@ -28,15 +28,15 @@ public interface SleepRepository extends JpaRepository<Sleep, Long> {
             "   DateRange.date " +
             "ORDER BY " +
             "   DateRange.date", nativeQuery = true)
-    List<SleepStatsNativeVo> findLastDaysSleepStats(@Param("memSeq") Long memSeq, @Param("startDate") String startDate, @Param("dayInterval") int dayInterval);
+    List<SleepStatsNativeVo> findLastDaysSleepStats(@Param("memSeq") Long memSeq, @Param("targetDate") String targetDate);
 
     @Query(value =
             "WITH RECURSIVE DateRange AS ( " +
-            "   SELECT CAST(:startDate AS DATE) AS date " +
+            "   SELECT CAST(:targetDate AS DATE) AS date " +
             "   UNION ALL " +
             "   SELECT date - INTERVAL 1 MONTH " +
             "   FROM DateRange " +
-            "   WHERE date > :startDate - INTERVAL :monthInterval MONTH " +
+            "   WHERE date > :targetDate - INTERVAL 11 MONTH " +
             ") " +
             "SELECT " +
             "   DATE_FORMAT(DateRange.date, '%Y-%m') AS date, " +
@@ -48,7 +48,7 @@ public interface SleepRepository extends JpaRepository<Sleep, Long> {
             "   DATE_FORMAT(DateRange.date, '%Y-%m') " +
             "ORDER BY " +
             "   DATE_FORMAT(DateRange.date, '%Y-%m')", nativeQuery = true)
-    List<SleepStatsNativeVo> findLastMonthsSleepStats(@Param("memSeq") Long memSeq, @Param("startDate") String startDate, @Param("monthInterval") int monthInterval);
+    List<SleepStatsNativeVo> findLastMonthsSleepStats(@Param("memSeq") Long memSeq, @Param("targetDate") String targetDate);
 
 
     List<Sleep> findByMember_MemSeq(Long memSeq);

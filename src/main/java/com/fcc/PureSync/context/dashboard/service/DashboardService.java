@@ -4,7 +4,7 @@ import com.fcc.PureSync.context.dashboard.vo.DashboardDefaultNativeVo;
 import com.fcc.PureSync.context.dashboard.vo.*;
 import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.exercise.repository.ExerciseRepository;
-import com.fcc.PureSync.repository.SleepRepository;
+import com.fcc.PureSync.context.sleep.repository.SleepRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,26 +33,38 @@ public class DashboardService {
     }
 
     @Transactional
-    public ResultDto getDashboardDetail(Long memSeq, String type, String target, String date) {
+    public ResultDto getExerciseChart(Long memSeq, String range, String date) {
         HashMap<String, Object> data = new HashMap<>();
-        List<?> statsList = null;
-
-        if (type.equals("exercise") && target.equals("monthly")) {
-            statsList =  exerciseRepository.findLastDaysExerciseStats(memSeq, date, 30);
-
-        } else if (type.equals("exercise") && target.equals("yearly")) {
-            statsList =  exerciseRepository.findLastMonthsExerciseStats(memSeq, date, 12);
-
-        } else if (type.equals("sleep") && target.equals("monthly")) {
-            statsList =  sleepRepository.findLastDaysSleepStats(memSeq, date, 30);
-
-        } else if (type.equals("sleep") && target.equals("yearly")) {
-            statsList =  sleepRepository.findLastMonthsSleepStats(memSeq, date, 12);
+        List<ExerciseStatsNativeVo> statsList = null;
+        switch (range) {
+            case "monthly" -> {
+                statsList = exerciseRepository.findLastDaysExerciseStats(memSeq, date);
+            }
+            case "yearly" -> {
+                statsList = exerciseRepository.findLastMonthsExerciseStats(memSeq, date);
+            }
         }
 
-        data.put(type, statsList);
-
+        data.put(range, statsList);
         return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
     }
+
+    @Transactional
+    public ResultDto getSleepChart(Long memSeq, String range, String targetDate) {
+        HashMap<String, Object> data = new HashMap<>();
+        List<SleepStatsNativeVo> statsList = null;
+        switch (range) {
+            case "monthly" -> {
+                statsList =  sleepRepository.findLastDaysSleepStats(memSeq, targetDate);
+            }
+            case "yearly" -> {
+                statsList =  sleepRepository.findLastMonthsSleepStats(memSeq, targetDate);
+            }
+        }
+
+        data.put(range, statsList);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
+    }
+
 
 }

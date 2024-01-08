@@ -13,11 +13,11 @@ import java.util.List;
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
     @Query(value =
             "WITH RECURSIVE DateRange AS ( " +
-                    "   SELECT CAST(:startDate AS DATE) AS date " +
+                    "   SELECT CAST(:targetDate AS DATE) AS date " +
                     "   UNION ALL " +
                     "   SELECT date - INTERVAL 1 DAY " +
                     "   FROM DateRange " +
-                    "   WHERE date > :startDate - INTERVAL :dayInterval DAY " +
+                    "   WHERE date > :targetDate - INTERVAL 29 DAY " +
                     ") " +
                     "SELECT " +
                     "   CAST(DateRange.date AS CHAR) AS date, " +
@@ -32,15 +32,15 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
                     "   DateRange.date " +
                     "ORDER BY " +
                     "   DateRange.date", nativeQuery = true)
-    List<ExerciseStatsNativeVo> findLastDaysExerciseStats(@Param("memSeq") Long memSeq, @Param("startDate") String startDate, @Param("dayInterval") int dayInterval);
+    List<ExerciseStatsNativeVo> findLastDaysExerciseStats(@Param("memSeq") Long memSeq, @Param("targetDate") String targetDate);
 
     @Query(value =
             "WITH RECURSIVE DateRange AS ( " +
-                    "   SELECT CAST(:startDate AS DATE) AS date " +
+                    "   SELECT CAST(:targetDate AS DATE) AS date " +
                     "   UNION ALL " +
                     "   SELECT date - INTERVAL 1 MONTH " +
                     "   FROM DateRange " +
-                    "   WHERE date > CAST(:startDate AS DATE) - INTERVAL :monthInterval MONTH " +
+                    "   WHERE date > CAST(:targetDate AS DATE) - INTERVAL 11 MONTH " +
                     ") " +
                     "SELECT " +
                     "   DATE_FORMAT(DateRange.date, '%Y-%m') AS date, " +
@@ -55,15 +55,15 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
                     "   DATE_FORMAT(DateRange.date, '%Y-%m') " +
                     "ORDER BY " +
                     "   DATE_FORMAT(DateRange.date, '%Y-%m')", nativeQuery = true)
-    List<ExerciseStatsNativeVo> findLastMonthsExerciseStats(@Param("memSeq") Long memSeq, @Param("startDate") String startDate, @Param("monthInterval") int monthInterval);
+    List<ExerciseStatsNativeVo> findLastMonthsExerciseStats(@Param("memSeq") Long memSeq, @Param("targetDate") String targetDate);
 
     @Query(value =
             "WITH RECURSIVE daterange AS ( " +
-                    "   SELECT CAST(:startDate AS DATE) AS date " +
+                    "   SELECT CAST(:targetDate AS DATE) AS date " +
                     "   UNION ALL " +
                     "   SELECT date - INTERVAL 1 DAY " +
                     "   FROM daterange " +
-                    "   WHERE date > CAST(:startDate AS DATE) - INTERVAL 6 DAY " +
+                    "   WHERE date > CAST(:targetDate AS DATE) - INTERVAL 6 DAY " +
                     ") " +
                     "SELECT daterange.date, " +
                     "   Coalesce(sleep.totaltime, 0)    AS sleepTime, " +
@@ -127,7 +127,7 @@ public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
                     "   daterange.date " +
                     "ORDER BY " +
                     "   daterange.date", nativeQuery = true)
-    List<DefaultChartVo> find7DaysChartData(@Param("memSeq") Long memSeq, @Param("startDate") String startDate);
+    List<DefaultChartVo> find7DaysChartData(@Param("memSeq") Long memSeq, @Param("targetDate") String targetDate);
 
     @Query(value =
             "SELECT " +
