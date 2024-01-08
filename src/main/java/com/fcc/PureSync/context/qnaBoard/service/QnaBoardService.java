@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto;
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardFileDto;
 import com.fcc.PureSync.common.ResultDto;
@@ -44,30 +45,10 @@ public class QnaBoardService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    public ResultDto buildResultDto(int code, HttpStatus status, String msg, HashMap<String, Object> map) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(status)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-
-    /**
-     * qnaBoardStatus가 false면 NOT_FOUND_BOARD
-     */
-    private void qnaBoardStatusChk(QnaBoard qnaBoard) {
-        if (qnaBoard.getQnaBoardStatus() == 0) {
-            throw new CustomException(CustomExceptionCode.ALREADY_DELETED_ARTICLE);
-        }
-    }
-
     public ResultDto createQnaBoard(String memId, QnaBoardDto qnaBoardDto, List<MultipartFile> file) {
         Member member = memberRepository.findByMemId(memId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
 
-        System.out.println("*******************" + qnaBoardDto.getQnaBoardName());
-        System.out.println("*******************" + qnaBoardDto.getQnaBoardContents());
         QnaBoard qnaBoard = QnaBoard.builder()
                 .qnaBoardName(qnaBoardDto.getQnaBoardName())
                 .qnaBoardContents(qnaBoardDto.getQnaBoardContents())
@@ -76,85 +57,10 @@ public class QnaBoardService {
 
         qnaBoardRepository.save(qnaBoard);
 
-        Long qna_board_seq = qnaBoard.getQnaBoardSeq();
-        System.out.println("qna_board_seq : " + qna_board_seq);
-        HashMap<String, Object> map = new HashMap<>();
-        /**
-         * 파일 존재 o
-         */
-        if (file != null) {
-            System.out.println("********************************************");
-
-            List<String> originalFileNameList = new ArrayList<>();
-            List<String> storedFileNameList = new ArrayList<>();
-
-
-            file.forEach(fileSave -> {
-                ObjectMetadata objectMetadata = new ObjectMetadata();
-                objectMetadata.setContentType(fileSave.getContentType());
-                objectMetadata.setContentLength(fileSave.getSize());
-
-                String originalFilename = fileSave.getOriginalFilename();
-
-                int index = 0;
-                // file 형식이 잘못된 경우를 확인
-                try {
-                    assert originalFilename != null;
-                    index = originalFilename.lastIndexOf(".");
-                } catch (StringIndexOutOfBoundsException e) {
-                    //throw new
-                }
-
-                String ext = originalFilename.substring(index + 1);
-
-                // 저장될 파일 이름
-                String storedFileName = UUID.randomUUID() + "." + ext;
-
-                // 저장할 디렉토리 경로 + 파일 이름
-                String key = "qnaBoardImage/" + storedFileName;
-
-                try (InputStream inputStream = fileSave.getInputStream()) {
-                    amazonS3Client.putObject(new PutObjectRequest(bucket, key, inputStream, objectMetadata)
-                            .withCannedAcl(CannedAccessControlList.PublicRead));
-                } catch (IOException e) {
-                    //throw new
-                }
-
-                String storeFileUrl = amazonS3Client.getUrl(bucket, key).toString();
-
-                QnaBoardFile qnaBoardFile = QnaBoardFile.builder()
-                        .qnaBoardFileName(storedFileName)
-                        .fileUrl(storeFileUrl)
-                        .qnaBoard(qnaBoard)
-                        .qnaBoardFileSize(fileSave.getSize())
-                        .build();
-
-                qnaBoardFileRepository.save(qnaBoardFile);
-                storedFileNameList.add(storedFileName);
-                originalFileNameList.add(originalFilename);
-
-                QnaBoardFileDto qnaBoardFileDto = QnaBoardFileDto.toDto(qnaBoardFile);
-                QnaBoardDto qnaBoardDtoResult = toDto(qnaBoard);
-
-                map.put("qnaBoard", qnaBoardDtoResult);
-                map.put("qnaBoardFile", storedFileNameList);
-
-            });
-            return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "게시판 생성 성공", map);
-        } else {
-            /**
-             * 파일 존재 x
-             */
-            System.out.println("222222222222222222222222222222");
-            QnaBoardDto qnaBoardDtoResult = toDto(qnaBoard);
-
-            map.put("qnaBoard", qnaBoardDtoResult);
-
-            return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "게시판 생성 성공", map);
-        }
+        return createOrUpdateQnaBoard(qnaBoard, file, "게시글 생성 성공");
     }
 
-    public ResultDto updateQnaBoard(String memId, Long qnaBoardSeq, QnaBoardDto qnaBoardDto, List<MultipartFile> file) throws IOException {
+    public ResultDto updateQnaBoard(String memId, Long qnaBoardSeq, QnaBoardDto qnaBoardDto, List<MultipartFile> file) {
         Member member = memberRepository.findByMemId(memId)
                 .orElseThrow(() -> new CustomException(CustomExceptionCode.NOT_FOUND_USER));
         QnaBoard qnaBoard = qnaBoardRepository.findById(qnaBoardSeq)
@@ -169,83 +75,15 @@ public class QnaBoardService {
                 .member(member)
                 .build();
 
-        qnaBoardRepository.save(updatedQnaBoard);
-        HashMap<String, Object> map = new HashMap<>();
-        /**
-         * 파일 존재 o
-         */
-        if (file != null) {
-            List<QnaBoardFile> filesToDelete = qnaBoardFileRepository.findAllByQnaBoard_QnaBoardSeq(qnaBoardSeq);
-            for (QnaBoardFile fileToDelete : filesToDelete) {
-                deleteFileFromS3(fileToDelete.getQnaBoardFileName());
-                qnaBoardFileRepository.delete(fileToDelete);
-            }
-
-            List<String> originalFileNameList = new ArrayList<>();
-            List<String> storedFileNameList = new ArrayList<>();
-
-            file.forEach(fileSave -> {
-                ObjectMetadata objectMetadata = new ObjectMetadata();
-                objectMetadata.setContentType(fileSave.getContentType());
-                objectMetadata.setContentLength(fileSave.getSize());
-
-                String originalFilename = fileSave.getOriginalFilename();
-
-                int index = 0;
-                // file 형식이 잘못된 경우를 확인
-                try {
-                    assert originalFilename != null;
-                    index = originalFilename.lastIndexOf(".");
-                } catch (StringIndexOutOfBoundsException e) {
-                    //throw new
-                }
-
-                String ext = originalFilename.substring(index + 1);
-
-                // 저장될 파일 이름
-                String storedFileName = UUID.randomUUID() + "." + ext;
-
-                // 저장할 디렉토리 경로 + 파일 이름
-                String key = "qnaBoardImage/" + storedFileName;
-
-                try (InputStream inputStream = fileSave.getInputStream()) {
-                    amazonS3Client.putObject(new PutObjectRequest(bucket, key, inputStream, objectMetadata)
-                            .withCannedAcl(CannedAccessControlList.PublicRead));
-                } catch (IOException e) {
-                    //throw new
-                }
-
-                String storeFileUrl = amazonS3Client.getUrl(bucket, key).toString();
-
-                QnaBoardFile qnaBoardFile = QnaBoardFile.builder()
-                        .qnaBoardFileName(storedFileName)
-                        .fileUrl(storeFileUrl)
-                        .qnaBoard(qnaBoard)
-                        .qnaBoardFileSize(fileSave.getSize())
-                        .build();
-
-                qnaBoardFileRepository.save(qnaBoardFile);
-                storedFileNameList.add(storedFileName);
-                originalFileNameList.add(originalFilename);
-
-                QnaBoardFileDto qnaBoardFileDto = QnaBoardFileDto.toDto(qnaBoardFile);
-                QnaBoardDto qnaBoardDtoResult = toDto(qnaBoard);
-
-                map.put("qnaBoard", qnaBoardDtoResult);
-                map.put("qnaBoardFile", storedFileNameList);
-
-            });
-            return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "게시판 수정 성공", map);
-        } else {
-            /**
-             * 파일 존재 x
-             */
-
-            map.put("updatedQnaBoard", toDto(updatedQnaBoard));
-
-            return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "게시판 수정 성공", map);
+        List<QnaBoardFile> filesToDelete = qnaBoardFileRepository.findAllByQnaBoard_QnaBoardSeq(qnaBoardSeq);
+        for (QnaBoardFile fileToDelete : filesToDelete) {
+            deleteFileFromS3(fileToDelete.getQnaBoardFileName());
+            qnaBoardFileRepository.delete(fileToDelete);
         }
 
+        qnaBoardRepository.save(updatedQnaBoard);
+
+        return createOrUpdateQnaBoard(updatedQnaBoard, file, "게시글 수정 성공");
     }
 
     public ResultDto deleteQnaBoard(String memId, Long qnaBoardSeq) {
@@ -269,13 +107,10 @@ public class QnaBoardService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("updatedQnaBoard", toDto(updatedQnaBoard));
-        return ResultDto.builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .message("게시판 삭제 성공")
-                .data(map)
-                .build();
+
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 삭제 성공", map);
     }
+
     @Transactional(readOnly = true)
     public ResultDto detailQnaBoard(String memId, Long qnaBoardSeq) {
         QnaBoard qnaBoard = qnaBoardRepository.findById(qnaBoardSeq)
@@ -284,12 +119,12 @@ public class QnaBoardService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaBoardDetailDto", qnaBoardDetailDto);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시판 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 조회 성공", map);
     }
 
     //n+1 문제 쿼리문 똑같은 것 반복
     public ResultDto findAllQnaBoard(String memId, Pageable pageable) {
-        List<QnaBoard> qnaBoardPage = qnaBoardRepository.findByQnaBoardStatusOrderByQnaBoardWdateDesc(0, pageable).getContent();
+        List<QnaBoard> qnaBoardPage = qnaBoardRepository.findByQnaBoardStatusNotOrderByQnaBoardWdateDesc(0, pageable).getContent();
         List<QnaBoardDto> qnaBoardDetailDtoList = qnaBoardPage.stream()
                 .map(QnaBoardDto::QnaBoardAllDetailDto)
                 .toList();
@@ -298,8 +133,8 @@ public class QnaBoardService {
         long totalPages = (totalPost + pageSize - 1) / pageSize;
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaBoardPage", qnaBoardDetailDtoList);
-        map.put("totalPages",totalPages);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시판 전체 조회 성공", map);
+        map.put("totalPages", totalPages);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 전체 조회 성공", map);
     }
 
     public ResultDto findFileChk(String memId, Long qnaBoardSeq, Pageable pageable) {
@@ -313,7 +148,67 @@ public class QnaBoardService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("findQnaBoardFile", qnaBoardFileDtoList);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "게시판 파일 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 파일 조회 성공", map);
+    }
+
+    private void qnaBoardStatusChk(QnaBoard qnaBoard) {
+        if (qnaBoard.getQnaBoardStatus() == 0) {
+            throw new CustomException(CustomExceptionCode.ALREADY_DELETED_ARTICLE);
+        }
+    }
+
+    private List<String> uploadFiles(List<MultipartFile> file, QnaBoard qnaBoard) {
+        List<String> originalFileNameList = new ArrayList<>();
+        List<String> storedFileNameList = new ArrayList<>();
+
+        file.forEach(fileSave -> {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(fileSave.getContentType());
+            objectMetadata.setContentLength(fileSave.getSize());
+
+            String originalFilename = fileSave.getOriginalFilename();
+
+            int index = 0;
+            // file 형식이 잘못된 경우를 확인
+            try {
+                assert originalFilename != null;
+                index = originalFilename.lastIndexOf(".");
+            } catch (StringIndexOutOfBoundsException e) {
+                //throw new
+            }
+
+            String ext = originalFilename.substring(index + 1);
+
+            // 저장될 파일 이름
+            String storedFileName = UUID.randomUUID() + "." + ext;
+
+            // 저장할 디렉토리 경로 + 파일 이름
+            String key = "qnaBoardImage/" + storedFileName;
+
+            try (InputStream inputStream = fileSave.getInputStream()) {
+                amazonS3Client.putObject(new PutObjectRequest(bucket, key, inputStream, objectMetadata)
+                        .withCannedAcl(CannedAccessControlList.PublicRead));
+            } catch (IOException e) {
+                //throw new
+            }
+
+            String storeFileUrl = amazonS3Client.getUrl(bucket, key).toString();
+
+            QnaBoardFile qnaBoardFile = QnaBoardFile.builder()
+                    .qnaBoardFileName(storedFileName)
+                    .fileUrl(storeFileUrl)
+                    .qnaBoard(qnaBoard)
+                    .qnaBoardFileSize(fileSave.getSize())
+                    .build();
+
+            qnaBoardFileRepository.save(qnaBoardFile);
+            storedFileNameList.add(storedFileName);
+            originalFileNameList.add(originalFilename);
+
+            QnaBoardFileDto qnaBoardFileDto = QnaBoardFileDto.toDto(qnaBoardFile);
+        });
+
+        return storedFileNameList;
     }
 
     // S3에서 파일 삭제 메소드
@@ -323,5 +218,25 @@ public class QnaBoardService {
         } catch (AmazonServiceException e) {
             // 파일 삭제 실패 처리 로직 추가
         }
+    }
+
+    private ResultDto createOrUpdateQnaBoard(QnaBoard qnaBoard, List<MultipartFile> file, String successMessage) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        /**
+         * 파일 존재 x
+         */
+        if (file == null) {
+            return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, successMessage, map);
+        }
+
+        List<String> storedFileNameList = uploadFiles(file, qnaBoard);
+
+        QnaBoardDto qnaBoardDtoResult = toDto(qnaBoard);
+
+        map.put("qnaBoard", qnaBoardDtoResult);
+        map.put("qnaBoardFile", storedFileNameList);
+
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, successMessage, map);
     }
 }

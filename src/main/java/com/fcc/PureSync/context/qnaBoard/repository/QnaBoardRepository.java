@@ -12,7 +12,7 @@ public interface QnaBoardRepository extends JpaRepository<QnaBoard, Long> {
 
     Page<QnaBoard> findAll(Pageable pageable);
 
-    Page<QnaBoard> findByQnaBoardStatusOrderByQnaBoardWdateDesc(Integer qnaBoardStatus, Pageable pageable);
+    Page<QnaBoard> findByQnaBoardStatusNotOrderByQnaBoardWdateDesc(Integer qnaBoardStatus, Pageable pageable);
 
-    Long countByQnaBoardStatusNot(int i);
+    Long countByQnaBoardStatusNot(Integer qnaBoardStatus);
 }
