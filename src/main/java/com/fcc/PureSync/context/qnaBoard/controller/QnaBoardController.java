@@ -2,6 +2,8 @@ package com.fcc.PureSync.context.qnaBoard.controller;
 
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto;
 import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.exception.CustomException;
+import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.qnaBoard.service.QnaBoardService;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +26,10 @@ public class QnaBoardController {
      */
     @PostMapping
     public ResultDto createQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, QnaBoardDto qnaBoardDto, List<MultipartFile> file) throws IOException {
-        String memId = customUserDetails.getUsername();
-        return qnaBoardService.createQnaBoard(memId, qnaBoardDto, file);
+        if (customUserDetails == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+
+        return qnaBoardService.createQnaBoard(customUserDetails.getUsername(), qnaBoardDto, file);
     }
 
     /**
@@ -33,8 +37,10 @@ public class QnaBoardController {
      */
     @PutMapping("/{qnaBoardSeq}")
     public ResultDto updateQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq, QnaBoardDto qnaBoardDto, List<MultipartFile> file) throws IOException {
-        String memId = customUserDetails.getUsername();
-        return qnaBoardService.updateQnaBoard(memId, qnaBoardSeq, qnaBoardDto, file);
+        if (customUserDetails == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+
+        return qnaBoardService.updateQnaBoard(customUserDetails.getUsername(), qnaBoardSeq, qnaBoardDto, file);
     }
 
     /**
@@ -42,8 +48,10 @@ public class QnaBoardController {
      */
     @DeleteMapping("/{qnaBoardSeq}")
     public ResultDto deleteQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq) {
-        String memId = customUserDetails.getUsername();
-        return qnaBoardService.deleteQnaBoard(memId, qnaBoardSeq);
+        if (customUserDetails == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+
+        return qnaBoardService.deleteQnaBoard(customUserDetails.getUsername(), qnaBoardSeq);
     }
 
     /**
@@ -51,8 +59,10 @@ public class QnaBoardController {
      */
     @GetMapping("/{qnaBoardSeq}")
     public ResultDto detailQnaBoard(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq) {
-        String memId = customUserDetails.getUsername();
-        return qnaBoardService.detailQnaBoard(memId, qnaBoardSeq);
+        if (customUserDetails == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+
+        return qnaBoardService.detailQnaBoard(customUserDetails.getUsername(), qnaBoardSeq);
     }
 
     /**
@@ -60,8 +70,10 @@ public class QnaBoardController {
      */
     @GetMapping
     public ResultDto getAllQnaBoards(@AuthenticationPrincipal CustomUserDetails customUserDetails, Pageable pageable) {
-        String memId = customUserDetails.getUsername();
-        return qnaBoardService.findAllQnaBoard(memId, pageable);
+        if (customUserDetails == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+
+        return qnaBoardService.findAllQnaBoard(customUserDetails.getUsername(), pageable);
 
     }
 
@@ -70,10 +82,9 @@ public class QnaBoardController {
      */
     @GetMapping("/{qnaBoardSeq}/file")
     public ResultDto getQnaBoardFile(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long qnaBoardSeq, Pageable pageable){
-        String memId = customUserDetails.getUsername();
-        return qnaBoardService.findFileChk(memId, qnaBoardSeq, pageable);
+        if (customUserDetails == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+
+        return qnaBoardService.findFileChk(customUserDetails.getUsername(), qnaBoardSeq, pageable);
     }
-
-
-
 }
