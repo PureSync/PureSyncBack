@@ -37,13 +37,10 @@ public class MailService {
         String linkCode = RandomStringGenerator.generateEmailVerificationCode(EmailConstant.EMAIL_VERIFICATION_CODE_LENGTH);
         handleSignUpByVerificationCode(newMemberEmail, linkCode);
         EmailVerificationResponse emailVerificationResponse = new EmailVerificationResponse(newMemberEmail, linkCode);
-//        return  handleSignUpByVerificationCodeMap(emailVerificationResponse);
     }
     //회원 가입시 코드 링크 핸들링
     private void handleSignUpByVerificationCode(String newMemberEmail, String linkCode) {
-//        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.LOCAL_DOMAIN, linkCode,newMemberEmail);
-//        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.AWS_DOMAIN, linkCode,newMemberEmail);
-        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.LOCAL_DOMAIN, linkCode,newMemberEmail);
+        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.AWS_DOMAIN, linkCode,newMemberEmail);
         verificationCodeDao.saveVerificationCode(newMemberEmail, linkCode);
         sendMail(newMemberEmail, EmailConstant.EMAIL_TITLE, txt);
     }
