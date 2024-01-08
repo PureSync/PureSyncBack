@@ -1,8 +1,8 @@
 package com.fcc.PureSync.context.admin.notice.controller;
 
-import com.fcc.PureSync.common.Pager;
+import com.fcc.PureSync.core.Pager;
 import com.fcc.PureSync.context.admin.notice.dto.NoticeDto;
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.context.admin.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

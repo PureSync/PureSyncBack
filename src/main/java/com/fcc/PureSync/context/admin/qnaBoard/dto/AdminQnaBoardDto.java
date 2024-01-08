@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.admin.qnaBoard.dto;
 
 
-import com.fcc.PureSync.common.BaseDto;
+import com.fcc.PureSync.core.BaseDto;
 import lombok.*;
 
 @NoArgsConstructor(access= AccessLevel.PUBLIC)

@@ -1,9 +1,9 @@
 package com.fcc.PureSync.context.admin.notice.service;
 import com.fcc.PureSync.context.admin.notice.dao.NoticeDao;
 import com.fcc.PureSync.context.admin.notice.dto.NoticeDto;
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

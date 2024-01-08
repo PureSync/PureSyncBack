@@ -26,7 +26,7 @@ public class QTestAnswer extends EntityPathBase<TestAnswer> {
 
     public final DateTimePath<java.time.LocalDateTime> ansWdate = createDateTime("ansWdate", java.time.LocalDateTime.class);
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public final StringPath testAns = createString("testAns");
 
@@ -52,7 +52,7 @@ public class QTestAnswer extends EntityPathBase<TestAnswer> {
 
     public QTestAnswer(Class<? extends TestAnswer> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

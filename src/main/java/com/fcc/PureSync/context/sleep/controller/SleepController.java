@@ -1,9 +1,9 @@
 package com.fcc.PureSync.context.sleep.controller;
 
 
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.context.sleep.dto.SleepDto;
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.sleep.service.SleepService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

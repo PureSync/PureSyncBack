@@ -22,7 +22,7 @@ public class QMdTrash extends EntityPathBase<MdTrash> {
 
     public static final QMdTrash mdTrash = new QMdTrash("mdTrash");
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public final StringPath tsContents = createString("tsContents");
 
@@ -50,7 +50,7 @@ public class QMdTrash extends EntityPathBase<MdTrash> {
 
     public QMdTrash(Class<? extends MdTrash> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }
