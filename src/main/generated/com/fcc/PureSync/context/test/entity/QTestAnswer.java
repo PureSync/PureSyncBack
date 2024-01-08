@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.test.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -16,7 +16,7 @@ import com.querydsl.core.types.dsl.PathInits;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QTestAnswer extends EntityPathBase<TestAnswer> {
 
-    private static final long serialVersionUID = 1612551253L;
+    private static final long serialVersionUID = 1024147108L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -26,7 +26,7 @@ public class QTestAnswer extends EntityPathBase<TestAnswer> {
 
     public final DateTimePath<java.time.LocalDateTime> ansWdate = createDateTime("ansWdate", java.time.LocalDateTime.class);
 
-    public final QMember member;
+    public final com.fcc.PureSync.entity.QMember member;
 
     public final StringPath testAns = createString("testAns");
 
@@ -52,7 +52,7 @@ public class QTestAnswer extends EntityPathBase<TestAnswer> {
 
     public QTestAnswer(Class<? extends TestAnswer> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
     }
 
 }

@@ -1,6 +1,6 @@
-package com.fcc.PureSync.repository;
+package com.fcc.PureSync.context.sleep.repository;
 
-import com.fcc.PureSync.entity.Sleep;
+import com.fcc.PureSync.context.sleep.entity.Sleep;
 import com.fcc.PureSync.context.dashboard.vo.SleepStatsNativeVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

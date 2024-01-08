@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.menu.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QFood extends EntityPathBase<Food> {
 
-    private static final long serialVersionUID = 908170627L;
+    private static final long serialVersionUID = -232395681L;
 
     public static final QFood food = new QFood("food");
 

@@ -1,4 +1,4 @@
-package com.fcc.PureSync.entity;
+package com.fcc.PureSync.context.diary.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QEmotion extends EntityPathBase<Emotion> {
 
-    private static final long serialVersionUID = 367970582L;
+    private static final long serialVersionUID = -355930368L;
 
     public static final QEmotion emotion = new QEmotion("emotion");
 
