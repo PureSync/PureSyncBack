@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto;
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardFileDto;
 import com.fcc.PureSync.common.ResultDto;
@@ -106,12 +107,8 @@ public class QnaBoardService {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("updatedQnaBoard", toDto(updatedQnaBoard));
-        return ResultDto.builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .message("게시글 삭제 성공")
-                .data(map)
-                .build();
+
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "게시글 삭제 성공", map);
     }
 
     @Transactional(readOnly = true)
