@@ -3,7 +3,7 @@ package com.fcc.PureSync.service;
 import com.fcc.PureSync.common.EmailVerificationResponse;
 import com.fcc.PureSync.common.constant.EmailConstant;
 import com.fcc.PureSync.dao.VerificationCodeDao;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
 import com.fcc.PureSync.repository.MemberRepository;

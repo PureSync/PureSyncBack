@@ -1,9 +1,7 @@
 package com.fcc.PureSync.controller;
 
-import com.fcc.PureSync.common.EmailVerificationRequest;
 import com.fcc.PureSync.common.constant.EmailConstant;
-import com.fcc.PureSync.dto.ResultDto;
-import com.fcc.PureSync.dto.SignUpbyMailCheckDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.service.MailService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

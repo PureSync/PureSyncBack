@@ -1,5 +1,6 @@
 package com.fcc.PureSync.service;
 
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.config.UserRoleConfig;
 import com.fcc.PureSync.dto.*;
 import com.fcc.PureSync.entity.Body;
@@ -23,8 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 

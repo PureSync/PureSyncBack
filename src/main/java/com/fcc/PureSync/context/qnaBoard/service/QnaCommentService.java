@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.qnaBoard.service;
 
 import com.fcc.PureSync.context.qnaBoard.dto.QnaCommentDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.qnaBoard.entity.QnaBoard;
 import com.fcc.PureSync.context.qnaBoard.entity.QnaComment;
 import com.fcc.PureSync.entity.Member;

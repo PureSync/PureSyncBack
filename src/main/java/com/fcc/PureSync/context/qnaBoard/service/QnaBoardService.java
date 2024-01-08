@@ -8,7 +8,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto;
 import com.fcc.PureSync.context.qnaBoard.dto.QnaBoardFileDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.qnaBoard.entity.QnaBoard;
 import com.fcc.PureSync.context.qnaBoard.entity.QnaBoardFile;
 import com.fcc.PureSync.entity.Member;
@@ -35,8 +35,7 @@ import static com.fcc.PureSync.context.qnaBoard.dto.QnaBoardDto.toDto;
 @RequiredArgsConstructor
 @Transactional
 public class QnaBoardService {
-    @Value("${fileUploadPath}")
-    String fileUploadPath;
+
     private final QnaBoardRepository qnaBoardRepository;
     private final QnaBoardFileRepository qnaBoardFileRepository;
     private final MemberRepository memberRepository;
@@ -290,7 +289,7 @@ public class QnaBoardService {
 
     //n+1 문제 쿼리문 똑같은 것 반복
     public ResultDto findAllQnaBoard(String memId, Pageable pageable) {
-        List<QnaBoard> qnaBoardPage = qnaBoardRepository.findByQnaBoardStatusOrderByQnaBoardWdateDesc(1, pageable).getContent();
+        List<QnaBoard> qnaBoardPage = qnaBoardRepository.findByQnaBoardStatusOrderByQnaBoardWdateDesc(0, pageable).getContent();
         List<QnaBoardDto> qnaBoardDetailDtoList = qnaBoardPage.stream()
                 .map(QnaBoardDto::QnaBoardAllDetailDto)
                 .toList();

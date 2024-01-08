@@ -9,7 +9,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.fcc.PureSync.context.board.dto.BoardDto;
 import com.fcc.PureSync.context.board.entity.Board;
 import com.fcc.PureSync.context.board.dto.BoardFileDto;
-import com.fcc.PureSync.dto.ResultDto;
+import com.fcc.PureSync.common.ResultDto;
 import com.fcc.PureSync.context.board.entity.BoardFile;
 import com.fcc.PureSync.entity.Member;
 import com.fcc.PureSync.exception.CustomException;
@@ -36,8 +36,7 @@ import static com.fcc.PureSync.context.board.dto.BoardDto.toDto;
 @RequiredArgsConstructor
 @Transactional
 public class BoardService {
-    @Value("${fileUploadPath}")
-    String fileUploadPath;
+
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
     private final MemberRepository memberRepository;
