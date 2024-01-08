@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.admin.userBoard.controller;
 
-import com.fcc.PureSync.common.Pager;
+import com.fcc.PureSync.core.Pager;
 import com.fcc.PureSync.context.admin.userBoard.dto.AdminBoardDto;
 import com.fcc.PureSync.context.admin.userBoard.service.AdminBoardService;
 import lombok.RequiredArgsConstructor;

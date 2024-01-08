@@ -20,7 +20,7 @@ public abstract class BaseEntity {
 
     //생성 시간
     @CreatedDate
-    @Column(updatable = false, columnDefinition = "DATETIME")
+    @Column(insertable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime memCreatedAt;
     // insertable=false
 

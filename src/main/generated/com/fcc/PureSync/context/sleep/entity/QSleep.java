@@ -22,7 +22,7 @@ public class QSleep extends EntityPathBase<Sleep> {
 
     public static final QSleep sleep = new QSleep("sleep");
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public final NumberPath<Integer> sleepCategory = createNumber("sleepCategory", Integer.class);
 
@@ -56,7 +56,7 @@ public class QSleep extends EntityPathBase<Sleep> {
 
     public QSleep(Class<? extends Sleep> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

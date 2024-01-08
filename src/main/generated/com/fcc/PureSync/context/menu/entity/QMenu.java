@@ -24,7 +24,7 @@ public class QMenu extends EntityPathBase<Menu> {
 
     public final QFood food;
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public final StringPath menuDate = createString("menuDate");
 
@@ -55,7 +55,7 @@ public class QMenu extends EntityPathBase<Menu> {
     public QMenu(Class<? extends Menu> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.food = inits.isInitialized("food") ? new QFood(forProperty("food")) : null;
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

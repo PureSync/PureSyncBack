@@ -38,7 +38,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final ListPath<Comment, QComment> comments = this.<Comment, QComment>createList("comments", Comment.class, QComment.class, PathInits.DIRECT2);
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public QBoard(String variable) {
         this(Board.class, forVariable(variable), INITS);
@@ -58,7 +58,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

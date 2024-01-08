@@ -1,9 +1,9 @@
 package com.fcc.PureSync.context.board.controller;
 
 import com.fcc.PureSync.context.board.dto.BoardDto;
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.jwt.CustomUserDetails;
-import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
+import com.fcc.PureSync.context.member.repository.MemberRepository;
 import com.fcc.PureSync.context.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

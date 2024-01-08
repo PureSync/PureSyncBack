@@ -1,7 +1,6 @@
 package com.fcc.PureSync.context.diary.entity;
 
-import com.fcc.PureSync.context.diary.entity.Emotion;
-import com.fcc.PureSync.entity.Member;
+import com.fcc.PureSync.context.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Where;

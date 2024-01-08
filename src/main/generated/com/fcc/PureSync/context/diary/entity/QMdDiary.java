@@ -36,7 +36,7 @@ public class QMdDiary extends EntityPathBase<MdDiary> {
 
     public final QEmotion emotion;
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public QMdDiary(String variable) {
         this(MdDiary.class, forVariable(variable), INITS);
@@ -57,7 +57,7 @@ public class QMdDiary extends EntityPathBase<MdDiary> {
     public QMdDiary(Class<? extends MdDiary> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.emotion = inits.isInitialized("emotion") ? new QEmotion(forProperty("emotion")) : null;
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

@@ -2,9 +2,9 @@ package com.fcc.PureSync.context.menu.controller;
 
 import com.fcc.PureSync.context.menu.dto.MenuDto;
 import com.fcc.PureSync.context.menu.dto.MenuResponseDto;
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

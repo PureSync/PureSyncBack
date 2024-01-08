@@ -2,8 +2,8 @@ package com.fcc.PureSync.context.exercise.controller;
 
 import com.fcc.PureSync.context.exercise.dto.ExerciseDto;
 import com.fcc.PureSync.context.exercise.dto.ExerciseResponseDto;
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.exercise.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.member.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fcc.PureSync.entity.Member;
+import com.fcc.PureSync.context.member.entity.Member;
 import lombok.*;
 
 @Getter

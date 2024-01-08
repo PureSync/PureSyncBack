@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.test.controller;
 
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.context.test.service.TestQuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

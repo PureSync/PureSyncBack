@@ -1,10 +1,8 @@
 package com.fcc.PureSync.context.admin.notice.dto;
 
 
-import com.fcc.PureSync.common.BaseDto;
+import com.fcc.PureSync.core.BaseDto;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @NoArgsConstructor(access= AccessLevel.PUBLIC)
 @AllArgsConstructor

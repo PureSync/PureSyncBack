@@ -4,16 +4,16 @@ package com.fcc.PureSync.context.exercise.service;
 import com.fcc.PureSync.context.exercise.dao.ExerciseDao;
 import com.fcc.PureSync.context.exercise.dto.ExerciseDto;
 import com.fcc.PureSync.context.exercise.dto.ExerciseResponseDto;
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.context.exercise.entity.Exercise;
 import com.fcc.PureSync.context.exercise.entity.ExerciseList;
 
-import com.fcc.PureSync.entity.Member;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
+import com.fcc.PureSync.context.member.entity.Member;
+import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
 import com.fcc.PureSync.context.exercise.repository.ExerciseListRepository;
 import com.fcc.PureSync.context.exercise.repository.ExerciseRepository;
-import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.context.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;

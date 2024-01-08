@@ -32,7 +32,7 @@ public class QExercise extends EntityPathBase<Exercise> {
 
     public final QExerciseList exerciseList;
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public QExercise(String variable) {
         this(Exercise.class, forVariable(variable), INITS);
@@ -53,7 +53,7 @@ public class QExercise extends EntityPathBase<Exercise> {
     public QExercise(Class<? extends Exercise> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.exerciseList = inits.isInitialized("exerciseList") ? new QExerciseList(forProperty("exerciseList")) : null;
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

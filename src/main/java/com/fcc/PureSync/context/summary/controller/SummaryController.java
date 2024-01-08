@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.summary.controller;
 
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.summary.service.SummaryService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

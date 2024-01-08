@@ -1,8 +1,8 @@
 package com.fcc.PureSync.context.qnaBoard.controller;
 
 import com.fcc.PureSync.context.qnaBoard.dto.QnaCommentDto;
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.context.member.repository.MemberRepository;
 import com.fcc.PureSync.context.qnaBoard.service.QnaCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

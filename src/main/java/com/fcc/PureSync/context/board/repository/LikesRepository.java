@@ -2,7 +2,7 @@ package com.fcc.PureSync.context.board.repository;
 
 import com.fcc.PureSync.context.board.entity.Board;
 import com.fcc.PureSync.context.board.entity.Likes;
-import com.fcc.PureSync.entity.Member;
+import com.fcc.PureSync.context.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LikesRepository extends JpaRepository<Likes, Long> {
