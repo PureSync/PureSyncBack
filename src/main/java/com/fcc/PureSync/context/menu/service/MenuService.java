@@ -34,11 +34,8 @@ public class MenuService {
         List<Food> allFoods = foodRepository.findAllFood(foodName);
         HashMap<String, Object> data = new HashMap<String, Object>();
         data.put("allFoods", allFoods);
-        ResultDto resultDto =  ResultDto.builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .data(data)
-                .build();
+        ResultDto resultDto =  ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
+
         return resultDto;
         } catch (CustomException e) {
             throw new CustomException(CustomExceptionCode.NOT_FOUND_MENU);  // 권한X
@@ -51,11 +48,7 @@ public class MenuService {
         try {
             HashMap<String, Object> data = new HashMap<String, Object>();
             data.put("menuList", menuList);
-            ResultDto resultDto =  ResultDto.builder()
-                    .code(HttpStatus.OK.value())
-                    .httpStatus(HttpStatus.OK)
-                    .data(data)
-                    .build();
+            ResultDto resultDto =  ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
             return resultDto;
         } catch (CustomException e) {
             throw new CustomException(CustomExceptionCode.NOT_FOUND_MENU);  // 권한X
@@ -114,12 +107,7 @@ public class MenuService {
             HashMap<String, Object> map = new HashMap<>();
             map.put( "menu", menu );
 
-            return  ResultDto.builder()
-                    .code(HttpStatus.OK.value())
-                    .httpStatus(HttpStatus.OK)
-                    .message(successMessage)
-                    .data(map)
-                    .build();
+            return  ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", map);
 
         } catch (CustomException e) {
             throw new CustomException(exceptionCode);
