@@ -4,6 +4,8 @@ import com.fcc.PureSync.context.menu.dto.MenuDto;
 import com.fcc.PureSync.context.menu.dto.MenuResponseDto;
 import com.fcc.PureSync.common.ResultDto;
 
+import com.fcc.PureSync.exception.CustomException;
+import com.fcc.PureSync.exception.CustomExceptionCode;
 import com.fcc.PureSync.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +26,18 @@ public class MenuController {
 
     @GetMapping("/list")
     public ResultDto  getAllMenuList (MenuDto menuTo, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        if (customUserDetails == null) {
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+        }
         Long memSeq = customUserDetails.getMemSeq();
         return menuService.getMenuAllList(menuTo, memSeq);
     }
 
     @PostMapping("/save")
     public ResultDto menuInsert(@RequestBody MenuResponseDto menu, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        if (customUserDetails == null) {
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+        }
         Long memSeq = customUserDetails.getMemSeq();
         return menuService.insertMenu(menu, memSeq);
     }
@@ -42,6 +50,9 @@ public class MenuController {
 
     @PostMapping ("/delete")
     public ResultDto menuDelete( @RequestBody MenuResponseDto menu, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
+        if (customUserDetails == null) {
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+        }
         Long memSeq = customUserDetails.getMemSeq();
         return menuService.deleteMenu(menu, memSeq);
     }
