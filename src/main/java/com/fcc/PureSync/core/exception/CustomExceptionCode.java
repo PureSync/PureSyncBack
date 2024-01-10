@@ -33,6 +33,10 @@ public enum CustomExceptionCode {
     /*
      * 403
      */
+    CANNOT_ACCESS_DISABLED_USER(HttpStatus.FORBIDDEN, "이메일을 통해 계정을 활성화 해 주세요."),
+    CANNOT_ACCESS_REST_USER(HttpStatus.FORBIDDEN, "장기 휴면 계정입니다."),
+    CANNOT_ACCESS_DELETE_USER(HttpStatus.FORBIDDEN, "삭제된 계정입니다."),
+    CANNOT_ACCESS_BLOCK_USER(HttpStatus.FORBIDDEN, "차단된 계정입니다."),
     UNAUTHORIZED_ACCESS(HttpStatus.FORBIDDEN, "잘못된 접근입니다."),
     CANNOT_LIKE_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 좋아요를 누를 수 없습니다."),
     CANNOT_BOOKMARK_YOUR_ARTICLE(HttpStatus.FORBIDDEN, "자신의 글은 북마크할 수 없습니다."),
