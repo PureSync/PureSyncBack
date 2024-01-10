@@ -28,15 +28,6 @@ public class QnaCommentService {
     private final MemberRepository memberRepository;
     private final QnaCommentRepository qnaCommentRepository;
 
-    public ResultDto buildResultDto(int code, HttpStatus status, String msg, HashMap<String, Object> map) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(status)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-
     private void qnaBoardStatusChk(QnaBoard qnaBoard) {
         if (qnaBoard.getQnaBoardStatus() == 0) {
             throw new CustomException(CustomExceptionCode.ALREADY_DELETED_ARTICLE);
@@ -61,7 +52,7 @@ public class QnaCommentService {
         QnaCommentDto dto = toDto(qnaComment);
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaComment", dto);
-        return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "댓글 생성 성공", map);
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, "댓글 생성 성공", map);
     }
 
     public ResultDto updateQnaComment(Long qnaBoardSeq, Long qnaCmtSeq, QnaCommentDto qnaCommentDto, String id) {
@@ -86,7 +77,7 @@ public class QnaCommentService {
         QnaCommentDto dto = toDto(qnaComment);
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaComment", dto);
-        return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "댓글 수정 성공", map);
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, "댓글 수정 성공", map);
 
     }
 
@@ -112,7 +103,7 @@ public class QnaCommentService {
         QnaCommentDto dto = toDto(qnaComment);
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaComment", dto);
-        return buildResultDto(HttpStatus.CREATED.value(), HttpStatus.CREATED, "댓글 삭제 성공", map);
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, "댓글 삭제 성공", map);
     }
 
 
@@ -123,6 +114,6 @@ public class QnaCommentService {
                 .toList();
         HashMap<String, Object> map = new HashMap<>();
         map.put("qnaCommentList", qnaCommentDtoList);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "댓글 전체 조회 성공", map);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "댓글 전체 조회 성공", map);
     }
 }

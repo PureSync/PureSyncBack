@@ -58,11 +58,7 @@ public class SummaryService {
             data.put("exerciseTotalList", exerciseTotalList);
             data.put("menuTotalWhenList", menuTotalWhenList);
 
-            ResultDto resultDto =  ResultDto.builder()
-                    .code(HttpStatus.OK.value())
-                    .httpStatus(HttpStatus.OK)
-                    .data(data)
-                    .build();
+            ResultDto resultDto =  ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
             return resultDto;
         } catch (CustomException e) {
             throw new CustomException(CustomExceptionCode.NOT_FOUND_MENU);  // 권한X
