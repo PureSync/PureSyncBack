@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MenuRepository extends JpaRepository<Menu, Long> {
+    /*
     @Query(value =
             "WITH RECURSIVE DateRange AS (" +
                     "  SELECT CAST(:startDate AS DATE) AS date " +
@@ -33,4 +34,5 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
                     "  DateRange.date "
             , nativeQuery = true)
     List<MenuStatsNativeVo> find7DaysMenuStats(@Param("memSeq") Long memSeq, @Param("startDate") String startDate);
+     */
 }

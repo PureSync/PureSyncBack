@@ -40,11 +40,7 @@ public class ExerciseService {
             List<ExerciseList> allExercise = exerciseListRepository.findAllExercise(exerciseName);
             HashMap<String, Object> data = new HashMap<String, Object>();
             data.put("allExercise", allExercise);
-            ResultDto resultDto =  ResultDto.builder()
-                    .code(HttpStatus.OK.value())
-                    .httpStatus(HttpStatus.OK)
-                    .data(data)
-                    .build();
+            ResultDto resultDto =  ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
             return resultDto;
         } catch (CustomException e) {
             throw new CustomException(CustomExceptionCode.NOT_FOUND_EXERCISE);
@@ -60,12 +56,7 @@ public class ExerciseService {
             HashMap<String, Object> data = new HashMap<>();
             data.put("exerciseList", exerciseList);
             String msg = "운동 불러오기에 성공했습니다.";
-            return ResultDto.builder()
-                    .code( HttpStatus.OK.value() )
-                    .httpStatus( HttpStatus.OK )
-                    .data( data )
-                    .message( msg )
-                    .build();
+            return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, msg, data);
         } catch ( CustomException e ) {
             throw new CustomException( CustomExceptionCode.USER_ROLE_NOT_EXIST );     // 권한X
         }
@@ -123,12 +114,7 @@ public class ExerciseService {
             HashMap<String, Object> map = new HashMap<>();
             map.put( "exercise", exercise );
 
-            return ResultDto.builder()
-                    .code( HttpStatus.OK.value() )
-                    .httpStatus( HttpStatus.OK )
-                    .message( successMessage )
-                    .data( map )
-                    .build();
+            return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", map);
 
         } catch (CustomException e) {
             throw new CustomException( exceptionCode );

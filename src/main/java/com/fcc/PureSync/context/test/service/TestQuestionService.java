@@ -15,39 +15,25 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class TestQuestionService {
-    
-    
 
     private final TestQuestionRepository testQuestionRepository;
 
-    public ResultDto buildResultDto(int code, HttpStatus status, String msg, HashMap<String, Object> map) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(status)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-    public ResultDto findAllStressTests(Pageable pageable) {
-        List<TestQuestion> stressTests  = testQuestionRepository.findByTestSeq(1L, pageable);
-        List<TestQuestionDto> stressTestDto = stressTests.stream()
+    private ResultDto findAllTests(Long testSeq, Pageable pageable, String successMessage) {
+        List<TestQuestion> tests  = testQuestionRepository.findByTestSeq(testSeq, pageable);
+        List<TestQuestionDto> testDto = tests.stream()
                 .map(TestQuestionDto::toDto)
                 .toList();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("stressTests", stressTestDto);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "스트레스 테스트 전체 조회 성공", map);
+        map.put("tests", testDto);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, successMessage, map);
+    }
 
+    public ResultDto findAllStressTests(Pageable pageable) {
+        return findAllTests(1L, pageable, "스트레스 테스트 전체 조회 성공");
     }
 
     public ResultDto findAllDepressionTests(Pageable pageable) {
-        List<TestQuestion> depressionTests  = testQuestionRepository.findByTestSeq(2L, pageable);
-        List<TestQuestionDto> depressionTestDto = depressionTests.stream()
-                .map(TestQuestionDto::toDto)
-                .toList();
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("depressionTests", depressionTestDto);
-        return buildResultDto(HttpStatus.OK.value(), HttpStatus.OK, "우울증 테스트 전체 조회 성공", map);
+        return findAllTests(2L, pageable, "우울증 테스트 전체 조회 성공");
     }
 }
