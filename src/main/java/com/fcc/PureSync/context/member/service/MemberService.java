@@ -51,7 +51,7 @@ public class MemberService {
         Member inputMemberInfo = signupDto.toMember(passwordEncoder);
         Member signUpMember = memberRepository.save(inputMemberInfo);
 
-        Body inputBody = Body.builder()
+        Body inputBodyInfo = Body.builder()
                 .memSeq(signUpMember.getMemSeq())
                 .bodyHeight(signupDto.getBodyHeight())
                 .bodyWeight(signupDto.getBodyHeight())
@@ -59,7 +59,7 @@ public class MemberService {
                 .bodyWishConscal(signupDto.getBodyWishConscal())
                 .bodyWishBurncal(signupDto.getBodyWishBurncal())
                 .build();
-        bodyRepository.save(inputBody);
+        bodyRepository.save(inputBodyInfo);
 
         mailService.signUpByVerificationCode(inputMemberInfo.getMemEmail());
 
@@ -98,25 +98,25 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public ResultDto checkDuplicate(String field, String value) {
-        String resultMsg = "";
+        String resultMsg ;
 
         switch (field) {
             case MemberConstant.MEMBER_ID:
-                if (!memberRepository.findByMemId(value).isEmpty()) {
+                if (!memberRepository.findByMemId(value).isPresent()) {
                     throw new CustomException(ALREADY_EXIST_ID);
                 }
                 resultMsg = MemberConstant.SUCCESS_DUPLICATE_ID;
                 break;
 
             case MemberConstant.MEMBER_NICKNAME:
-                if (!memberRepository.findByMemNick(value).isEmpty()) {
+                if (!memberRepository.findByMemNick(value).isPresent()) {
                     throw new CustomException(ALREADY_EXIST_NICK);
                 }
                 resultMsg = MemberConstant.SUCCESS_DUPLICATE_NICKNAME;
                 break;
 
             case MemberConstant.MEMBER_EMAIL:
-                if (!memberRepository.findByMemEmail(value).isEmpty()) {
+                if (!memberRepository.findByMemEmail(value).isPresent()) {
                     throw new CustomException(ALREADY_EXIST_EMAIL);
                 }
                 resultMsg = MemberConstant.SUCCESS_DUPLICATE_EMAIL;

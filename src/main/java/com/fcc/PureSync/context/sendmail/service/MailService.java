@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.sendmail.service;
 
-import com.fcc.PureSync.context.sendmail.dto.EmailVerificationResponse;
+import com.fcc.PureSync.context.sendmail.vo.EmailVo;
 import com.fcc.PureSync.core.constant.EmailConstant;
 import com.fcc.PureSync.context.sendmail.repository.VerificationCodeDao;
 import com.fcc.PureSync.core.ResultDto;
@@ -8,6 +8,7 @@ import com.fcc.PureSync.context.member.entity.Member;
 import com.fcc.PureSync.core.exception.CustomException;
 import com.fcc.PureSync.context.member.repository.MemberRepository;
 import com.fcc.PureSync.core.util.RandomStringGenerator;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
@@ -24,7 +24,13 @@ import static com.fcc.PureSync.core.exception.CustomExceptionCode.*;
 @RequiredArgsConstructor
 @Service
 public class MailService {
-
+    /*
+     * 회원 가입 시 인증 코드 전송
+     * 메일로 간 인증코드 링크 누를 때 멤버 상태 변경
+     * 비밀 번호 찾기 시 임시 비밀 번호 전송
+     * Java SimpleMailMessage 이용한 메일 전송
+     * JPA를 사용하지 않고 Redis 사용
+     * */
     @Value("${spring.redis.host}")
     private String RedisHost;
     private final VerificationCodeDao verificationCodeDao;
@@ -33,70 +39,37 @@ public class MailService {
 
     //회원 가입 시 코드 링크
     @Async
-    public void signUpByVerificationCode(String newMemberEmail) {
-        String linkCode = RandomStringGenerator.generateEmailVerificationCode(EmailConstant.EMAIL_VERIFICATION_CODE_LENGTH);
-        handleSignUpByVerificationCode(newMemberEmail, linkCode);
-        EmailVerificationResponse emailVerificationResponse = new EmailVerificationResponse(newMemberEmail, linkCode);
-    }
-    //회원 가입시 코드 링크 핸들링
-    private void handleSignUpByVerificationCode(String newMemberEmail, String linkCode) {
-        String txt = String.format("%s/api/mail/verify?verificationCode=%s&email=%s", EmailConstant.AWS_DOMAIN, linkCode,newMemberEmail);
-        verificationCodeDao.saveVerificationCode(newMemberEmail, linkCode);
+    public ResultDto signUpByVerificationCode(String newMemberEmail) {
+        String verifcationCode = RandomStringGenerator.generateEmailVerificationCode(EmailConstant.EMAIL_VERIFICATION_CODE_LENGTH);
+        String txt = String.format(EmailConstant.EMAIL_VERIFICATION_LINK, EmailConstant.AWS_DOMAIN, verifcationCode, newMemberEmail);
+        verificationCodeDao.saveVerificationCode(newMemberEmail, verifcationCode);
         sendMail(newMemberEmail, EmailConstant.EMAIL_TITLE, txt);
+        HashMap<String, Object> resultMap = new HashMap<>();
+        return ResultDto.of(HttpStatus.ACCEPTED.value(), HttpStatus.OK, "", resultMap);
     }
 
     //링크 코드 비교
+    @Transactional
     public ResultDto checkVerificationCode(String email, String certificationNumber) {
-        if (!isVerify(email, certificationNumber)) {
+        EmailVo emailVo = new EmailVo(email, verificationCodeDao);
+        if (!emailVo.exists()) {
             throw new CustomException(NOT_FOUND_USER_LINK_CODE);
         }
         verificationCodeDao.deleteVerificationCode(email);
-        return changeMemberLevel(email);
-    }
-
-    //유저 레벨 활성화로 변경
-    private ResultDto changeMemberLevel(String email) {
         Member member = memberRepository.findByMemEmail(email).orElseThrow(() -> new CustomException(NOT_FOUND_EMAIL));
         member.enabledMemberLevel();
         memberRepository.save(member);
-        return buildChangeMemberLevel();
-    }
-
-
-    @Transactional(readOnly = true)
-    private boolean isVerify(String email, String certificationNumber) {
-        boolean validatedEmail = isEmailExists(email);
-        if (!isEmailExists(email)) {
-            throw new CustomException(NOT_FOUND_EMAIL);
-        }
-        return (validatedEmail &&
-                verificationCodeDao.getVerificationCode(email).equals(certificationNumber));
-    }
-
-    private boolean isEmailExists(String email) {
-        return verificationCodeDao.hasKey(email);
+        HashMap<String, Object> resultMap = new HashMap<>();
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, EmailConstant.SUCCESS_VERIFICATION_CODE, resultMap);
     }
 
     //임시 비밀번호 전송
     @Async
-    public void  sendTemporaryPassword(String memberEmail, String newPassword){
-        sendMail(memberEmail, "임시비밀번호", newPassword);
+    public void sendTemporaryPassword(String memberEmail, String newPassword) {
+        sendMail(memberEmail, EmailConstant.TEMPORARY_PASSWORD, newPassword);
     }
 
-
-    //메일 보내기 회원 가입시 인증 , 비밀번호 찾기 시 임시 비밀 번호 보내주기.
-
-    public void sendMail(String toEmail, String title, String txt) {
-        SimpleMailMessage emailForm = createEmailForm(toEmail, title, txt);
-        try {
-            javaMailSender.send(emailForm);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new CustomException(SEND_ERROR);
-
-        }
-    }
-
+    //mailForm
     private SimpleMailMessage createEmailForm(String toEmail, String title, String txt) {
         SimpleMailMessage mailForm = new SimpleMailMessage();
         mailForm.setTo(toEmail);
@@ -105,33 +78,14 @@ public class MailService {
         return mailForm;
     }
 
-    private ResultDto handleSignUpByVerificationCodeMap(EmailVerificationResponse emailVerificationResponse) {
-        HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("emailVerificationResponse", emailVerificationResponse);
-        String msg = "인증 링크 전송 성공";
-        return handleResultDto(msg, resultMap);
+    //메일 보내기 회원 가입시 인증 , 비밀번호 찾기 시 임시 비밀 번호 보내주기.
+    private void sendMail(String toEmail, String title, String txt) {
+        SimpleMailMessage emailForm = createEmailForm(toEmail, title, txt);
+        try {
+            javaMailSender.send(emailForm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomException(SEND_ERROR);
+        }
     }
-
-    private ResultDto handleResultDto(String msg, HashMap<String, Object> map) {
-        return ResultDto
-                .builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-
-    private ResultDto buildChangeMemberLevel() {
-        String msg = "성공했습니다.";
-        HashMap<String, Object> map = new HashMap<>();
-        return ResultDto
-                .builder()
-                .code(HttpStatus.OK.value())
-                .httpStatus(HttpStatus.OK)
-                .message(msg)
-                .data(map)
-                .build();
-    }
-
 }
