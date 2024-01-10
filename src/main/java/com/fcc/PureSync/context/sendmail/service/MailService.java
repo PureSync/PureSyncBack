@@ -30,6 +30,7 @@ public class MailService {
      * 비밀 번호 찾기 시 임시 비밀 번호 전송
      * Java SimpleMailMessage 이용한 메일 전송
      * JPA를 사용하지 않고 Redis 사용
+     *
      * */
     @Value("${spring.redis.host}")
     private String RedisHost;
