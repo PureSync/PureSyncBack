@@ -1,7 +1,7 @@
 package com.fcc.PureSync.context.board.repository;
 
 import com.fcc.PureSync.context.board.entity.Board;
-import com.fcc.PureSync.entity.Member;
+import com.fcc.PureSync.context.member.entity.Member;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

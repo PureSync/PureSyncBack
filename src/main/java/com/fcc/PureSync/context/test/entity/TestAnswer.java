@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.test.entity;
 
-import com.fcc.PureSync.entity.Member;
+import com.fcc.PureSync.context.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -22,7 +22,7 @@ public class QQnaBoard extends EntityPathBase<QnaBoard> {
 
     public static final QQnaBoard qnaBoard = new QQnaBoard("qnaBoard");
 
-    public final com.fcc.PureSync.entity.QMember member;
+    public final com.fcc.PureSync.context.member.entity.QMember member;
 
     public final StringPath qnaBoardContents = createString("qnaBoardContents");
 
@@ -56,7 +56,7 @@ public class QQnaBoard extends EntityPathBase<QnaBoard> {
 
     public QQnaBoard(Class<? extends QnaBoard> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.entity.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new com.fcc.PureSync.context.member.entity.QMember(forProperty("member")) : null;
     }
 
 }

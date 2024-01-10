@@ -1,15 +1,15 @@
 package com.fcc.PureSync.context.board.service;
 
 import com.fcc.PureSync.context.board.dto.CommentDto;
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.context.board.entity.Board;
 import com.fcc.PureSync.context.board.entity.Comment;
-import com.fcc.PureSync.entity.Member;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
+import com.fcc.PureSync.context.member.entity.Member;
+import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
 import com.fcc.PureSync.context.board.repository.BoardRepository;
 import com.fcc.PureSync.context.board.repository.CommentRepository;
-import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.context.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

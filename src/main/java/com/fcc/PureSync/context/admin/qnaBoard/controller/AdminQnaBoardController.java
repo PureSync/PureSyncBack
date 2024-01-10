@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.admin.qnaBoard.controller;
 
-import com.fcc.PureSync.common.Pager;
+import com.fcc.PureSync.core.Pager;
 import com.fcc.PureSync.context.admin.qnaBoard.dto.AdminQnaBoardDto;
 import com.fcc.PureSync.context.admin.qnaBoard.service.AdminQnaBoardService;
 import lombok.RequiredArgsConstructor;
