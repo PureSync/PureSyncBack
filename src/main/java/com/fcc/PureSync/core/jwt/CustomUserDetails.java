@@ -6,9 +6,12 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.FetchType;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fcc.PureSync.core.constant.UserPrincipal;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +24,7 @@ public class CustomUserDetails implements UserDetails {
     private List<GrantedAuthority> authorities;
     private UserPrincipal userPrincipal;
 
+
     public CustomUserDetails(Member member) {
         this.member = member;
     }
@@ -30,7 +34,7 @@ public class CustomUserDetails implements UserDetails {
         this.userPrincipal = userPrincipal;
     }
 
-    @ElementCollection(fetch = FetchType.EAGER) //roles 컬렉션
+    @ElementCollection(fetch = FetchType.LAZY) //roles 컬렉션
 //    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
@@ -43,6 +47,9 @@ public class CustomUserDetails implements UserDetails {
 
     public Long getMemSeq() {
         return member.getMemSeq();
+    }
+    public LocalDateTime getExpirationTime(){
+        return member.getMemLastLoginAt();
     }
     @Override
     public String getPassword() {

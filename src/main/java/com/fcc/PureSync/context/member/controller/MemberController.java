@@ -28,7 +28,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResultDto login(@RequestBody @Valid LoginDto loginDto, HttpServletResponse response) {
-        return memberService.login(loginDto);
+        return memberService.login(loginDto,response);
     }
 
     @GetMapping("/check-duplicate/{field}/{value}")

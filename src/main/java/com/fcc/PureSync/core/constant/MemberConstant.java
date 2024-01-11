@@ -5,6 +5,8 @@ public final class MemberConstant {
     public static final String AUTHORIZATION_HEADER="Authorization";
     public static final String ACCESS_TOKEN="access_token";
 
+    public static final String REFRESH_TOKEN="refresh_token";
+
     //SignUp
     public static final String SUCCESS_SIGNUP="회원가입 성공했습니다.";
     public static final String MEMBER_ID="memId.";

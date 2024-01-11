@@ -1,8 +1,15 @@
 package com.fcc.PureSync.core.util;
 
+import com.fcc.PureSync.context.member.service.TokenService;
 import com.fcc.PureSync.core.config.UserRoleConfig;
+import com.fcc.PureSync.core.constant.EmailConstant;
 import com.fcc.PureSync.core.exception.CustomException;
 import com.fcc.PureSync.core.exception.CustomExceptionCode;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
+import java.io.IOException;
 
 public class CheckUserRight {
 
@@ -20,4 +27,5 @@ public class CheckUserRight {
             checkLogin=true;
         return checkLogin;
     }
+
 }

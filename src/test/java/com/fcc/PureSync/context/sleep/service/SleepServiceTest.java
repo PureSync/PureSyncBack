@@ -1,16 +1,14 @@
 package com.fcc.PureSync.context.sleep.service;
 
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.context.board.service.CommentService;
+import com.fcc.PureSync.context.member.entity.Member;
+import com.fcc.PureSync.context.member.repository.MemberRepository;
 import com.fcc.PureSync.context.sleep.dto.SleepDto;
 import com.fcc.PureSync.context.sleep.entity.Sleep;
 import com.fcc.PureSync.context.sleep.repository.SleepRepository;
-import com.fcc.PureSync.entity.Member;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.exception.ErrorResponse;
-import com.fcc.PureSync.repository.MemberRepository;
 
+
+import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 
 
 import static java.util.Optional.empty;

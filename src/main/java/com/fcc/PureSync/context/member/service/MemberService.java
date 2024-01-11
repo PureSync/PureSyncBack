@@ -14,10 +14,12 @@ import com.fcc.PureSync.core.exception.CustomException;
 import com.fcc.PureSync.core.exception.CustomExceptionCode;
 import com.fcc.PureSync.core.jwt.JwtUtil;
 import com.fcc.PureSync.core.util.CheckUserRight;
+import com.fcc.PureSync.core.util.CreateCookie;
 import com.fcc.PureSync.core.util.RandomStringGenerator;
 import com.fcc.PureSync.dto.AdminMemberDto;
 import com.fcc.PureSync.dto.MemberDetailDto;
 import com.fcc.PureSync.entity.MemberSearchCondition;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +46,7 @@ public class MemberService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
     private final MailService mailService;
+    private final TokenService tokenService;
 
     // 회원가입
     @Transactional(rollbackFor = Exception.class)
@@ -68,29 +71,22 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public ResultDto login(LoginDto loginDto) {
+    public ResultDto login(LoginDto loginDto, HttpServletResponse response) {
         Member member = memberRepository.findByMemId(loginDto.getMemId())
                 .orElseThrow(() -> new CustomException(NOT_FOUND_USER_ID));
 
         boolean checkLoginRight = CheckUserRight.checkLogin(member.getMemStatus());
-
         if(!checkLoginRight)
             throw new CustomException(BAD_REQUEST);
 
         if (!passwordEncoder.matches(loginDto.getMemPassword(), member.getMemPassword())) {
             throw new CustomException(NOT_FOUND_USER_PW);
         }
-
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getMemId(), loginDto.getMemPassword());
-
         Authentication authentication = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        HashMap<String, Object> accessTokenMap = new HashMap<>();
-        String accessToken = jwtUtil.createToken(member);
-        String lockToken = jwtUtil.lockingToken(accessToken);
-        accessTokenMap.put(MemberConstant.ACCESS_TOKEN, lockToken);
+        HashMap<String,Object> accessTokenMap = tokenService.createToken(member,response);
         String resultMsg = MemberConstant.SUCCESS_LOGIN;
         return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, resultMsg, accessTokenMap);
     }

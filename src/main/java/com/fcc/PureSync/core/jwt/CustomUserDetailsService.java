@@ -38,7 +38,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 member.getMemImg(),
                 authorities
         );
-        System.out.println("userPrincipal::::::::::::::::::::::" + userPrincipal);
         CustomUserDetails userDetails = new CustomUserDetails(member,authorities,userPrincipal);
         return userDetails;
     }

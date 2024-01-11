@@ -5,6 +5,7 @@ import com.fcc.PureSync.core.exception.CustomException;
 import com.fcc.PureSync.core.exception.CustomExceptionCode;
 import com.fcc.PureSync.core.jwt.CustomUserDetails;
 import com.fcc.PureSync.context.dashboard.service.DashboardService;
+import com.fcc.PureSync.core.util.CheckUserRight;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,6 @@ public class DashboardController {
 
     @GetMapping(value = {"/dashboard/dates", "/dashboard/dates/{targetDate}"})
     public ResultDto getDashboardInfo(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable(required = false) String targetDate) {
-        if (customUserDetails == null) {
-            throw new CustomException(CustomExceptionCode.INVALID_JWT);
-        }
 
         if (targetDate == null) {
             LocalDate localDate = LocalDate.now();
@@ -39,6 +37,7 @@ public class DashboardController {
         if (customUserDetails == null) {
             throw new CustomException(CustomExceptionCode.INVALID_JWT);
         }
+
 
         if (targetDate == null) {
             LocalDate localDate = LocalDate.now();
