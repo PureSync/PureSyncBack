@@ -37,7 +37,7 @@ public class ExerciseController {
 //        return exerciseService.updateExercise(exercise);
 //    }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public  ResultDto exerciseDelete (@RequestBody ExerciseResponseDto exercise, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
         Long memSeq = customUserDetails.getMemSeq();
         return exerciseService.deleteExercise(exercise, memSeq);

@@ -40,7 +40,7 @@ public class MenuController {
 //        return menuService.updateMenu(menu, memSeq);
 //    }
 
-    @PostMapping ("/delete")
+    @DeleteMapping ("/delete")
     public ResultDto menuDelete( @RequestBody MenuResponseDto menu, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
         Long memSeq = customUserDetails.getMemSeq();
         return menuService.deleteMenu(menu, memSeq);
