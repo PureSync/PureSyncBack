@@ -1,10 +1,10 @@
 package com.fcc.PureSync.context.summary.controller;
 
 
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
 
 import com.fcc.PureSync.context.summary.service.SummaryService;
 import jakarta.servlet.http.HttpServletRequest;
