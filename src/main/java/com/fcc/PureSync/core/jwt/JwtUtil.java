@@ -1,14 +1,21 @@
 package com.fcc.PureSync.core.jwt;
 
 import com.fcc.PureSync.context.member.entity.Member;
+import com.fcc.PureSync.core.constant.MemberConstant;
 import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static com.fcc.PureSync.core.exception.CustomExceptionCode.*;
 
@@ -47,6 +54,27 @@ public class JwtUtil {
         }
         return token;
     }
+
+    public String splitTokenFromHttpServletRequest(HttpServletRequest httpServletRequest) {
+        if (httpServletRequest == null)
+            throw new CustomException(CustomExceptionCode.INVALID_JWT);
+        String headerValue = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
+        if (!headerValue.isEmpty())
+            return headerValue.substring(7);
+
+        throw new CustomException(CustomExceptionCode.UNSUPPORTED_JWT);
+    }
+
+    public String lockingToken(String token) {
+        StringBuffer accessToken = new StringBuffer(token);
+        accessToken.insert(58, "Spu935");
+        accessToken.insert(77, "Bus9712");
+        accessToken.insert(122, "9YrH7");
+        accessToken.insert(199, "01Kej11");
+        String lockToken = accessToken.toString();
+        return lockToken;
+    }
+
 
     //JWT 토큰에서 모든 내용(Claims) 얻기
     public Claims getClaims(String token) {

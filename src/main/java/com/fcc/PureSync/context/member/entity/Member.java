@@ -4,7 +4,6 @@ import com.fcc.PureSync.core.constant.EmailConstant;
 import com.fcc.PureSync.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.apache.ibatis.annotations.Insert;
 
 import java.time.LocalDateTime;
 @ToString
