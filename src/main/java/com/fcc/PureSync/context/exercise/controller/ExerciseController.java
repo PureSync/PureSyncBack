@@ -3,10 +3,10 @@ package com.fcc.PureSync.context.exercise.controller;
 import com.fcc.PureSync.context.exercise.dto.ExerciseDto;
 import com.fcc.PureSync.context.exercise.dto.ExerciseResponseDto;
 
-import com.fcc.PureSync.common.ResultDto;
-import com.fcc.PureSync.exception.CustomException;
-import com.fcc.PureSync.exception.CustomExceptionCode;
-import com.fcc.PureSync.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.ResultDto;
+import com.fcc.PureSync.core.jwt.CustomUserDetails;
+import com.fcc.PureSync.core.exception.CustomException;
+import com.fcc.PureSync.core.exception.CustomExceptionCode;
 
 import com.fcc.PureSync.context.exercise.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class ExerciseController {
 //        return exerciseService.updateExercise(exercise);
 //    }
 
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public  ResultDto exerciseDelete (@RequestBody ExerciseResponseDto exercise, @AuthenticationPrincipal CustomUserDetails customUserDetails ) {
         if (customUserDetails == null) {
             throw new CustomException(CustomExceptionCode.INVALID_JWT);
