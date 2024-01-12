@@ -2,9 +2,9 @@ package com.fcc.PureSync.controller;
 
 import com.fcc.PureSync.dto.AdminMemberDto;
 import com.fcc.PureSync.dto.MemberDetailDto;
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.entity.MemberSearchCondition;
-import com.fcc.PureSync.service.MemberService;
+import com.fcc.PureSync.context.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

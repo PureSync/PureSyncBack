@@ -1,6 +1,6 @@
 package com.fcc.PureSync.context.member.dto;
 
-import com.fcc.PureSync.entity.Body;
+import com.fcc.PureSync.context.member.entity.Body;
 import lombok.*;
 
 @Getter

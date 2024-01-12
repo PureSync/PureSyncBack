@@ -1,6 +1,6 @@
 package com.fcc.PureSync.controller;
 
-import com.fcc.PureSync.common.ResultDto;
+import com.fcc.PureSync.core.ResultDto;
 import com.fcc.PureSync.service.VisitorService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.fcc.PureSync.service;
 
-import com.fcc.PureSync.repository.MemberRepository;
+import com.fcc.PureSync.context.member.repository.MemberRepository;
 import com.fcc.PureSync.repository.VisitorRepository;
 import com.fcc.PureSync.vo.CountInfoNativeVo;
 import lombok.RequiredArgsConstructor;
