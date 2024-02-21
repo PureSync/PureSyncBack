@@ -36,7 +36,7 @@ public class MdTrashService {
         data.put("mdTrashList", mdTrashResponseDtoList);
         data.put("count", count);
 
-        return buildResultDto(200, HttpStatus.OK, "success", data);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "success", data);
     }
 
     public ResultDto getMdTrash(Long tsSeq) {
@@ -45,7 +45,7 @@ public class MdTrashService {
         HashMap<String, Object> data = new HashMap<>();
         data.put("mdTrash", mdTrashResponseDto);
 
-        return buildResultDto(200, HttpStatus.OK, "success", data);
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "success", data);
     }
 
     public ResultDto writeMdTrash(MdTrashRequestDto dto, CustomUserDetails customUserDetails) {
@@ -55,9 +55,7 @@ public class MdTrashService {
         data.put("mdTrash", entityToDto(mdTrash));
         data.put("memId", customUserDetails.getUsername());
 
-        ResultDto resultDto = buildResultDto(201, HttpStatus.CREATED, "insert Complete", data);
-
-        return resultDto;
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, "insert Complete", data);
     }
 
     public ResultDto deleteMdTrash(Long tsSeq) {
@@ -75,9 +73,7 @@ public class MdTrashService {
         HashMap<String, Object> data = new HashMap<>();
         data.put("mdTrash", entityToDto(deletedMdTrash));
 
-        ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "delete Complete", data);
-
-        return resultDto;
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "delete Complete", data);
     }
 
     public void deleteYesterdayMdTrashes(){
@@ -114,16 +110,4 @@ public class MdTrashService {
                 .member(dtoMember)
                 .build();
     }
-
-    public ResultDto buildResultDto(int code, HttpStatus httpStatuss, String message, HashMap<String, Object> data) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(httpStatuss)
-                .message(message)
-                .data(data)
-                .build();
-    }
-
-
-
 }
