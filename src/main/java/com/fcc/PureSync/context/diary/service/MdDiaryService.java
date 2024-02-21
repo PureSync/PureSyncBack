@@ -44,9 +44,7 @@ public class MdDiaryService {
         data.put("mdDiaryList", mdDiaryDtoList);
         data.put("count", count);
 
-        ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "success", data);
-
-        return resultDto;
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
     }
 
     public ResultDto getMdDiary(Long dySeq) {
@@ -64,9 +62,7 @@ public class MdDiaryService {
         data.put("negative", negative);
         data.put("neutral", neutral);
 
-        ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "success", data);
-
-        return resultDto;
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "성공", data);
     }
 
     public ResultDto writeMdDiary(MdDiaryRequestDto dto, CustomUserDetails customUserDetails) {
@@ -76,9 +72,7 @@ public class MdDiaryService {
         data.put("mdDiary", entityToDto(mdDiary));
         data.put("memberId", customUserDetails.getUsername());
 
-        ResultDto resultDto = buildResultDto(201, HttpStatus.CREATED, "insert Complete", data);
-
-        return resultDto;
+        return ResultDto.of(HttpStatus.CREATED.value(), HttpStatus.CREATED, "insert Complete", data);
     }
 
     public ResultDto updateMdDiary(Long dySeq, MdDiaryRequestDto dto) {
@@ -99,9 +93,7 @@ public class MdDiaryService {
         mdDiaryRepository.save(updatedMdDiary);
         HashMap<String, Object> data = new HashMap<>();
         data.put("mdDiary", entityToDto(updatedMdDiary));
-        ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "update Complete", data);
-
-        return resultDto;
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "update Complete", data);
     }
 
     public ResultDto deleteMdDiary(Long dySeq) {
@@ -121,9 +113,8 @@ public class MdDiaryService {
         mdDiaryRepository.save(deletedMdDiary);
         HashMap<String, Object> data = new HashMap<>();
         data.put("mdDiary", entityToDto(deletedMdDiary));
-        ResultDto resultDto = buildResultDto(200, HttpStatus.OK, "delete Complete", data);
 
-        return resultDto;
+        return ResultDto.of(HttpStatus.OK.value(), HttpStatus.OK, "delete Complete", data);
     }
 
     public SentimentResponseDto.Confidence analyzeEmotion(SentimentRequestDto dto) {
@@ -158,7 +149,6 @@ public class MdDiaryService {
         return confidence;
     }
 
-
     //mdDiary entity -> dto 변환
     public MdDiaryResponseDto entityToDto(MdDiary mdDiary) {
         return MdDiaryResponseDto.builder()
@@ -185,16 +175,4 @@ public class MdDiaryService {
                 .member(dtoMember)
                 .build();
     }
-
-    //ResultDto 빌더
-    public ResultDto buildResultDto(int code, HttpStatus httpStatuss, String message, HashMap<String, Object> data) {
-        return ResultDto.builder()
-                .code(code)
-                .httpStatus(httpStatuss)
-                .message(message)
-                .data(data)
-                .build();
-    }
-
-
 }
